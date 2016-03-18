@@ -1,0 +1,98 @@
+<% pcPageTitle = "ThreadList" %>
+<% Layout="~/views/_layoutpage.wcs" %>
+
+<% #if .f. %>
+    <!-- only for intellisense to work better -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/application.css" rel="stylesheet" />
+<% #endif  %>
+
+<div class="message-list-container">
+     <% 
+         lcForum = "xxx"
+         llOpenForum = .F.
+         SELE TMessages
+         SCAN %>
+             
+        <% if TMessages.Forum != lcForum %>
+            <% if llOpenForum %>
+        </div>
+            <% endif %>
+
+        <div class="forum-header">
+            <%= EncodeHtml(forum) %>
+        </div>
+        <div class="forum-container">
+            
+        <% llOpenForum = .T.
+            endif %>
+            <div class="message-item" data-id="<%= Threadid %>">
+                 <div class="message-header">
+                     <i class="fa fa-thumb-tack" style="color: firebrick"></i>
+                     <a href="Thread<%= ThreadId %>.wwt">
+                     <%= EncodeHtml(Subject)  %></a>
+                 </div>
+                 <div class="message-detail">
+             
+                     <div class="pull-right">
+                         <% if MsgCount - 1 > 0 %>
+                            <span class="message-comment-count">                     
+                            <i class="fa fa-comments-o"></i>
+                            <%= MsgCount - 1 %>
+                            </span>
+                         <% endif %> 
+
+                        <i class="fa  fa-clock-o" style="color:steelblue"></i>
+                         <%= ShortDate(TimeStamp,2) %> 
+                     </div>
+
+                      <div>                 
+                         by <b><%= FromName %></b>    
+                     </div>
+                 </div>
+            </div>         
+    <%  lcForum = TMessages.Forum
+        ENDSCAN %>
+            
+
+<!-- remove sections if you're not using them -->
+<% section="headers" %>
+<style>
+    .forum-header {
+        background: #535353;
+        color: white;
+        padding: 5px 5px;
+        font-weight: bold;
+    }
+    .forum-container {
+        background: #whitesmoke;
+    }
+    .message-item {
+        margin: 4px 10px;
+        padding: 1px 3px;
+        border-bottom: 1px solid #eee;
+        transition: background .2s;
+    }
+    .message-item:hover {
+        background: khaki;
+        border-radius: 3px;
+    }
+    .message-header {
+        font-weight: bold;
+        display: block;
+    }
+    .message-detail {
+        font-size: 0.825em;
+        padding: 3px 20px;
+    }
+    .message-comment-count {
+        color: steelblue;        
+        padding-right: 15px; 
+    }
+</style>
+<% endsection %>
+
+<% section="scripts" %>
+<script src="threadlist.js"></script>
+<% endsection %>

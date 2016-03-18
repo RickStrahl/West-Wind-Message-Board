@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title><%= IIF(vartype(pcPageTitle)="C",pcPageTitle,"") %></title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" href="~/touch-icon.png" />
+
+    <link rel="icon" href="~/touch-icon.png" />
+    <meta name="msapplication-TileImage" content="~/touch-icon.png" />
+
+    <link href="~/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />   
+    <link href="~/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/application.css" rel="stylesheet" />
+    <%= RenderSection("headers") %>
+    <style>
+        
+    </style>
+</head>
+<body>    
+    <header class="banner"> 
+    	<!-- Slideout Menu Toggle - Hamburger menu -->
+        <a class="slide-menu-toggle-open no-slide-menu"
+           title="More...">
+            <i class="fa fa-bars"></i>
+        </a>
+
+        <!-- Icon and Company Logo -->
+        <div class="title-bar no-slide-menu">
+            <a href="~/">
+                <img class="title-bar-icon" src="~/images/icon.png" />
+                <div style="float: left; margin: 4px 5px; line-height: 1.0">
+                    <i style="color: #0092d0; font-size: 0.9em; font-weight: bold;">West Wind</i><br />
+                    <i style="color: whitesmoke; font-size: 1.65em; font-weight: bold;">Message Board</i>
+                </div>
+            </a>
+        </div>
+
+        <!-- top right nav menu - .hidable for options that hide on small sizes -->
+        <nav class="banner-menu-top pull-right">            
+                <% if !Process.lIsAuthenticated %>
+                <a href="Login.wwt?returnurl=<%= Request.GetCurrentUrl() %>" class="pull-right">
+                <i class="fa fa-unlock"></i>
+                Sign in
+            </a>
+            <% else %>
+                <a href="logout.wwt" class="pull-right"  title="<%= Process.cAuthenticatedUser %>">
+		        <i class="fa fa-lock"></i>
+		        Sign out
+		        <img title="<%= Process.cAuthenticatedName %>" src="<%= GravatarLink(Process.cAuthenticatedUser,23) %>" />
+	        </a>
+            <% endif %>         
+        </nav>
+        <div class="clearfix"></div>
+        <div class="menu-toolbar">
+            <i class="fa fa-bars"></i>
+            &nbsp;&nbsp;
+            <a href="WriteMessage.wwt">
+                <i class="fa fa-edit"></i>
+                New Message
+            </a>
+            
+               <a href="Search.wwt">
+                <i class="fa fa-search"></i>
+                Search
+            </a>
+                        
+        
+        </div>
+    </header>
+
+
+    <div id="MainView">
+        
+        <%= RenderContent() %>
+
+    </div> <!-- end #MainView -->
+
+
+    <footer>
+        <a href="http://www.west-wind.com/" class="pull-right">
+            <img src="~/images/WestwindText.png" />
+        </a>
+        <small>&copy; <%= Year(DateTime()) %></small>
+    </footer>
+
+
+
+    <!-- slide in menu - Remove if you don't use it --> 
+  	<nav class="slide-menu">
+        <div style="padding: 10px 10px 10px 3px;">
+            <a class="disabled">
+                <i class="fa fa-home"></i>
+                Main Menu
+            </a>
+
+            <a href="~/">
+                <i class="fa fa-home"></i>
+                Home
+            </a>
+
+            <a href="#" class="indented">
+                <i class="fa fa-newspaper-o"></i>
+                Sub Link
+            </a>
+            <a href="#" class="indented">
+                <i class="fa fa-newspaper-o"></i>
+                Sub Link 2
+            </a>
+
+            <a href="#">
+                <i class="fa fa-rss-square"></i>
+                Login
+            </a>
+        </div>
+    </nav>
+
+    <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="~/scripts/ww.jquery.js"></script>
+    <script src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>  
+    <script>
+        $(".slide-menu-toggle-open,.slide-menu-toggle-close," +
+          ".slide-menu a, #SamplesLink")
+        	.click(function () {
+            	$(".slide-menu").toggleClass("active");
+        	});
+    </script>
+    <%= RenderSection("scripts") %>
+</body>
+</html>

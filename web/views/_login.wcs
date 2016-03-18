@@ -1,0 +1,90 @@
+﻿<% pcPageTitle = "Application Sign in" %>
+<% Layout="~/views/_layoutpage.wcs" %>
+<%
+if vartype(pcUsername) !="C"
+  pcErrorMessage =""
+endif
+if vartype(pcUsername) !="C"
+  pcUserName =""
+endif
+if vartype(pcPassword) !="C"
+  pcPassword =""
+endif
+if vartype(pcRedirectUrl) !="C"
+  pcRedirectUrl =""
+endif
+if vartype(pcDisplayMessage) != "C"
+   pcDisplayMessage = ""
+endif
+%>
+
+<div class="container">
+    <div class="page-header-text">
+        <i class="fa fa-unlock-alt"></i>
+        Application Sign in
+    </div>
+
+    <%= HtmlErrorDisplay(pcErrorMessage,"warning") %>
+
+    <form action="" method="POST">
+
+        <div id="WebLogin" class="panel panel-primary" style="max-width: 550px; margin: 0 auto;">
+            <div class="panel-heading" style="font-weight: bold">
+                Please sign in
+            </div>
+            <% if !empty(pcDisplayMessage) %>
+            <div style="background: lightblue; padding: 7px; font-size: 80%">
+                <i class="fa fa-info-circle"></i> 
+                <%= pcDisplayMessage %>
+            </div>
+            <% endif %>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <div class="input-group ">
+                        <div class="input-group-addon">
+                            <i class="fa fa-fw fa-envelope"></i>
+                        </div>
+                        <input type="text" name="WebLogin_txtUsername" id="WebLogin_txtUsername"
+                               class="form-control" placeholder="Enter your email address"
+                               value="<%=  pcUserName %>"
+                               autocapitalize="off"
+                               autocomplete="off"
+                               spellcheck="false"
+                               autocorrect="off" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group ">
+                        <div class="input-group-addon">
+                            <i class="fa fa-fw fa-unlock-alt"></i>
+                        </div>
+
+                        <input type="password"
+                               name="WebLogin_txtPassword" id="WebLogin_txtPassword"
+                               class="form-control" id="form-group-input" placeholder="Enter your password">
+                    </div>
+                </div>
+
+                <button type="submit" name="WebLogin_btnLogin"
+                        class="btn btn-primary btn-large">
+                    <i class="fa fa-unlock-alt"></i> Sign in
+                </button>
+
+                <% if Process.lIsAuthenticated %>
+	                <a href="logout.<%= JUSTEXT( Request.GetPhysicalPath() ) %>"
+	                   class="btn btn-default btn-sm pull-right">
+	                    <i class="fa fa-lock"></i>
+	                    Sign out
+	                </a>
+                <% endif %>
+            </div>
+        </div>
+
+        <input type="hidden" name="RedirectUrl" value="<%= pcRedirectUrl %>" />
+    </form>
+    <script>
+    	document.getElementById("WebLogin_txtUsername").focus();
+    </script>
+</div>

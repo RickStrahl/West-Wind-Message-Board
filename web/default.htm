@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>wwThreads Test Page</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" href="touch-icon.png" />
+
+    <link rel="icon" href="touch-icon.png" />
+    <meta name="msapplication-TileImage" content="touch-icon.png">
+
+
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/application.css" rel="stylesheet" />
+</head>
+
+<body>
+<div>
+
+    <div class="banner">
+        <a class="slide-menu-toggle-open"
+           title="More Samples">
+            <i class="fa fa-bars"></i>
+        </a>
+
+        <div class="title-bar">
+            <a href="./">
+                <img src="images/icon.png" 
+                     style="height: 45px; float: left"/>
+                <div style="float: left; margin: 4px 5px; line-height: 1.0">
+                    <i style="color: #0092d0; font-size: 0.9em; font-weight: bold;">West Wind</i><br/>
+                    <i style="color: whitesmoke; font-size: 1.6em; font-weight: bold;">
+					Web Connection</i>
+                </div>
+            </a>
+        </div>
+
+        <nav class="banner-menu-top pull-right">
+            <a id="SamplesLink" class="menu-hidable">
+                <i class="fa fa-list"></i>
+                More
+            </a>
+            <a href="http://west-wind.com/webconnection/docs/" class="hidable">
+                <i class="fa fa-book"></i>
+                Documentation
+            </a>
+            <a href="admin/admin.aspx" class="hidable">
+                <i class="fa fa-gear"></i>
+                Admin
+            </a>
+        </nav>
+    </div>
+</div>
+
+
+<div id="MainView">
+    <div class="container">
+
+        <div class="page-header-text">            
+            <i class="fa fa-home"></i> 
+            Test Page for wwThreads
+        </div>
+
+        <p>
+             Welcome to your new Web Connection application. This page is a temporary landing page so you can test your application's status.
+        While developing it's a good idea to add common links
+        to this page, so you have quick access to the pages you are 
+        working on. 
+        </p>
+
+
+		<div class="panel panel-default" style="margin-top: 50px;">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Application Links</h3>
+		  </div>
+		  
+		 
+
+		  <div class="list-group">
+			  	<a href="testpage.wwt" class="list-group-item">
+			    	<i class="fa fa-angle-right  pull-right"></i>
+			    	<i class="fa fa-bullhorn"></i> Hello World Test Page
+			    </a>
+
+			    <a href="threadlist.wwt" class="list-group-item">
+			    	<i class="fa fa-angle-right  pull-right"></i>
+			    	<i class="fa fa-list"></i> Thread List
+			    </a>
+
+			    <a href="writemessage.wwt" class="list-group-item">
+			    	<i class="fa fa-angle-right  pull-right"></i>
+			    	<i class="fa fa-edit"></i> Write Message
+			    </a>
+
+			    <a href="Logout.wwt" class="list-group-item">
+			    	<i class="fa fa-angle-right  pull-right"></i>
+			    	<i class="fa fa-unlock"></i> Log out
+			    </a>
+
+
+                <a href="admin/admin.aspx" class="list-group-item">
+                    <i class="fa fa-angle-right  pull-right"></i>
+                    <i class="fa fa-gear"></i> Web Connection Administration
+                </a>
+		    </div>
+		</div>
+
+
+		</div>
+
+
+    </div>  <!-- container-->
+
+    <footer>
+       <a href="http://www.west-wind.com/" class="pull-right">
+            <img src="../images/wwtoollogo.png" />
+        </a>
+    	&copy; Your Company Here, 2016
+    </footer>
+</div> <!-- #MainView -->
+
+<nav class="slide-menu">
+    <div style="padding: 10px 10px 10px 3px;">
+        <a class="slide-menu-toggle-close">
+            <i class="fa fa-bars"></i>
+        </a>
+
+        <a class="disabled">
+            <i class="fa fa-bookmark"></i>
+            Links
+        </a>
+
+        <a href="./" class="indented">
+            <i class="fa fa-home"></i>
+            Home
+        </a>
+        <a href="testpage.wwThreads2" class="indented">
+            <i class="fa fa-play-circle"></i>
+            Hello World Test Page
+        </a>
+
+       
+        <a href="http://west-wind.com/webconnection/docs/">
+            <i class="fa fa-book"></i>
+            Documentation
+        </a>
+
+        <a href="admin/admin.aspx">
+            <i class="fa fa-gear"></i>
+            Administration
+        </a>
+    </div>
+</nav>
+
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(".slide-menu-toggle-open,.slide-menu-toggle-close, .slide-menu a, #SamplesLink").click(function () {
+            $(".slide-menu").toggleClass("active");
+        });        
+    </script>
+</body>
+</html>

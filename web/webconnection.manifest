@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1"
+          manifestVersion="1.0">
+
+  <assemblyIdentity name="web"
+                    version="8.0.0.0"
+                    type="win32"
+                    processorArchitecture="x86" />
+
+  <!-- this works if used by itself -->
+  
+  <dependency>
+    <dependentAssembly>
+      <assemblyIdentity name="webconnection.deploy"
+                        version="1.0.0.0"
+                        type="win32"
+                        />
+
+    </dependentAssembly>
+    
+  </dependency>
+</assembly>

@@ -1,0 +1,496 @@
+﻿html, body {               
+    height: 100%;
+}
+h1, h2, h3, h4,h5,h6,.page-header-text {
+    font-family: Trebuchet, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.3em;
+    color: #2B547E;
+    font-weight: bold;
+}
+h4 {
+    font-size: 1.2em;
+    color: #2B547E;
+    font-weight: bold;
+}
+h5
+{
+    font-size: 1.1em;
+}
+h6
+{
+    font-size: 1em;
+}
+td,th {
+    padding: 4px;
+    vertical-align: top;
+}
+option {
+    padding: 4px 3px;
+    border-radius: 3px;
+}
+footer {
+    margin: 30px 0 12px;
+    padding: 10px;
+    border-top: 1px solid silver;
+    font-size: 0.85em;
+}
+
+.table tr th {
+    background: #636363; 
+    color: white;   
+}
+    .table tr th a, .table tr th a:visited {
+        text-decoration: none;
+        color: cornsilk;
+    }
+code {
+    color: #2a2a2a;
+    background-color: #eee;
+    font-weight: bold;
+}
+blockquote {
+    font-size: 1.14em;
+}
+
+/* Font-awsome based radios and checkboxes */
+input[type=radio].with-font,
+input[type=checkbox].with-font {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+input[type=radio].with-font ~ label:before,
+input[type=checkbox].with-font ~ label:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f1db";  /* fa-circle-thin */
+    letter-spacing: 10px;
+    font-size: 1.2em;
+    color: #535353;
+    width: 1.4em;   /* reduce bounce */
+}
+input[type=radio].with-font:checked ~ label:before,
+input[type=checkbox].with-font:checked ~ label:before  {
+    content: "\f00c";  /* fa-check */
+    font-size: 1.2em;
+    color: darkgreen;
+    letter-spacing: 5px;
+}
+input[type=checkbox].with-font ~ label:before {        
+    content: "\f096";  /* fa-square-o */
+}
+input[type=checkbox].with-font:checked ~ label:before {
+    content: "\f046";     /* fa-check-square-o */   
+    color: darkgreen;
+}
+input[type=radio].with-font:focus ~ label:before,
+input[type=checkbox].with-font:focus ~ label:before,
+input[type=radio].with-font:focus ~ label,
+input[type=checkbox].with-font:focus ~ label
+{                
+    color: green; /* highlight both box and label */
+}
+
+
+/* BootStrap overrides */
+
+.panel-heading {
+    font-weight: bold;
+}
+
+/* Common CSS */
+
+.right{ 
+    text-align: right;
+}
+
+/* hidden and out of the document flow */
+.hidden {
+    display: none;
+}
+/* hidden display, but still part of document flow */
+.visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px; 
+}
+
+/* hidden in below tablet and phone (-xs) sizes respectively */
+.hidable, .hidable-xs {   }
+
+/* flows child elements evenly to fill 100%*/
+.responsive-container {
+    display: flex;    
+}
+.responsive-container>* {
+    margin-right: 3px;
+}
+.responsive-container>*:last-child {
+    margin-right: 0;
+}
+@media(max-width: 768px) {
+    .responsive-container {
+        flex-direction: column;        
+    }
+        .responsive-container>* {
+            margin-right: 0;
+            margin-top: 4px;
+            width: 100% !important;
+        }
+}
+
+/* West Wind Component Features */
+
+.error, .red-highlight, .binding-error {
+    color: firebrick;
+    font-weight: bold;
+}
+.error-inline {
+    color: firebrick;
+    display: inline;    
+}
+.binding-error {
+    padding: 5px 0;
+    font-size: 0.85em;
+}
+
+.title-bar {
+    position: absolute;
+    top: 2px;
+    left: 32px;
+    z-index: 11;
+}
+.title-bar.no-slide-menu {
+    left: 5px;
+}
+.title-bar-icon {
+    height: 50px; 
+    float: left
+}
+
+
+.banner {
+    background: #535353;
+    color: #e1e1e1;    
+    position: fixed;
+    opacity: .95;
+    top: 0;
+    left: 0;
+    padding-top: 5px;
+    height: 55px;
+    width: 100%;
+    z-index: 10;
+    box-shadow: 3px 3px 8px #828282;
+}
+.banner.active {
+    color: white;
+    font-weight: bolder;
+}
+.banner nav {
+    display: inline-block;
+    margin-right: 3px;
+    padding: 4px;
+}
+
+.banner nav a, .banner nav input {
+    display: inline-block;
+    padding: 10px 4px 6px;
+    color: #eee;    
+    text-decoration: none;
+    border-bottom: solid 4px transparent;
+}
+.banner nav a img {   
+    height: 23px;
+    vertical-align: top;
+}
+
+.banner nav a:hover {
+    color: white;
+    background: #767676;
+    text-decoration: none;
+    border-bottom: solid 4px silver;
+    border-radius: 2px;
+}
+
+.banner nav a.active, .banner nav a.selected {
+    color: white;
+    font-weight: bold;
+    border-bottom: solid 4px orange;
+    border-radius: 2px;
+}
+
+.banner-bottom {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    text-align: center;
+    padding-top: inherit;
+    height: 43px;
+    display: none;
+}
+
+.banner-bottom a {
+    margin: 0 20px;
+}    
+
+.menu-toolbar {
+            background: #6c6c6c;
+            padding: 3px 8px;
+            color: white;
+        }
+.menu-toolbar a, .menu-toolbar a:visited {
+    color: white;
+    text-decoration: none;
+    padding: 2px 5px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-right: 6px;
+}
+.menu-toolbar a .fa {
+    color: gold;
+}
+    .menu-toolbar a:hover .fa {
+        color: steelblue;
+    }
+    .menu-toolbar a:hover{
+        background: whitesmoke;
+        color: #535353;        
+    }
+
+.slide-menu {    
+    position: fixed;        
+    top: 52px;
+    left: 0;
+    bottom: 0;
+    width: 0;    
+    background: #535353 ;
+    background-image: linear-gradient(to bottom,  #535353 0, #707070 100%);
+    transition: width 0.50s ease-out;
+    white-space: nowrap;
+    overflow-x:auto;
+    overflow-y: auto;
+    z-index: 2000;    
+}
+.slide-menu.active {       
+    width: 300px;   
+    border: 1px #868686 solid;
+    box-shadow: 2px 2px 4px #535353;    
+}
+.slide-menu a, .slide-menu a:visited, .slide-menu a:hover {
+    text-decoration: none;
+    color: white;
+    display: block;    
+    padding: 10px;
+    overflow-x: hidden;
+    border-bottom: 1px solid silver;
+}
+.slide-menu a.indented {
+    margin-left: 25px;
+}
+.slide-menu a:hover {
+    background: white;
+    color: #535353;
+}
+.slide-menu a.disabled {
+    background: transparent;    
+    color: #ccc;
+}
+a.slide-menu-toggle-close, a.slide-menu-toggle-close:hover {
+    background: transparent;
+    color: white;
+    width: 40px;
+    font-size: 1.2em;
+    padding: 3px;   
+    margin-bottom: 15px;
+    margin-left: 5px;
+    margin-top: 7px;
+    border-bottom: 0 none !important;
+}
+a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
+    position: absolute;
+    text-decoration: none;
+    top: 20px;
+    left: 10px;
+    font-size: 1.2em;     
+    color: white;
+    margin-bottom: 10px;
+    border-bottom: none;    
+}
+.slide-menu-toggle-open.no-slide-menu {
+    display: none;
+}
+
+/* West Wind Main Page Layout */
+
+#MainView {
+    margin-top: 90px;
+    width: 100%;       
+}
+#MainView.fixed {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    bottom: 0;
+    padding-top: 10px;
+    width: 100%;
+    z-index: 11;        
+    -webkit-overflow-scrolling: touch;
+}
+
+.page-header-text {
+    font-size: 1.5em;
+    font-weight: bold;
+    color:  #0092d0;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e1e1e1;
+}
+.separator {
+    padding: 3px 0;
+    margin: 10px 0 15px 0;
+    border-bottom: solid 1px #e1e1e1;
+}
+.margin-top {
+    margin-top: 20px;
+}
+.margin-bottom {
+    margin-bottom: 20px;
+}
+
+.record-container {
+    background: #f1f1f1;
+    border: 1px solid silver;
+}
+.record-container>.row {
+    padding: 8px 12px;
+    margin-right: 0;
+    margin-left: 0;
+}   
+    .record-container>.row.alternate {
+        background: white;
+    }
+@media(max-width: 767px) {
+    .container {
+    	padding-left: 9px;
+        padding-right: 6px;
+    }
+    .banner nav a span {
+        display: none;
+    }
+    a.slide-menu-toggle-open,a.slide-menu-toggle-open:hover {
+        display: block;
+    }
+    .hidable {
+        display: none !important;
+    }
+    .record-container {
+        border: none;
+    }
+        .record-container > .row {
+            border: none;
+        }
+}
+@media(max-width: 480px){
+    .hidable-xs {
+        display: none !important;
+    }
+}
+
+.modal {
+    position: absolute;
+    top: 0;
+    z-index: 1040;
+}
+
+.modal-dialog {
+    margin: 2px auto;
+}
+
+.modal-header {
+    padding: 15px 15px 5px;
+}
+
+.modal-body {
+    padding: 10px 20px 5px 20px;
+}
+
+/* Forum List Styles */
+    a.hover-dark {
+        padding: 2px 6px;
+        text-decoration: none;
+        color: whitesmoke;
+        border-radius: 2px;
+        display: inline-block;
+        margin-right: 6px;
+    }
+    a.hover-dark:hover {
+        color: steelblue;
+        background: whitesmoke;        
+    }
+
+
+    .forum-header{
+        background: #434343;
+        color: white;
+        margin: 0;
+        padding: 5px;
+        text-align: right;
+        font-size: 1.4em;
+        font-weight: bold;
+    }
+    .thread-title {
+        padding: 5px 5px;
+        color: firebrick;
+        font-size: 1.6em;
+        font-weight: bold;
+         background: linear-gradient(to bottom, rgba(235,188,33,1) 0%,#fff4db 100%);
+    }
+    .message-list-item {
+        margin-bottom: 20px;                       
+    }
+    .message-list-header {
+        background: #D0D0D0 ;
+        padding: 10px;
+        
+    }
+    .message-list-body{
+        padding: 20px 15px 10px;
+    }
+    .message-toolbar {
+        background: #636363;
+        color: whitesmoke;
+        padding: 5px 8px;
+        box-shadow: 4px 4px 10px #535353;
+    }
+    
+    .quotedmessagetext {
+        font-size: 0.825em;
+        padding: 10px;
+        background: #eee;
+        margin: 15px 10px;
+    }
+    @media(min-width: 1100px){
+        .message-body{
+            font-size: 1.2em;
+        }
+    }
+
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}

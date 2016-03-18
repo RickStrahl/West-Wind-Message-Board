@@ -1,0 +1,189 @@
+<% pcPageTitle = "Message" %>
+<% Layout="~/views/_layoutpage.wcs" %>
+<%
+    *** pnMsgMode  -   1 - New, 2 - Reply
+
+%>
+
+<% #if .f. %>
+<!-- only for intellisense to work better -->
+<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="css/application.css" rel="stylesheet" />
+<% #endif  %>
+
+<div style="padding: 20px 20px;">
+    <div class="page-header-text">
+        <i class="fa fa-edit" style="color: goldenrod"></i>
+        <% if pnMsgMode = 1 %>
+        New Message
+        <% endif %>
+        <% if pnMsgMode = 2 %>
+        Reply to <%= poMsg.Subject %>
+        <% endif %>
+    </div>
+
+    <%= HtmlErrorDisplay(poError) %>
+
+
+    <form action="" method="post">
+        <div class="form-group">
+            <label class="control-label hidable" for="form-group-input">Subject</label>
+            <input type="text" id="Subject" name="Subject" class="form-control" id="form-group-input"
+                   placeholder="Subject" value="<%= Request.FormOrValue([poMsg.Subject]) %>" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label hidable" for="form-group-input">Forum</label>
+            <%= HtmlDropdown("Forum",poMsg.Forum,"TForums","ForumName","ForumName",
+            [class="form-control"],"-- Select a Forum --","") %>
+        </div>
+
+        <div class="edit-toolbar">
+            <a class="btn btn-sm btn-link">
+                <i class="fa fa-link"></i>
+            </a>
+
+            <a class="btn btn-sm btn-link">
+                <i class="fa fa-image "></i>
+            </a>
+
+            <a class="btn btn-sm btn-link">
+                <i class="fa fa-code"></i>
+            </a>
+
+            |
+
+            <a class="btn btn-sm btn-link">
+                <i class="fa fa-bold"></i>
+            </a>
+
+            <a class="btn btn-sm btn-link">
+                <i class="fa fa-italic"></i>
+            </a>
+
+            <a class="btn btn-sm btn-link">
+                <i class="fa fa-list"></i>
+            </a>
+
+            <span class="hidable-xs">|</span>
+
+            <a class="btn btn-sm btn-link hidable-xs">
+                H2
+            </a>
+
+            <a class="btn btn-sm btn-link hidable-xs">
+                H3
+            </a>
+
+            <a class="btn btn-sm btn-link hidable-xs">
+                H4
+            </a>
+
+            <a class="btn btn-sm btn-link hidable-xs">
+                H5
+            </a>
+        </div>
+        
+        <pre lang="markdown" id="Editor">
+        </pre>
+        <textarea  id="Message" name="Message" class="hidden"><%= Request.FormOrValue('Message',poMsg.Message) %></textarea>
+
+        <div id="message"
+             style="display: none; position: absolute; right: 15px; bottom: 5px; padding: 10px; background: darkred; color: white; opacity: 0.90; border-radius: 4px"></div>
+        <div id="spellfixes" style="display:none">
+        </div>
+
+        <button type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary btn-lg">
+            <i class="fa fa-check" style="color: lightgreen"></i>
+            Post Message
+        </button>
+
+        <input type="hidden" id="MsgMode" name="MsgMode" value="<%= Request.FormOrValue("MsgMode",pnMsgMode) %>" />
+    </form>
+    </div>
+
+
+
+    <% SELE TMessages
+       if pnMsgMode = 2 OR plEditing %>
+    <hr />
+
+        <div class="forum-header page-header-text">
+            <%= forum %>
+        </div>
+        <div class="thread-title page-header-text">
+            <%= EncodeHtml(Subject) %>
+        </div>
+
+        <% SCAN %>
+        <a name="<%= MsgId %>"></a>
+
+        <article class="message-list-item" data-id="<%= msgId %>">
+            <div class="message-list-header">
+
+                <div class="pull-right hidable-xs">
+                    <a href="#<%= MsgId %>"><%=MsgId%></a>
+                </div>
+
+                <div style="font-size: 0.825em">
+                    <img src="<%= GravatarLink(TRIM(FromEmail),60) %>"
+                         style="float: left; margin: 0 15px 0 0; width: 60px; height: 60px; border-radius: 4px; box-shadow: 2px 2px 3px #535353"
+                         alt="Gratar Image based on email address" />
+
+                    <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
+
+                    <i class="fa fa-user"></i>&nbsp;
+                    <%= EncodeHtml(FromName) %><br />
+
+                    <i class="fa fa-clock-o"></i>&nbsp;
+                    <%=ShortDate(TimeStamp,1 )%>  @ <%=ShortTime(TimeStamp)%><br />
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+
+            <div class="message-list-=body">
+                <%=  iif(format=2,poMarkdown.Parse(Message),DisplayMemo(Message) ) %>
+            </div>
+        </article>
+        <% ENDSCAN %>  
+    <% endif %>
+<!-- remove sections if you're not using them -->
+<% section="headers" %>
+<style>
+    .edit-toolbar {
+        padding: 5px;
+        background: #ddd;
+    }
+
+        .edit-toolbar a {
+            padding: 0 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    #Editor {
+        width: 100%;
+        height: 50vh;
+        min-height: 350px;
+    }
+</style>
+<% endsection %>
+
+<% section="scripts" %>
+<script src="~/scripts/Ace/ace.js"></script>
+<script src="~/scripts/wwhelp_editorSettings.js"></script>
+<script src="~/scripts/wwhelp_editor.js"></script>
+<script>
+    $(document).ready(function () {
+        var edResize = debounce(resizeEditor, 100);
+        //resizeEditor();
+        //$(window).resize(edResize);
+        function resizeEditor() {
+            $("#Editor").height(window.innerHeight - 500);
+        }
+
+        window.textEditor.setvalue($("#Message").val(),-1);
+    });
+</script>
+<% endsection %>
