@@ -8,10 +8,9 @@
 <div class="message-list-container">
     <div class="message-search-box" style="">
         <div class="form-group">             
-            <%= HtmlDateTextBox("FromDate",poFilter.FromDate,[placeholder="From Date" class="form-control input-sm"],0) %>
-            <%= HtmlDateTextBox("ToDate",poFilter.ToDate,[placeholder="To Date" class="form-control input-sm"],0) %>
-        </div>
-        
+            <%= HtmlDateTextBox("StartDate",poFilter.StartDate,[placeholder="Start Date" class="form-control input-sm"],0) %>
+            <%= HtmlDateTextBox("EndDate",poFilter.EndDate,[placeholder="End Date" class="form-control input-sm"],0) %>
+        </div>        
 
         <div class="form-group">            
                 <%= HtmlDropdown("Forum",Trim(poFilter.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
@@ -30,9 +29,17 @@
                    value="<%= Request.FormOrValue([MsgId],poFilter.MsgId) %>" />
         </div>
         
-        <button type="submit" class="btn btn-primary ">
+        <button id="Search-Button-Submit" type="submit" class="btn btn-sm btn-primary ">
             <i class="fa fa-search"></i> 
-            Search
+            Search Messages
+        </button>
+        <button id="Search-Button-Clear" type="submit" class="btn btn-sm">
+            <i class="fa  fa-eraser"></i>
+            Clear
+        </button>
+        <button id="Search-Button-Close" type="submit" class="btn btn-sm">
+            <i class="fa fa-remove"></i>
+            Close
         </button>
 
     </div>

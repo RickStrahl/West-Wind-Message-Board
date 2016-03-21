@@ -34,13 +34,23 @@ IF IsNullOrEMPTY(loQueryParms)
    loQueryParms = THIS.CreateMessageQueryParms()
 ENDIF   
 
+THIS.Open()
+
 pdStartDate = loQueryParms.StartDate
 pdEndDate = loQueryParms.EndDate + 1
 pcForum = loQueryParms.Forum
+pcMsgId = PADR(loQueryParms.MsgId,FSIZE("MsgId","wwThreads"))
+pcSearch = loQueryParms.Search
 
 lcWhere = "TimeStamp >= pdStartDate AND TimeStamp < pdEndDate "
 IF !EMPTY(pcForum)
-   lcWhere = " AND Forum == pcForum"
+   lcWhere = lcWhere + " AND Forum == pcForum "
+ENDIF
+IF !EMPTY(pcMsgId)
+   lcWhere = lcWhere + " AND MsgId == pcMsgId "
+ENDIF   
+IF !EMPTY(pcSearch)
+   lcWhere = lcWhere + " AND ( ATC(pcSearch,Subject)>0 OR  ATC(pcSearch,Message)>0 ) "   
 ENDIF
 
 TEXT TO lcSql NOSHOW TEXTMERGE
@@ -73,6 +83,7 @@ ADDPROPERTY(loQUeryParms,"EndDate",DATE())
 ADDPROPERTY(loQueryParms,"Forum","")
 ADDPROPERTY(loQueryParms,"Search","")
 ADDPROPERTY(loQueryParms,"Search2","")
+ADDPROPERTY(loQueryParms,"MsgId","")
 
 RETURN loQueryParms
 ENDFUNC

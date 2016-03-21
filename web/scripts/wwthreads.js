@@ -35,9 +35,12 @@ window.wwthreads = null;
                 loadTopicAjax(history.state.URL);
         }
 
-        $("#Search-Button").click(function() {
+        $(document.body).on("click","#Search-Button,#Search-Button-Close",function() {
             $(".message-search-box").toggle();
         });
+
+        $(".sidebar-left").on("click", "#Search-Button-Submit", messageSearchQuery);
+        $(".sidebar-left").on("click", "#Search-Button-Clear", clearSearchQuery);
 
     }
 
@@ -85,8 +88,7 @@ window.wwthreads = null;
                 $span.text("+");
 
         });
-
-        initializeTOC();
+        
         return false;
     }
 
@@ -120,71 +122,30 @@ window.wwthreads = null;
                 return;
 
             wwthreads.highlightCode();
-            CreateHeaderLinks();
+            //CreateHeaderLinks();
         });
         return false;  // don't allow click              
     };
-    function initializeTOC() {
-        return;
 
-        // if running in frames mode link to target frame and change mode
-        if (window.parent.frames["wwhelp_right"]) {
-            $(".toc li a").each(function () {
-                var $a = $(this);
-                $a.attr("target", "wwhelp_right");
-                var a = $a[0];
-                a.href = a.href + "?mode=1";
-            });
-            $("ul.toc").css("font-size", "1em");
-        }
-
-        // Handle clicks on + and -
-        $("#toc").on("click", "li>i.fa", function () {
-            expandTopic($(this).find("~a").prop("id"));
-        });
-
-        expandTopic('index');
-
-        var page = getUrlEncodedKey("page");
-        if (page) {
-            page = page.replace(/.htm/i, "");
-            expandParents(page);
-        }
-        if (!page) {
-            page = window.location.href.extract("/_", ".htm");
-            if (page)
-                expandParents("_" + page);
-        }
-
-        var topic = getUrlEncodedKey("topic");
-        if (topic) {
-            var id = findIdByTopic();
-            if (id) {
-                var link = document.getElementById(id);
-                var id = link.id;
-                expandTopic(id);
-                expandParents(id);
-            }
-        }
-
-        function searchFilterFunc(target) {
-            target.each(function () {
-                var $a = $(this).find(">a");
-                if ($a.length > 0) {
-                    var url = $a.attr('href');
-                    if (!url.startsWith("file:") && !url.startsWith("http")) {
-                        expandParents(url.replace(/.htm/i, ""), true);
-                    }
-                }
-            });
-        }
-
-        $("#SearchBox").searchFilter({
-            targetSelector: ".toc li",
-            charCount: 3,
-            onSelected: debounce(searchFilterFunc, 200)
-        });
+    function messageSearchQuery() {
+        $.post("ThreadList.wwt", {
+            StartDate: $("#StartDate_field").val(),
+            EndDate: $("#EndDate_field").val(),
+            Forum: $("#Forum").val(),
+            Search: $("#Search").val(),
+            MsgId: $("MsgId").val()
+        }, loadMessageList);
     }
+
+    function clearSearchQuery() {        
+        $("#StartDate_field").val(""),
+            $("#EndDate_field").val(""),
+            $("#Forum").val(""),
+            $("#Search").val(""),
+            $("MsgId").val("");
+        $.post("ThreadList.wwt", loadMessageList);
+    }
+
     function hideSidebar() {
         var $sidebar = $(".sidebar-left");
         var $toggle = $(".sidebar-toggle");

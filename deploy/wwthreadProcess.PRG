@@ -62,7 +62,7 @@ FUNCTION OnProcessInit
 LOCAL lcThreadId
 
 *!* LOCAL lcScriptName, llForceLogin
-THIS.InitSession("wwt")
+THIS.InitSession("wwt",24000 * 30,.T.)
 
 *** AUthenticate so we get user info - we then use
 *** specific checks for specific requests
@@ -208,10 +208,12 @@ ENDFUNC
 ************************************************************************
 FUNCTION ThreadList()
 
-poFilter = this.CreateMessageFilter()
+LOCAL loMsgBus as wwt_Message
+loMsgBus = CREATEOBJECT("wwt_Message")
+
+poFilter = loMsgBus.CreateMessageQueryParms()
 Request.UnbindFormVars(poFilter)
 
-loMsgBus = CREATEOBJECT("wwt_Message")
 loMsgBus.GetForumList() && TForums
 loMsgBus.GetThreads(poFilter) && TMessages
 
@@ -363,7 +365,7 @@ IF (Request.IsPostBack())
    	   poError.Message = poError.Errors.ToHtml()
    	   poError.Header = "Please fix the following form entry errors"
    ELSE
-   	   Response.Redirect("Thread" + TRIM(poMsg.ThreadId) + ".wwt")
+   	   Response.Redirect("Thread" + TRIM(poMsg.ThreadId) + ".wwt#" + TRIM(poMsg.MsgId))
 	   return
    ENDIF               
 ELSE
