@@ -12,7 +12,7 @@
 <link href="css/application.css" rel="stylesheet" />
 <% #endif  %>
 
-<div style="padding: 20px 20px;">
+<div class="main-content" style="padding: 20px 20px;">
     <div class="page-header-text">
         <i class="fa fa-edit" style="color: goldenrod"></i>
         <% if pnMsgMode = 1 %>
@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="edit-toolbar">
+        <div class="edit-toolbar">            
             <a class="btn btn-sm btn-link">
                 <i class="fa fa-link"></i>
             </a>
@@ -98,8 +98,11 @@
             <a class="btn btn-sm btn-link hidable-xs">
                 H5
             </a>
+        </div>        
+        <div class="edit-toolbar-sub">
+            This editor uses <a href="https://helpbuilder.west-wind.com/Docs/_4il175mgd.htm" target="wwthreadsexternal">Markdown text format</a>. Please format any code snippets using the <i class="fa fa-code"></i>  icon.
         </div>
-        
+
         <pre lang="markdown" id="Editor">
         </pre>
         <textarea  id="Message" name="Message" class="hidden"><%= Request.FormOrValue('Message',poMsg.Message) %></textarea>
@@ -170,6 +173,11 @@
     .edit-toolbar {
         padding: 5px;
         background: #ddd;
+    }
+    .edit-toolbar-sub {
+        padding: 5px;
+        font-size: 0.8em;
+        background: #d3d3d3;
     }
 
         .edit-toolbar a {

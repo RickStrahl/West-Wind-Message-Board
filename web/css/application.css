@@ -510,7 +510,7 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
 
 
     .forum-header{
-        background: #434343;
+        background: #535353;
         color: white;
         margin: 0;
         padding: 5px;
@@ -582,6 +582,10 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         padding: 5px ;
         display: none;
     }
+    .message-item.selected {
+        background: #e3ebf5;
+        border-radius: 2px;
+    }
     
     .quotedmessagetext {
         font-size: 0.825em;
@@ -590,8 +594,8 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         margin: 15px 10px;
     }
     @media(min-width: 1100px){
-        .message-body{
-            font-size: 1.2em;
+        .main-content{
+            font-size: 1.125em;
         }
     }
 

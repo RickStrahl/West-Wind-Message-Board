@@ -34,14 +34,17 @@
             <div style="font-size: 0.825em">
                 <img src="<%= GravatarLink(TRIM(FromEmail),60) %>"
                      style="float: left; margin: 0 15px 0 0; width: 60px; height: 60px; border-radius: 4px; box-shadow: 2px 2px 3px #535353"
-                     alt="Gratar Image based on email address" />
+                     alt="Gravatar image based on email address" />
 
                 <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
 
-                <i class="fa fa-user"></i>&nbsp;
+                <i class="fa fa-user fa-fw"></i>&nbsp;
                 <%= EncodeHtml(FromName) %><br />
 
-                <i class="fa fa-clock-o"></i>&nbsp;
+                <i class="fa fa-reply fa-fw"></i>&nbsp;
+                <%= EncodeHtml(EXTRACT("!" + To,"!","<","[",.T.)) %><br />
+
+                <i class="fa fa-clock-o fa-fw"></i>&nbsp;
                 <%=ShortDate(TimeStamp,1 )%>  @ <%=ShortTime(TimeStamp)%><br />
                 <div class="clearfix"></div>
             </div>
@@ -68,9 +71,20 @@
 
 </div>
 
+
 <!-- remove sections if you're not using them -->
 <% section="headers" %>
 <% endsection %>
 
 <% section="scripts" %>
+<script>
+   setTimeout(function () {
+       var $el = $(".message-item[data-id=<%= pcThreadId %>]");
+       if ($el.length < 1)
+           return;
+       $el.addClass("selected");
+       $el[0].scrollIntoView();
+            
+   }, 500);
+</script>
 <% endsection %>

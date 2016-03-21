@@ -329,7 +329,7 @@ poMsg = loMsgBus.oData
 poMsg.MsgId = loMsgBus.CreateNewId()
 poMsg.Message = ""
 IF pnMsgMode = 2
-   poMsg.To = TRIM(poMsg.FromName) + "<" + TRIM(poMsg.FromEmail) + ">"
+   poMsg.To = TRIM(poMsg.FromName) + " <" + TRIM(poMsg.FromEmail) + ">"
 ENDIF
 
 #IF .F. 

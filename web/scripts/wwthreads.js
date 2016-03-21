@@ -88,7 +88,15 @@ window.wwthreads = null;
                 $span.text("+");
 
         });
-        
+        $(".expand-forum").click(function() {
+            
+            $(this).find("span").text("-");
+            $(".forum-list-container").hide();
+            $(".forum-list-header").find("span").text("+");
+            var $el = $(this).next();
+            $el.show(600);
+        });
+
         return false;
     }
 
@@ -99,6 +107,9 @@ window.wwthreads = null;
             var $el = $(this);
             var threadId = $el.data("id");
             href = "Thread" + threadId + ".wwt";
+
+            $(".message-item").removeClass("selected");
+            $el.addClass("selected");            
         }
 
         $.get(href, function(html) {

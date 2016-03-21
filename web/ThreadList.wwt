@@ -57,6 +57,9 @@
             <% endif %>
 
 <div class="forum-list-header">
+    <div class="pull-right expand-forum" style="font-size: 0.8em; color: goldenrod; padding: 4px">
+        <i class="fa fa-expand"></i>
+    </div>
     <span style="padding-right: 7px;">-</span> <%= EncodeHtml(forum) %>
 </div>
 <div class="forum-list-container">
@@ -66,8 +69,8 @@
     <div class="message-item" data-id="<%= Threadid %>">
         <div class="message-header">
             <i class="fa fa-thumb-tack" style="color: firebrick"></i>&nbsp;
-            <a href="Thread<%= ThreadId %>.wwt">
-                <%= EncodeHtml(Subject)  %>
+            <a href="Thread<%= ThreadId %>.wwt">                
+                <%= EncodeHtml(Subject)  %>                
             </a>
         </div>
         <div class="message-detail">
