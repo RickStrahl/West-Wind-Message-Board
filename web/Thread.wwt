@@ -1,75 +1,76 @@
-<% pcPageTitle = subject + " - West Wind Message Board" %>
+<% 
+    pcPageTitle = subject + " - West Wind Message Board" 
+    pcThreadId = Threadid
+%>
 <% Layout="~/views/_layoutpage.wcs" %>
 
 <% #if .f. %>
-    <!-- only for intellisense to work better -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="css/application.css" rel="stylesheet" />
+<!-- only for intellisense to work better -->
+<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="css/application.css" rel="stylesheet" />
 <% #endif  %>
 
-
+<div class="main-content">
     <div class="forum-header page-header-text">
         <%= forum %>
     </div>
-    <div class="thread-title page-header-text">        
+    <div class="thread-title page-header-text" style="margin-bottom: 0;">
         <%= EncodeHtml(Subject) %>
     </div>
 
-    <% 
-        SCAN %>
-        <a name="<%= MsgId %>"></a>
+    <%    
+    SCAN
+    %>
+    <a name="<%= MsgId %>"></a>
 
-        <article class="message-list-item" data-id="<%= msgId %>">            
-            <div class="message-list-header">
+    <article class="message-list-item" data-id="<%= msgId %>">
+        <div class="message-list-header">
 
-                <div class="pull-right hidable-xs">
-                    <a href="#<%= MsgId %>"><%=MsgId%></a>
-                </div>
-
-                <div style="font-size: 0.825em">
-                    <img src="<%= GravatarLink(TRIM(FromEmail),60) %>"
-                        style="float: left; margin: 0 15px 0 0; width: 60px; height: 60px; border-radius: 4px; box-shadow: 2px 2px 3px #535353"
-                        alt="Gratar Image based on email address" />                    
-                    
-                    <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
-
-                    <i class="fa fa-user"></i>&nbsp;
-                    <%= EncodeHtml(FromName) %><br />
-                    
-                    <i class="fa fa-clock-o"></i>&nbsp;
-                    <%=ShortDate(TimeStamp,1 )%>  @ <%=ShortTime(TimeStamp)%><br />                  
-                    <div class="clearfix"></div>
-                </div>
+            <div class="pull-right hidable-xs">
+                <a href="#<%= MsgId %>"><%=MsgId%></a>
             </div>
-            <div class="message-toolbar">
-                <a href="ReplyMessage.wwt?id=<%= MsgId %>" class="hover-dark">
-                    <i class="fa fa-reply" style="color: lightgreen"></i> 
-                    Reply 
-                </a>                
-                <% if UserId == Process.cAuthenticatedUserId %>
-                <a href="ReplyMessage.wwt?id=<%= MsgId %>" class="hover-dark">
-                    <i class="fa fa-edit"></i>
-                    Edit
-                </a>
-                <% endif %>
-            </div>
-            
 
-            <div class="message-list-body">
-                <%=  iif(format=2,poMarkdown.Parse(Message),DisplayMemo(Message) ) %>
+            <div style="font-size: 0.825em">
+                <img src="<%= GravatarLink(TRIM(FromEmail),60) %>"
+                     style="float: left; margin: 0 15px 0 0; width: 60px; height: 60px; border-radius: 4px; box-shadow: 2px 2px 3px #535353"
+                     alt="Gratar Image based on email address" />
+
+                <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
+
+                <i class="fa fa-user"></i>&nbsp;
+                <%= EncodeHtml(FromName) %><br />
+
+                <i class="fa fa-clock-o"></i>&nbsp;
+                <%=ShortDate(TimeStamp,1 )%>  @ <%=ShortTime(TimeStamp)%><br />
+                <div class="clearfix"></div>
             </div>
-        </article>
-    <% ENDSCAN %>  
+        </div>
+        <div class="message-toolbar">
+            <a href="ReplyMessage.wwt?id=<%= MsgId %>" class="hover-dark">
+                <i class="fa fa-reply" style="color: lightgreen"></i>
+                Reply
+            </a>
+            <% if UserId == Process.cAuthenticatedUserId %>
+            <a href="ReplyMessage.wwt?id=<%= MsgId %>" class="hover-dark">
+                <i class="fa fa-edit"></i>
+                Edit
+            </a>
+            <% endif %>
+        </div>
+
+
+        <div class="message-list-body">
+            <%=  iif(format=2,poMarkdown.Parse(Message),DisplayMemo(Message) ) %>
+        </div>
+    </article>
+    <% ENDSCAN %>
+
+</div>
 
 <!-- remove sections if you're not using them -->
 <% section="headers" %>
-<style>
-
-</style>
 <% endsection %>
 
 <% section="scripts" %>
-<script src="~/scripts/Ace/ace.js"></script>
-<script src="scripts/AceConfig.js"></script>
 <% endsection %>

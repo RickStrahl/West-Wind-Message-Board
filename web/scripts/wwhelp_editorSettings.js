@@ -1,7 +1,7 @@
-var editorSettings = {
+window.editorSettings = {
   "dictionary": "EN_US",
   "enableSpellChecking": false  ,
-  "fontSize": 17,
+  "fontSize": 15,
   "isDebug": false,
   "showLineNumbers": false,
   "showPrintMargin": false,

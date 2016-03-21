@@ -1,0 +1,35 @@
+<% pcPageTitle = "Messages - West Wind Message Board" %>
+<% Layout="~/views/_layoutpage.wcs" %>
+
+<% #if .f. %>
+    <!-- only for intellisense to work better -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/application.css" rel="stylesheet" />
+<% #endif  %>
+     
+	 <% if empty(pcThreadId) %>
+        <div style="display:flex">
+            <iframe style="flex-direction: row; flex: 1 1 auto; width: 100%; min-height: 500px;margin:0; border: none;" 
+                    src="http://west-wind.com/wconnect/westwindnews.wst">
+            </iframe>
+        </div>   
+    <% else %>
+        <h1>Other stuff here</h1>
+    <% endif %>
+
+<!-- remove sections if you're not using them -->
+<% section="headers" %>
+<% endsection %>
+
+<% section="scripts" %>
+<script>
+    var frameResize = debounce(function () {
+        console.log("frameResize");
+        $("iframe").height($(window).height() - 91);        
+    }, 5);
+    frameResize();
+    $(window).resize(frameResize);
+    
+</script>
+<% endsection %>

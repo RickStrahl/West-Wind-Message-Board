@@ -44,7 +44,7 @@ IF !EMPTY(pcForum)
 ENDIF
 
 TEXT TO lcSql NOSHOW TEXTMERGE
-SELECT ThreadId,TimeStamp,Subject,FromName, Forum, 
+SELECT ThreadId,MsgId, TimeStamp,Subject,FromName, FromEmail, Forum, 
 	   (SELECT COUNT(*) WHERE ThreadId = wwt.ThreadId FROM wwThreads)  as MsgCount 
    FROM wwThreads as wwt 
    WHERE << lcWhere >>
@@ -142,6 +142,29 @@ ENDFUNC
 *   Reply
 
 ************************************************************************
+* wwThreads ::  IsSpam
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION IsSpam(lcMessage)
+
+lcMessage = LOWER(lcMessage)
+SELECT .T. FROM SpamFilter ;
+   WHERE TRIM(LOWER(SpamFilter.Filter)) $ lcMessage ;
+   INTO ARRAY TItems
+
+IF _Tally > 0
+   RETURN .T.
+ENDIF
+
+RETURN .F.      
+ENDFUNC
+*  wwThreads ::  CheckSpam
+
+************************************************************************
 *  New
 ****************************************
 ***  Function:
@@ -154,6 +177,7 @@ FUNCTION New()
 DODEFAULT()
 
 THIS.oData.ThreadId = THIS.CreateNewId()
+THIS.oData.To = "All"
 this.oData.TimeStamp = DATETIME()
 this.oData.Format = 2   && Markdown
 
@@ -169,7 +193,7 @@ ENDFUNC
 ***    Return:
 ************************************************************************
 FUNCTION CreateNewId()
-RETURN SYS(2015)
+RETURN SUBSTR(SYS(2015),2)
 ENDFUNC
 *   New
 

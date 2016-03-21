@@ -1,23 +1,14 @@
 (function () {
-    // These settings control how code is rendered in help files
-    var editorSettings = {
-        // visualstudio, twilight,mono_industrial,xcode,textmate
-        // full list: https://docs.c9.io/v1.0/docs/syntax-highlighting-themes
-        //theme: "visualstudio,twilight,monokai_industrial,github,textmate,xcode",
-        theme: "twilight",
-        showLineNumbers: false,
-        fontSize: 14,
-        tabSpaces: 4,
-        wrapText: false
-    };
-
+    // These settings control how code is rendered in help files (wwhelp_editorsettings.js)
+    var editorSettings = window.editorSettings;
+    wwthreads.highlightCode = highlightCode;
 
     function configureAceEditor(editor, editorSettings) {
         var session = editor.getSession();
 
         editor.setReadOnly(true);
         editor.setHighlightActiveLine(false);
-        editor.setShowPrintMargin(false);
+        editor.setShowPrintMargin(false);        
 
         editor.setTheme("ace/theme/" + editorSettings.theme);
         editor.setFontSize(editorSettings.fontSize);
@@ -37,16 +28,18 @@
         session.setOption("indentedSoftWrap", false);
 	
         editor.renderer.setScrollMargin(5, 20, 10, 10);
-	    
-      	
-
         return editor;
     }
 
     function highlightCode() {        
         // attach ace to formatted code controls if they are loaded and visible
-        $("pre[lang]").each(function () {
+        $("pre[lang]").each(function () {            
             var $el = $(this);
+            
+            // don't set up the WriteMessage Editor
+            if ($el[0].id == "Editor")
+                return;
+
             try {
                 var lang = $el.attr('lang');
                 var aceEditorRequest = ace.edit($el[0]);
@@ -59,5 +52,5 @@
         });
     }
 
-    $(document).ready(highlightCode);
+    setTimeout(highlightCode,100);
 })();

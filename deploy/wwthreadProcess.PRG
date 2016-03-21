@@ -64,6 +64,8 @@ LOCAL lcThreadId
 *!* LOCAL lcScriptName, llForceLogin
 THIS.InitSession("wwt")
 
+*** AUthenticate so we get user info - we then use
+*** specific checks for specific requests
 this.Authenticate("ANY","",.T.)
 
 *!*
@@ -84,7 +86,7 @@ Request.lUtf8Encoding = .T.
 
 *** Handle urls like ShowMessage131231.wwt 
 lcScript = LOWER( JUSTSTEM(this.oRequest.GetPhysicalPath()) )
-IF (lcScript = "thread" AND lcScript != "threadlist") 
+IF (lcScript != "threads" AND lcScript = "thread" AND lcScript != "threadlist" ) 
    lcThreadId = SUBSTR(lcScript,LEN("thread")+1)
    IF !EMPTY(lcThreadId)
 	   this.Thread(lcThreadId)
@@ -199,19 +201,67 @@ ENDFUNC
 ************************************************************************
 *  ThreadList
 ****************************************
-***  Function:
+***  Function: ThreadList partial page
 ***    Assume:
 ***      Pass:
 ***    Return:
 ************************************************************************
 FUNCTION ThreadList()
+
+poFilter = this.CreateMessageFilter()
+Request.UnbindFormVars(poFilter)
+
 loMsgBus = CREATEOBJECT("wwt_Message")
-loMsgBus.GetThreads()
+loMsgBus.GetForumList() && TForums
+loMsgBus.GetThreads(poFilter) && TMessages
 
 Response.ExpandScript("~/threadList.wwt")
 RETURN
 ENDFUNC
 *   ThreadList
+
+************************************************************************
+*  CreateMessageFilter
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+PROTECTED FUNCTION CreateMessageFilter()
+LOCAL loFilter
+
+loFilter = CREATEOBJECT("EMPTY")
+ADDPROPERTY(loFilter,"FromDate",DATE() - 366 * 2)
+ADDPROPERTY(loFilter,"ToDate",DATE())
+ADDPROPERTY(loFilter,"Forum","")
+ADDPROPERTY(loFilter,"Search","")
+ADDPROPERTY(loFilter,"Search2","")
+ADDPROPERTY(loFilter,"MsgId","")
+
+RETURN loFilter
+ENDFUNC
+*   CreateMessageFilter
+
+************************************************************************
+*  Threads
+****************************************
+***  Function: Default Threads page used for display
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION Threads()
+
+pcThreadId = Request.QueryString("id")
+IF !EMPTY(pcThreadId)
+   THIS.Thread(pcThreadId)
+   RETURN
+ENDIF
+
+Response.ExpandScript("~/threads.wwt")
+ENDFUNC
+*   Threads
 
 
 ************************************************************************
@@ -227,15 +277,8 @@ FUNCTION Thread(lcThreadId)
 loMsgBus = CREATEOBJECT("wwt_Message")
 loMsgBus.GetThreadMessages(lcThreadId)
 
-
-PUBLIC __wwThreadsMarkdownParser
-IF VARTYPE(__wwThreadsMarkdownParser) = "O"
-   poMarkdown = __wwThreadsMarkdownParser
-ELSE
-	poMarkDown =  CreateObject("MarkdownParserExtended")
-	poMarkdown.cCodeBlockStartHtml = [<pre lang="###language###">]  + CHR(13) + CHR(10) 
-	poMarkdown.cCodeBlockEndHtml = [</pre>]
-ENDIF
+PRIVATE poMarkdown
+poMarkdown = THIS.GetMarkdownParser()
 
 Response.ExpandScript("~/thread.wwt")
 ENDFUNC
@@ -272,7 +315,6 @@ poError = CREATEOBJECT("HtmlErrorDisplayConfig")
 loMsgBus = CREATEOBJECT("wwt_Message")
 loMsgBus.GetForumList() && TForums
 
-
 IF !EMPTY(pcMsgId)
    loMsgBus.Load(pcMsgId)
 ELSE
@@ -280,8 +322,13 @@ ELSE
 ENDIF
 
 poMsg = loMsgBus.oData
-poMsg.Message = "Type your text as markdown text"
 
+*** Override for a new message
+poMsg.MsgId = loMsgBus.CreateNewId()
+poMsg.Message = ""
+IF pnMsgMode = 2
+   poMsg.To = TRIM(poMsg.FromName) + "<" + TRIM(poMsg.FromEmail) + ">"
+ENDIF
 
 #IF .F. 
 LOCAL Request as wwRequest, Response as wwResponse, Server as wwServer, ;
@@ -294,6 +341,7 @@ IF !poUser.Load(this.cAuthenticatedUserId)
    RETURN Response.ExpandScript("~/WriteMessage.wwt")
 ENDIF
 
+
 IF (Request.IsPostBack())
    poError.Errors = Request.UnbindFormVars(loMsgBus.oData)
 
@@ -302,8 +350,8 @@ IF (Request.IsPostBack())
    ENDIF
    
    IF poError.Errors.Count < 1 
-   	    poMsg.FromName = poUser.oData.Name
-   	    poMsg.FromEmail = poUser.oData.Email
+   	    poMsg.FromName = TRIM(poUser.oData.Name)
+   	    poMsg.FromEmail = TRIM(poUser.oData.Email)
    	    poMsg.UserId = poUser.oData.CookieId
    
        IF !loMsgBus.Save() 
@@ -315,11 +363,21 @@ IF (Request.IsPostBack())
    	   poError.Message = poError.Errors.ToHtml()
    	   poError.Header = "Please fix the following form entry errors"
    ELSE
-       poError.Message = "Entry saved."
-       poError.Icon = "info"
-       Response.AppendHeader("Refresh","2;url=.\")
+   	   Response.Redirect("Thread" + TRIM(poMsg.ThreadId) + ".wwt")
+	   return
    ENDIF               
+ELSE
+
 ENDIF
+
+IF pnMsgMode = 2
+	loMsgBus = CREATEOBJECT("wwt_Message")
+	loMsgBus.GetThreadMessages(poMsg.ThreadId)
+	
+	PRIVATE poMarkdown
+	poMarkdown = THIS.GetMarkdownParser()	
+ENDIF
+
 
 RETURN Response.ExpandScript("~/WriteMessage.wwt")
 ENDFUNC
@@ -334,8 +392,9 @@ ENDFUNC
 ***    Return:
 ************************************************************************
 FUNCTION ReplyMessage()
+pcMsgId = Request.QueryString("id")
 pnMsgMode = 2
-RETURN THIS.WriteMessage()
+RETURN THIS.WriteMessage(pcMsgId)
 ENDFUNC
 *   ReplyMsg
 
@@ -364,17 +423,28 @@ THIS.StandardPage("Hello World from the wwThreadProcess process",;
 ENDFUNC
 * EOF TestPage
 
+************************************************************************
+*  GetMarkdownParser
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION GetMarkdownParser()
+LOCAL poMarkdown
 
-*************************************************************
-*** PUT YOUR OWN CUSTOM METHODS HERE                      
-*** 
-*** Any method added to this class becomes accessible
-*** as an HTTP endpoint with MethodName.Extension where
-*** .Extension is your scriptmap. If your scriptmap is .rs
-*** and you have a function called Helloworld your
-*** endpoint handler becomes HelloWorld.rs
-*************************************************************
+PUBLIC __wwThreadsMarkdownParser
+IF VARTYPE(__wwThreadsMarkdownParser) = "O"
+   poMarkdown = __wwThreadsMarkdownParser
+ELSE
+	poMarkDown =  CreateObject("MarkdownParserExtended")
+	poMarkdown.cCodeBlockStartHtml = [<pre lang="###language###">]  + CHR(13) + CHR(10) 
+	poMarkdown.cCodeBlockEndHtml = [</pre>]
+ENDIF
 
-
+RETURN poMarkdown
+ENDFUNC
+*   GetMarkdownParser
 
 ENDDEFINE

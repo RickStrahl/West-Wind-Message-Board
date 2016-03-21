@@ -11,7 +11,7 @@ var te = window.textEditor = {
     aff: null,
     initialize: function() {
         // attach ace to formatted code controls if they are loaded and visible
-        var $el = $("pre[lang]");
+        var $el = $("#Editor");  // pre[lang]
         try {
             var codeLang = $el.attr('lang');
             var aceEditorRequest = ace.edit($el[0]);
