@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "css/application.css",
+    "inputFiles": [
+      "css/application.css"
+    ]
+  },
+  {
+    "outputFileName": "css/westwind.css",
+    "inputFiles": [
+      "css/westwind.css"
+    ]
+  }
+]

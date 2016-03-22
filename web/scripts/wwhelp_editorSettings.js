@@ -1,7 +1,7 @@
 window.editorSettings = {
   "dictionary": "EN_US",
   "enableSpellChecking": false  ,
-  "fontSize": 15,
+  "fontSize": 16,
   "isDebug": false,
   "showLineNumbers": false,
   "showPrintMargin": false,

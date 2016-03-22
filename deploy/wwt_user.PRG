@@ -35,6 +35,36 @@ ENDFUNC
 *   CreateNewId
 
 ************************************************************************
+*  Save
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION Save()
+this.oData.Email = LOWER(TRIM(this.oData.Email))
+RETURN DODEFAULT()
+ENDFUNC
+*   Save
+
+
+************************************************************************
+*  LoadFromEmail
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION LoadFromEmail(lcEmail)
+PRIVATE pcEmail
+pcEmail = LOWER(lcEmail)
+RETURN this.LoadBase("Email == ?pcEmail")
+ENDFUNC
+*   LoadFromEmail
+
+************************************************************************
 *  Authenticate
 ****************************************
 ***  Function:
@@ -51,7 +81,6 @@ IF EMPTY(lcEmail) OR EMPTY(lcPassword)
 ENDIF
 
 lcUsername = LOWER(lcEmail)
-lcPassword = LOWER(lcPassword)
 
 IF !this.LoadBase("Email == ?lcEmail AND Password == ?lcPassword")
   this.SetError("Invalid username or password")
@@ -62,6 +91,46 @@ RETURN .T.
 ENDFUNC
 *   Authenticate
 
+
+************************************************************************
+*  Validate
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION Validate()
+
+DODEFAULT()
+
+IF EMPTY(this.oData.Name)
+   THIS.AddValidationError("Name can't be left empty.","Name")   
+ENDIF
+IF EMPTY(this.oData.Email)
+   THIS.AddValidationError("Email can't be left empty.","Email")   
+ENDIF
+IF EMPTY(this.oData.Password) OR LEN(this.oData.Password) < 5
+   THIS.AddValidationError("Password can't be left empty and must be at least 5 characters in length.","Password")   
+ENDIF
+
+*** if new
+IF this.nUpdateMode = 2
+   this.Open()
+   LOCATE FOR Email == LOWER(this.oData.Email)
+   IF FOUND()
+   	  this.AddValidationError("User account already exists. Please log in using that account or try to recover your password.","Email")
+   ENDIF
+ENDIF
+
+IF this.oValidationErrors.Count > 0
+   this.cErrorMsg = this.oValidationErrors.ToString()
+   RETURN .F.
+ENDIF   
+
+RETURN .T.
+ENDFUNC
+*   Validate
 
 *************************************************************
 FUNCTION CreateTable(lcFileName)

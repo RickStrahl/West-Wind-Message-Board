@@ -1844,10 +1844,7 @@ ENDFUNC
 ***    Return:
 ************************************************************************
 FUNCTION Profile()
-
 Response.ExpandPage( this.cHtmlPagePath + "Profile.wcsx")
-
-
 ENDFUNC
 *  ThreadProcess ::  Profile
 

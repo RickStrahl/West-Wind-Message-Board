@@ -1041,7 +1041,7 @@ button, input[type=button], input[type=submit], input[type=reset]
 {color: blue;}
 .codec4
 {color: blue;}
-.codec5  / * literal */
+.codec5  /* literal */
 {color: yellow;}
 .codec6
 {color: blue;}
@@ -1099,7 +1099,7 @@ button, input[type=button], input[type=submit], input[type=reset]
 
 .htmlcode .elements {color: darkred; }
 .htmlcode .attributes {color: red; }
-.htmlcode .codestring {color: teal; background:;}
+.htmlcode .codestring {color: teal; background: transparent;}
 
 .xmlcode .elements {color: darkred; }
 .xmlcode .attributes {color: red; }

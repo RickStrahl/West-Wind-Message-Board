@@ -27,8 +27,6 @@
 <body>    
     <div class="flex-master">
         <header class="banner">
-            
-
             <!-- Icon and Company Logo -->
             <div class="title-bar no-slide-menu">
                 <a href="~/">
@@ -43,31 +41,33 @@
             <!-- top right nav menu - .hidable for options that hide on small sizes -->
             <nav class="banner-menu-top pull-right">
                 <% if !Process.lIsAuthenticated %>
-                <a href="Login.wwt?returnurl=<%= Request.GetCurrentUrl() %>" class="pull-right">
+                <a href="Login.wwt?returnurl=<%= Request.GetCurrentUrl() %>" class="pull-right" title="Sign in">
                     <i class="fa fa-unlock"></i>
                     Sign in
                 </a>
                 <% else %>
-                <a href="logout.wwt" class="pull-right" title="<%= Process.cAuthenticatedUser %>">
+                <a href="logout.wwt" class="pull-right" title="<%= Process.cAuthenticatedName %>">
                     <i class="fa fa-lock"></i>
-                    Sign out
-                    <img title="<%= Process.cAuthenticatedName %>" src="<%= GravatarLink(Process.cAuthenticatedUser,23) %>" />
+                    <span class="hidable-xs"><%= Process.cAuthenticatedName %></span>
+                    <img title="Sign out <%= Process.cAuthenticatedName %>." src="<%= GravatarLink(Process.cAuthenticatedUser,23) %>" />
                 </a>
                 <% endif %>
             </nav>
             <div class="clearfix"></div>
            
         </header>
-        <div class="menu-toolbar">
-            
-            <i class="fa fa-bars" style="cursor: pointer;" id="slide-menu-toggle"></i>
+        <div class="menu-toolbar">            
+            <i class="fa fa-bars" style="cursor: pointer;padding: 5px;" id="slide-menu-toggle" title="Toggle the message list side menu."></i>
             
             &nbsp;&nbsp;
             <a href="WriteMessage.wwt">
                 <i class="fa fa-edit"></i>
                 New Message
             </a>
-
+            <a id="Refresh-Button" href="javascript:{}" title="Refresh the message list.">
+                <i class="fa fa-refresh"></i>
+                Refresh
+            </a>
             <a id="Search-Button" href="javascript:{}">
                 <i class="fa fa-search"></i>
                 Search
@@ -78,7 +78,7 @@
             
             <div id="MessageList" class="sidebar-left toc-content">
                 <nav class="visually-hidden">
-                    <a href="ThreadList.wwt">Table of Contents</a>
+                    <a href="ThreadList.wwt">Message List</a>
                 </nav>
             </div>
             

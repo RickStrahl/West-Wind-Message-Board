@@ -1,7 +1,10 @@
+
 SET CLASSLIB TO wwBusiness ADDITIVE
 SET CLASSLIB TO wwUtils ADDITIVE
 SET PROCEDURE TO wwCollections ADDITIVE
 SET PROCEDURE TO wwt_message.prg ADDITIVE
+
+#include wconnect.h
 
 *************************************************************
 DEFINE CLASS wwt_message AS wwbusiness
@@ -98,15 +101,24 @@ ENDFUNC
 ***    Return:
 ************************************************************************
 FUNCTION GetThreadMessages
-PARAMETERS pcThreadId
+PARAMETERS pcId, lnMode
 
-pcThreadId = UPPER(pcThreadId)
+IF EMPTY(lnMode)
+   lnMode = 0
+ENDIF 
+
+lcFilter = "ThreadId = pcId"
+IF lnMode = 2
+    lcFilter = "MsgId = pcId"
+ENDIF
+    
+pcId = UPPER(pcId)
 
 TEXT TO lcSql NOSHOW TEXTMERGE
 SELECT *,
       (SELECT COUNT(*) WHERE ThreadId = wwt.ThreadId FROM wwThreads)  as MsgCount 
    FROM wwThreads as wwt 
-   WHERE ThreadId = pcThreadId
+   WHERE << lcFilter >>
    ORDER BY TimeStamp
    into cursor TMessages   
 ENDTEXT
@@ -153,6 +165,40 @@ ENDFUNC
 *   Reply
 
 ************************************************************************
+*  SendEmail
+****************************************
+***  Function: Sends an email to the recipient (TO) of this message
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION SendEmail(lcMailServer, lcMailUserName, lcMailPassword,llSecure)
+
+loIP = CREATEOBJECT([WWC_WWSMTP])
+loIP.nMailMode = 0 && .NET
+loIp.lUseSsl = llSecure
+	    
+loIP.cMailServer = lcMailServer
+loIp.cUsername = lcMailUsername
+loIP.cPassword = lcMailPassword
+   
+loIP.cSenderName = TRIM(THIS.oData.FromName)
+loIP.cSenderEmail = TRIM(THIS.oData.FromEmail)
+loIp.cReplyTo = "noreply@west-wind.com"
+loIP.cRecipient = TRIM(this.oData.To)
+
+loIP.cSubject =  TRIM(THIS.oData.Subject)
+loIP.cContentType = "text/html"
+
+pcMsgId = THIS.oData.MsgId
+loIP.cMessage = this.RenderMessage(this.oData.MsgId,2)
+
+loIP.SendMailAsync()
+
+ENDFUNC
+*   SendEmail
+
+************************************************************************
 * wwThreads ::  IsSpam
 ****************************************
 ***  Function:
@@ -174,6 +220,32 @@ ENDIF
 RETURN .F.      
 ENDFUNC
 *  wwThreads ::  CheckSpam
+
+************************************************************************
+*  RenderMessage
+****************************************
+***  Function: Renders the message to a string
+***    Assume:
+***      Pass: lcId    -  Thread or MsgId
+***    Return:
+************************************************************************
+FUNCTION RenderMessage(lcThreadId, lnMode)
+
+THIS.GetThreadMessages(lcThreadId, lnMode) && TMessages
+
+PRIVATE poMarkdown
+IF VARTYPE("PROCESS") = "O"
+	poMarkdown = Process.GetMarkdownParser()
+ELSE
+    poMarkdown = CREATEOBJECT("MarkdownParserExtended")
+ENDIF	
+
+loResponse = CREATEOBJECT("wwPageResponse")
+loResponse.ExpandScript("~/ThreadRender.wwt")
+
+RETURN loResponse.cOutput
+ENDFUNC
+*   RenderMessage
 
 ************************************************************************
 *  New
@@ -364,15 +436,16 @@ IF THIS.nDataMode = 0
    DELETE TAG ALL
    PACK
 
-INDEX ON msgid TAG msgid
-INDEX ON threadid TAG threadid
-INDEX ON forum TAG forum
-INDEX ON userid TAG userid
-INDEX ON timestamp TAG timestamp
-
+   INDEX ON threadid TAG threadid
+   INDEX ON forum TAG forum
+   INDEX ON userid TAG userid
+   INDEX ON msgid TAG msgid
+   INDEX ON timestamp TAG timestamp
 
    USE
 ENDIF
+
+RETURN .T.
 ENDFUNC
 * Reindex
 

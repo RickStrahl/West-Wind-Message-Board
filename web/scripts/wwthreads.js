@@ -38,6 +38,9 @@ window.wwthreads = null;
         $(document.body).on("click","#Search-Button,#Search-Button-Close",function() {
             $(".message-search-box").toggle();
         });
+        $(document.body).on("click", "#Refresh-Button", function() {
+            $.get("ThreadList.wwt", loadMessageList);
+        });
 
         $(".sidebar-left").on("click", "#Search-Button-Submit", messageSearchQuery);
         $(".sidebar-left").on("click", "#Search-Button-Clear", clearSearchQuery);
@@ -67,7 +70,7 @@ window.wwthreads = null;
         return true;
     }
 
-    function loadMessageList(html) {
+    function loadMessageList(html) {        
         var $tocContent = $("<div>" + getBodyFromHtmlDocument(html) + "</div>").find(".message-list-container");
         
         $("#MessageList").html($tocContent.html());
@@ -100,7 +103,8 @@ window.wwthreads = null;
         return false;
     }
 
-    function loadTopicAjax(href) {
+    function loadTopicAjax(href) {        
+
         var hrefPassed = true;
         if (typeof href != "string") {
             hrefPassed = false;
@@ -129,6 +133,9 @@ window.wwthreads = null;
                     window.history.pushState({ title: '', URL: href }, "", href);
 
                 $(".main-content").scrollTop(0);
+
+                if (window.outerWidth < 769)
+                    $(".sidebar-left").width(0);                
             } else
                 return;
 

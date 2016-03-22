@@ -1,0 +1,66 @@
+<% pcPageTitle = "Profile" %>
+<% Layout="~/views/_layoutpage.wcs" %>
+
+<div style="padding: 15px;">
+    <div class="page-header-text">
+        <i class="fa fa-user"></i>
+        <% if plNewUser %>
+            Create new User
+        <% else %>
+            Your User Profile
+        <% endif %>
+    </div>
+
+    <%= HtmlErrorDisplay(poError) %>
+
+    <form id="form1" method="post">
+        <div class="form-group">
+            <label class="control-label" for="Name">Name</label>
+            <input type="text" class="form-control" id="Name" name="Name" placeholder="Your display name on messages."
+                   value="<%= Request.FormOrValue([Name],poUser.Name) %>">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="Email">Email</label>
+            <input type="text" class="form-control" id="Email" name="Email" placeholder="Your email address used to receive replies to messages."
+                   value="<%= Request.FormOrValue([Email],poUser.Email) %>">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="Password">Password</label>
+            <input type="password" class="form-control" id="Password" name="Password" placeholder="Password for logging in."
+                   value="<%= Request.FormOrValue([Password],poUser.Password) %>">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="WebSite">Web Site</label>
+            <input type="text" class="form-control" id="WebSite" name="WebSite" placeholder="A URL or Web Site that is linked from your gravatar where people can find out more about your or your company"
+                   value="<%= Request.FormOrValue([WebSite],poUser.WebSite) %>">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="Signature">Signature</label>
+            <textarea class="form-control" id="Signature" name="Signature"
+                      placeholder="Markdown signature added to messages."
+                      style="height: 120px;font-family: monospace">
+                <%= Request.FormOrValue([Signature],poUser.Signature) %>
+            </textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check high green-highlight"></i>
+            Save Profile Info
+        </button>
+
+    </form>
+
+</div>
+
+<!-- remove sections if you're not using them -->
+<% section="headers" %>
+
+<% endsection %>
+
+<% section="scripts" %>
+
+<% endsection %>

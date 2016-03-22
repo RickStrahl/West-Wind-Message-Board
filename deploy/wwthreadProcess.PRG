@@ -48,9 +48,12 @@ cResponseClass = [WWC_PAGERESPONSE]
 *** 3 - MVC Script (ExpandScript())
 nPageScriptMode = 3
 
-cAuthenticationMode = "UserSecurity"
+*** Custom Error Page
+cErrorTemplate = "~/Views/_ErrorTemplate.wcs"
 
+cAuthenticationMode = "UserSecurity"
 cAuthenticatedUserId = ""
+lAuthenticatedAdmin = .F.
 
 *********************************************************************
 * Function wwThreadProcess :: OnProcessInit
@@ -124,7 +127,7 @@ ENDIF
 loUserBus = CREATEOBJECT("wwt_user")
 
 *** Default implementation is not case sensitive
-IF !loUserBus.AuthenticateAndLoad(LOWER(lcEmail),LOWER(lcPassword))
+IF !loUserBus.AuthenticateAndLoad(LOWER(lcEmail),lcPassword)
 	*** Set lcErrorMsg to pass back via REF parm
 	lcErrorMsg = loUserBus.cErrorMsg
 	RETURN .F.
@@ -136,6 +139,8 @@ this.cAuthenticatedName = loUserBus.oData.Name
 
 *** Add a custom sessionvar we can pick up on each request
 Session.SetSessionVar("_authenticatedUserId",loUserBus.oData.CookieId)
+Session.SetSessionVar("_authenticatedName",loUserBus.oData.Name)
+Session.SetSessionVar("_authenticatedAdmin",IIF(loUserBus.oData.Admin != 0,"True",""))
 
 ENDFUNC
 *   OnAuthenticateUser
@@ -150,8 +155,12 @@ ENDFUNC
 ***    Return:
 ************************************************************************
 FUNCTION OnAuthenticated()
+
+*** Set our custom properties from Session
 this.cAuthenticatedName = Session.GetSessionVar("_authenticatedName")
 this.cAuthenticatedUserId = Session.GetSessionVar("_authenticatedUserId")
+this.lAuthenticatedAdmin = !EMPTY(Session.GetSessionVar("_authenticatedAdmin"))
+
 ENDFUNC
 *   OnAuthenticated
 
@@ -165,24 +174,83 @@ ENDFUNC
 ************************************************************************
 FUNCTION Login()
 
-pcDisplayMessage = [No account? <a href="~/Profile.wwt">Click here to create one</a>.]
+PRIVATE pcErrorMessage
+pcDisplayMessage = [No account? <a href="~/Profile.wwt">Click here to quickly create one</a>.]
 pcErrorMessage = ""
 pcRedirectUrl = "~/"
           
 IF !Request.IsPostBack()
 	THIS.Authenticate("Login")
 ELSE
-    pcRedirectUrl = Request.QueryString("ReturnUrl")
-    IF EMPTY(pcRedirectUrl)
-       pcRedirectUrl = "~/"
-    ENDIF
-    IF THIS.Authenticate("ANY",@pcErrorMessage)
-       Response.Redirect(pcRedirectUrl)
-    ENDIF
+    IF Request.IsFormVar("WebLogin_btnRecover")
+		THIS.EmailPassword()
+		Response.ExpandScript("~/views/_login.wcs")
+		RETURN
+	ELSE
+	    pcRedirectUrl = Request.QueryString("ReturnUrl")
+	    IF EMPTY(pcRedirectUrl)
+	       pcRedirectUrl = "~/"
+	    ENDIF
+	    IF THIS.Authenticate("ANY",@pcErrorMessage)
+	       Response.Redirect(pcRedirectUrl)
+	    ENDIF
+	ENDIF
 ENDIF
     	
 ENDFUNC
 *   Login
+
+************************************************************************
+*  EmailPassword
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION EmailPassword(lcRecipient)
+
+lcEmail = Request.Form("WebLogin_txtUsername")
+IF EMPTY(lcEmail)
+   pcErrorMessage = "Please specify an email address to recover password for."
+   RETURN
+ENDIF
+   
+loUserBus = CREATEOBJECT("wwt_user")
+IF !loUserBus.LoadFromEmail(lcEmail)
+   pcErrorMessage = "Invalid email address."
+   RETURN
+ENDIF
+
+loUserBus.oData.Password = SUBSTR(SYS(2015),2)
+loUserBUs.Save()
+
+loIP = CREATEOBJECT([WWC_WWSMTP])
+loIP.nMailMode = 0 
+loIP.lUseSsl = .T.
+
+loIP.cMailServer = Server.oConfig.cAdminMailServer
+loIp.cUsername = Server.oConfig.cAdminMailUserName
+loIP.cPassword = Server.oConfig.cAdminMailPassword
+   
+loIP.cSenderName = "West Wind Message Board"
+loIP.cSenderEmail = "admin@west-wind.com"
+loIp.cReplyTo = "noreply@west-wind.com"
+loIP.cRecipient = lcEmail
+loIP.cSubject =  "West Wind Message Board Password recovery"
+   
+loIP.cMessage =  ;
+  	"Your new password for your message board account is: " + TRIM(loUserBus.oData.Password) + CRLF + CRLF +;
+  	"You can sign in and change your password in your profile. " +CRLF + CRLF +;
+  	THIS.ResolveServerUrl("~/login.wwt")
+ 
+loIP.SendMailAsync() 
+
+pcErrorMessage = "Password recovery email has been sent."
+   
+ENDFUNC
+*   EmailPassword
+
 
 ************************************************************************
 *  Logout
@@ -198,6 +266,7 @@ Response.Redirect("~/")
 ENDFUNC
 *   Logout
 
+
 ************************************************************************
 *  ThreadList
 ****************************************
@@ -208,6 +277,14 @@ ENDFUNC
 ************************************************************************
 FUNCTION ThreadList()
 
+#IF .F. 
+LOCAL Request as wwRequest, Response as wwResponse, Server as wwServer, ;
+      THIS as wwProcess, Process as wwProcess, Session as wwSession
+#ENDIF
+
+PRIVATE poError as HtmlErrorDisplayConfig
+poError = CREATEOBJECT("HtmlErrorDisplayConfig")
+
 LOCAL loMsgBus as wwt_Message
 loMsgBus = CREATEOBJECT("wwt_Message")
 
@@ -215,7 +292,18 @@ poFilter = loMsgBus.CreateMessageQueryParms()
 Request.UnbindFormVars(poFilter)
 
 loMsgBus.GetForumList() && TForums
-loMsgBus.GetThreads(poFilter) && TMessages
+lnResult = loMsgBus.GetThreads(poFilter) && TMessages
+
+
+IF lnResult > 1000
+	poError.Message = "This query returned too many records. Please refine your query to retrieve fewer result messages."
+	poError.Header = "Too many Messages"
+
+    *** Create empty cursor
+	SELECT * FROM wwthreads WHERE .F. INTO CURSOR TMessages
+ENDIF
+
+Response.GzipCompression = .T.
 
 Response.ExpandScript("~/threadList.wwt")
 RETURN
@@ -275,6 +363,7 @@ ENDFUNC
 ***    Return:
 ************************************************************************
 FUNCTION Thread(lcThreadId)
+LOCAL loMsgBus
 
 loMsgBus = CREATEOBJECT("wwt_Message")
 loMsgBus.GetThreadMessages(lcThreadId)
@@ -282,9 +371,89 @@ loMsgBus.GetThreadMessages(lcThreadId)
 PRIVATE poMarkdown
 poMarkdown = THIS.GetMarkdownParser()
 
+Response.GzipCompression = .T.
+
+poUser = loMsgBus.oData
+
 Response.ExpandScript("~/thread.wwt")
 ENDFUNC
 *   Thread
+
+
+************************************************************************
+*  Profile
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION Profile()
+LOCAL loUserBus
+
+PRIVATE plNewUser, poUser
+plNewUser = .F.
+poError = CREATEOBJECT("HtmlErrorDisplayConfig")
+
+loUserBUs = CREATEOBJECT("wwt_User")
+
+IF EMPTY(THIS.cAuthenticatedUserId) OR !loUserBus.Load(this.cAuthenticatedUserId)
+   loUserBus.New()
+   plNewUser = .T.
+ENDIF   
+poUser = loUserBus.oData
+
+IF (Request.IsPostBack())
+   poError.Errors = Request.UnbindFormVars(loUserBus.oData)
+
+   IF !loUserBus.Validate()
+       poError.Errors.AddErrors( loUserBus.oValidationErrors )
+   ENDIF
+   
+   IF poError.Errors.Count < 1 
+       IF !loUserBus.Save() 
+	      poError.Message = loUserBus.cErrorMsg      
+       ENDIF  
+   ENDIF
+
+   IF (poError.Errors.Count > 0)
+   	  poError.Message = poError.Errors.ToHtml()
+   	   poError.Header = "Please fix the following form entry errors"
+   ELSE
+       poError.Message = "Your user info has been saved."
+       poError.Icon = "info"
+       Response.AppendHeader("refresh","2;login.wwt")
+   ENDIF               
+ENDIF
+
+Response.ExpandScript("~/Profile.wwt")
+ENDFUNC
+*   Profile
+
+
+
+************************************************************************
+*   MessagePrint
+****************************************
+***  Function: Display a message by Id
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION Message()
+
+loMsgBus = CREATEOBJECT("wwt_Message")
+
+lcMsgId = Request.QueryString("id")
+loMsgBus.GetThreadMessages(lcMsgId,2)
+
+PRIVATE poMarkdown
+poMarkdown = THIS.GetMarkdownParser()
+
+Response.ExpandScript("~/thread.wwt")
+ENDFUNC
+*    MessagePrint
+
 
 
 ************************************************************************
@@ -296,6 +465,12 @@ ENDFUNC
 ***    Return:
 ************************************************************************
 FUNCTION WriteMessage(pcMsgId)
+LOCAL lcOrigId, loConfig
+
+#IF .F. 
+LOCAL Request as wwRequest, Response as wwResponse, Server as wwServer, ;
+      THIS as wwProcess, Process as wwProcess, Session as wwSession
+#ENDIF
 
 IF !this.Authenticate("ANY","",.T.) OR EMPTY(this.cAuthenticatedUserId)
    Response.Redirect("~/Login.wwt?returnurl=WriteMessage.wwt")
@@ -314,6 +489,7 @@ ENDIF
 
 poError = CREATEOBJECT("HtmlErrorDisplayConfig")
 
+LOCAL loMsgBus as wwt_Message
 loMsgBus = CREATEOBJECT("wwt_Message")
 loMsgBus.GetForumList() && TForums
 
@@ -325,17 +501,19 @@ ENDIF
 
 poMsg = loMsgBus.oData
 
+lcOrigId = poMsg.MsgId
+
 *** Override for a new message
 poMsg.MsgId = loMsgBus.CreateNewId()
-poMsg.Message = ""
-IF pnMsgMode = 2
-   poMsg.To = TRIM(poMsg.FromName) + " <" + TRIM(poMsg.FromEmail) + ">"
+IF !plEditing
+	poMsg.Message = ""
 ENDIF
-
-#IF .F. 
-LOCAL Request as wwRequest, Response as wwResponse, Server as wwServer, ;
-      THIS as wwProcess, Process as wwProcess, Session as wwSession
-#ENDIF
+IF pnMsgMode = 2
+   poMsg.To = ["] + TRIM(poMsg.FromName) + [" <] + TRIM(poMsg.FromEmail) + [>]
+   IF ATC("re:",poMsg.Subject) = 0
+      poMsg.Subject = "re: " + TRIM(poMsg.Subject)
+   ENDIF
+ENDIF
 
 poUser = CREATEOBJECT("wwt_user")
 IF !poUser.Load(this.cAuthenticatedUserId)
@@ -343,6 +521,10 @@ IF !poUser.Load(this.cAuthenticatedUserId)
    RETURN Response.ExpandScript("~/WriteMessage.wwt")
 ENDIF
 
+IF plEditing AND !(poMsg.UserId == this.cAuthenticatedUserId)
+   this.ErrorMsg("Access Denied","You can only edit your own messages.")
+   RETURN
+ENDIF
 
 IF (Request.IsPostBack())
    poError.Errors = Request.UnbindFormVars(loMsgBus.oData)
@@ -363,9 +545,11 @@ IF (Request.IsPostBack())
 
    IF (poError.Errors.Count > 0)
    	   poError.Message = poError.Errors.ToHtml()
-   	   poError.Header = "Please fix the following form entry errors"
+   	   poError.Header = "Please fix the following form entry errors"   	   
    ELSE
-   	   Response.Redirect("Thread" + TRIM(poMsg.ThreadId) + ".wwt#" + TRIM(poMsg.MsgId))
+   	   loConfig = Server.oConfig
+   	   loMsgBus.Sendemail(loConfig.cAdminMailServer,loConfig.cAdminMailUsername, loConfig.cAdminMailPassword, .T.)   
+   	   Response.Redirect("Thread" + TRIM(poMsg.ThreadId) + ".wwt#" + TRIM(poMsg.MsgId))   	      	      	   
 	   return
    ENDIF               
 ELSE
@@ -374,7 +558,7 @@ ENDIF
 
 IF pnMsgMode = 2
 	loMsgBus = CREATEOBJECT("wwt_Message")
-	loMsgBus.GetThreadMessages(poMsg.ThreadId)
+	loMsgBus.GetThreadMessages(lcOrigId, 2)
 	
 	PRIVATE poMarkdown
 	poMarkdown = THIS.GetMarkdownParser()	
@@ -410,20 +594,57 @@ ENDFUNC
 ************************************************************************
 FUNCTION EditMessage()
 plEditing = .T.
-RETURN THIS.WriteMessage()
+RETURN THIS.WriteMessage(Request.QueryString("id"))
 ENDFUNC
 *   EditMessage
 
-*********************************************************************
-FUNCTION TestPage()
-************************
 
-THIS.StandardPage("Hello World from the wwThreadProcess process",;
-                  "If you got here, everything is working fine.<p>" + ;
-                  "Server Time: <b>" + TIME()+ "</b>")
-                  
+*** ADMIN METHODS
+
+************************************************************************
+*  Reindex
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION Reindex()
+
+IF !this.Authenticate("ANY","",.T.) OR EMPTY(this.cAuthenticatedUserId) 
+   Response.Redirect("~/Login.wwt?returnurl=Reindex.wwt")
+ENDIF
+IF !THIS.lAuthenticatedAdmin
+   this.ErrorMsg("Access denied","You have to be an administrator in order to access this task.")
+   RETURN
+ENDIF
+
+loMsgBus = CREATEOBJECT("wwt_Message")
+IF !loMsgBus.Reindex()
+   this.ErrorMsg("Unable to reindex Messages", ;
+     "The messages table most likely is locked. Try unloading all but one instance of the server and retry this operation.")
+   RETURN
+ENDIF
+
+THIS.StandardPage("Messages Reindexed","Messages have been reindexed and packed successfully.")
 ENDFUNC
-* EOF TestPage
+*   Reindex
+
+
+*** HELPER METHODS
+
+************************************************************************
+*  GetRecipient
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION GetRecipient(lcTo)
+RETURN STRTRAN(EXTRACT("!" + lcTo,"!","<","[",.T.),["],[])
+ENDFUNC
+*   GetRecipient
 
 ************************************************************************
 *  GetMarkdownParser
@@ -433,7 +654,7 @@ ENDFUNC
 ***      Pass:
 ***    Return:
 ************************************************************************
-FUNCTION GetMarkdownParser()
+PROTECTED FUNCTION GetMarkdownParser()
 LOCAL poMarkdown
 
 PUBLIC __wwThreadsMarkdownParser

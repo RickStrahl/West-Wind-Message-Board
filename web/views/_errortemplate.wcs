@@ -1,0 +1,19 @@
+﻿<% pcPageTitle = "dasdasd" %>
+<% Layout="~/views/_layoutpage.wcs" %>
+
+<div class="main-content" style="margin: 30px auto;padding: 20px;">
+    <div class="page-header-text">
+        <i class="fa fa-unlock-alt"></i>
+        <%= pcHeader %>
+    </div>
+
+	<p>
+		<%= pcBody %>
+	</p>
+</div>
+
+<% section="headers" %>
+<% endsection %>
+
+<% section="scripts" %>
+<% endsection %>

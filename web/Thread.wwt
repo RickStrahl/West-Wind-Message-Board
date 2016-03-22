@@ -11,6 +11,7 @@
 <link href="css/application.css" rel="stylesheet" />
 <% #endif  %>
 
+<!-- begin message content -->
 <div class="main-content">
     <div class="forum-header page-header-text">
         <%= forum %>
@@ -27,14 +28,11 @@
     <article class="message-list-item" data-id="<%= msgId %>">
         <div class="message-list-header">
 
-            <div class="pull-right hidable-xs">
-                <a href="#<%= MsgId %>"><%=MsgId%></a>
-            </div>
-
             <div style="font-size: 0.825em">
-                <img src="<%= GravatarLink(TRIM(FromEmail),60) %>"
-                     style="float: left; margin: 0 15px 0 0; width: 60px; height: 60px; border-radius: 4px; box-shadow: 2px 2px 3px #535353"
-                     alt="Gravatar image based on email address" />
+                <a href="http://gravatar.com" target="wwthreadsexternal">
+                    <img class="gravatar" src="<%= GravatarLink(TRIM(FromEmail),120) %>"
+                         alt="Gravatar is a globally recognized avatar based on your email address." />
+                </a>
 
                 <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
 
@@ -42,7 +40,15 @@
                 <%= EncodeHtml(FromName) %><br />
 
                 <i class="fa fa-reply fa-fw"></i>&nbsp;
-                <%= EncodeHtml(EXTRACT("!" + To,"!","<","[",.T.)) %><br />
+                <%= EncodeHtml(Process.GetRecipient(To)) %><br />
+
+                <div class="pull-right hidable-xs small">
+
+                    <i class="fa fa-external-link"></i>
+                    <a href="#<%= MsgId %>" title="Message id - click to update the URL for a pasteable link.">
+                        <%=MsgId%>
+                    </a>
+                </div>
 
                 <i class="fa fa-clock-o fa-fw"></i>&nbsp;
                 <%=ShortDate(TimeStamp,1 )%>  @ <%=ShortTime(TimeStamp)%><br />
@@ -54,8 +60,8 @@
                 <i class="fa fa-reply" style="color: lightgreen"></i>
                 Reply
             </a>
-            <% if UserId == Process.cAuthenticatedUserId %>
-            <a href="ReplyMessage.wwt?id=<%= MsgId %>" class="hover-dark">
+            <% if UserId == Process.cAuthenticatedUserId OR Process.lAuthenticatedAdmin %>
+            <a href="EditMessage.wwt?id=<%= MsgId %>" class="hover-dark">
                 <i class="fa fa-edit"></i>
                 Edit
             </a>
@@ -70,7 +76,7 @@
     <% ENDSCAN %>
 
 </div>
-
+<!-- end message content -->
 
 <!-- remove sections if you're not using them -->
 <% section="headers" %>
