@@ -7,30 +7,30 @@
 
 <div class="message-list-container">
     <div class="message-search-box" style="">
-        <div class="form-group">             
+        <div class="form-group">
             <%= HtmlDateTextBox("StartDate",poFilter.StartDate,[placeholder="Start Date" class="form-control input-sm"],0) %>
             <%= HtmlDateTextBox("EndDate",poFilter.EndDate,[placeholder="End Date" class="form-control input-sm"],0) %>
-        </div>        
+        </div>
 
-        <div class="form-group">            
-                <%= HtmlDropdown("Forum",Trim(poFilter.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
-                [class="form-control input-sm"],"-- Select a Forum --","") %>            
+        <div class="form-group">
+            <%= HtmlDropdown("Forum",Trim(poFilter.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
+            [class="form-control input-sm"],"-- Select a Forum --","") %>
         </div>
 
 
-        <div class="form-group ">            
+        <div class="form-group ">
             <input type="text" id="Search" name="Search" class="form-control input-sm"
                    placeholder="Search Phrase"
-                   value="<%= Request.FormOrValue([Search],poFilter.Search) %>" />            
+                   value="<%= Request.FormOrValue([Search],poFilter.Search) %>" />
         </div>
         <div class="form-group ">
             <input type="text" id="Search" name="Search" class="form-control input-sm"
                    placeholder="Message Id"
                    value="<%= Request.FormOrValue([MsgId],poFilter.MsgId) %>" />
         </div>
-        
+
         <button id="Search-Button-Submit" type="submit" class="btn btn-sm btn-primary ">
-            <i class="fa fa-search"></i> 
+            <i class="fa fa-search"></i>
             Search Messages
         </button>
         <button id="Search-Button-Clear" type="submit" class="btn btn-sm">
@@ -64,30 +64,29 @@
     </div>
     <span style="padding-right: 7px;">-</span> <%= EncodeHtml(forum) %>
 </div>
-<div class="forum-list-container">    
+<div class="forum-list-container">
     <% llOpenForum = .T.
     endif %>
     <div class="message-item" data-id="<%= Threadid %>">
-        <i class="fa fa-thumb-tack"></i>
+        <i class="fa fa-thumb-tack" style="color: firebrick;float: left; "></i>
         <div class="message-header">
-            
-            <a href="Thread<%= ThreadId %>.wwt">                
-                <%= EncodeHtml(Subject)  %>                
+
+            <a href="Thread<%= ThreadId %>.wwt">
+                <%= EncodeHtml(Subject)  %>
             </a>
         </div>
         <div class="message-detail">
             <div>
                 <b><%= FromName %></b>
-
-                <% if MsgCount - 1 > 0 %>
-                &nbsp;
-                <i class="fa fa-comments-o"></i>
-                <%= MsgCount - 1 %>
-                <% endif %>
-
                 &nbsp;  &bull;  &nbsp;
                 <i class="fa  fa-clock-o" style="color:steelblue" title="Last update on"></i>
                 <%= ShortDate(TimeStamp,2) %>
+
+                <% if MsgCount - 1 > 0 %>
+                &nbsp;  &bull;  &nbsp;
+                <i class="fa fa-comments-o"></i>
+                <%= MsgCount - 1 %>
+                <% endif %>
 
             </div>
         </div>

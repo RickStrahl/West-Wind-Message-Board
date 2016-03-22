@@ -41,16 +41,47 @@
             <!-- top right nav menu - .hidable for options that hide on small sizes -->
             <nav class="banner-menu-top pull-right">
                 <% if !Process.lIsAuthenticated %>
-                <a href="Login.wwt?returnurl=<%= Request.GetCurrentUrl() %>" class="pull-right" title="Sign in">
-                    <i class="fa fa-unlock"></i>
-                    Sign in
-                </a>
+             
+                    <a href="Login.wwt?returnurl=<%= Request.GetCurrentUrl() %>" class="pull-right" title="Sign in">
+                        <i class="fa fa-unlock-alt"></i>
+                        Sign in
+                    </a>
                 <% else %>
-                <a href="logout.wwt" class="pull-right" title="<%= Process.cAuthenticatedName %>">
-                    <i class="fa fa-lock"></i>
-                    <span class="hidable-xs"><%= Process.cAuthenticatedName %></span>
-                    <img title="Sign out <%= Process.cAuthenticatedName %>." src="<%= GravatarLink(Process.cAuthenticatedUser,23) %>" />
-                </a>
+                <style>
+                    .dropdown-menu {
+                        background: #838383;
+                    }
+                    .dropdown-menu>li>a {
+                        width: 100%;
+                        padding: 11px;
+                    }
+                    .dropdown-menu>li>a:hover {
+                        width: 100%;
+                        background: #555;
+                    }
+                </style>
+                <div class="btn-group">
+                    <a href="#" class="pull-right  dropdown-toggle" title="<%= Process.cAuthenticatedName %>" data-toggle="dropdown">
+                        <i class="fa fa-lock"></i>
+                        <span class="hidable-xs"><%= Process.cAuthenticatedName %></span>
+                        <img title="Sign out <%= Process.cAuthenticatedName %>." src="<%= GravatarLink(Process.cAuthenticatedUser,23) %>" />
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="Profile.wwt">
+                                <i class="fa fa-user"></i>&nbsp;
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="logout.wwt">
+                                <i class="fa fa-lock"></i>&nbsp;
+                                Sign out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <% endif %>
             </nav>
             <div class="clearfix"></div>
@@ -99,39 +130,6 @@
             </div> <!-- end #MainView -->
 
         </div>
-
-
-
-
-        <!-- slide in menu - Remove if you don't use it -->
-        <nav class="slide-menu">
-            <div style="padding: 10px 10px 10px 3px;">
-                <a class="disabled">
-                    <i class="fa fa-home"></i>
-                    Main Menu
-                </a>
-
-                <a href="~/">
-                    <i class="fa fa-home"></i>
-                    Home
-                </a>
-
-                <a href="#" class="indented">
-                    <i class="fa fa-newspaper-o"></i>
-                    Sub Link
-                </a>
-                <a href="#" class="indented">
-                    <i class="fa fa-newspaper-o"></i>
-                    Sub Link 2
-                </a>
-
-                <a href="#">
-                    <i class="fa fa-rss-square"></i>
-                    Login
-                </a>
-            </div>
-        </nav>
-
 
     </div>
     <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
