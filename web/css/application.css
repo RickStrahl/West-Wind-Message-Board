@@ -176,7 +176,7 @@ input[type=checkbox].with-font:focus ~ label
 
 .title-bar {
     position: absolute;
-    top: 2px;
+    top: 6px;
     left: 65px !important;
     z-index: 11;
 }
@@ -187,7 +187,7 @@ input[type=checkbox].with-font:focus ~ label
     position: absolute;
     left: 3px;
     top: 3px;
-    height: 59px; 
+    height: 60px; 
     float: left
 }
 
@@ -252,7 +252,9 @@ input[type=checkbox].with-font:focus ~ label
 }
 .menu-toolbar {
     flex: none;
-    background: #6c6c6c;
+    background: #585858;    
+    background-image: url('../images/FloralBackground_darkgrey.gif');
+    font-size: 1.1em;
     padding: 3px 8px;
     color: white;    
 }
@@ -407,7 +409,7 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
 
 #MainView {
     flex: 1 1 auto;
-    width: 100%;       
+    width: 100%;
     margin: 0;
     padding: 0;
     -webkit-overflow-scrolling: touch;
@@ -579,11 +581,10 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     }
     .gravatar {
         float: left;
-        margin: 0 15px 0 0;
-        width: 75px;
-        height: 75px;
+        margin: 0 15px 0 0;        
+        height: 71px;
         border-radius: 4px;
-        box-shadow: 2px 2px 3px #535353;
+        box-shadow: 3px 3px 6px #535353;
     }
     .message-list-body{
         padding: 20px 15px 10px;

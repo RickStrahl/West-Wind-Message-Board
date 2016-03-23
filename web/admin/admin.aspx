@@ -51,22 +51,16 @@
 <div class="flex-master">
    
     <div class="banner">
-        <a class="slide-menu-toggle-open no-slide-menu"
-           title="More Samples">
-            <i class="fa fa-bars"></i>
-        </a>
-
-
-        <div class="title-bar no-slide-menu" >
-            <a>
-                <img src="../images/Icon.png"
-                     style="height: 45px; float: left"/>
-                <div style="float: left; margin: 4px 5px; line-height: 1.0">
-                    <i style="color: #0092d0; font-size: 0.9em; font-weight: bold;">West Wind</i><br/>
-                    <i style="color: whitesmoke; font-size: 1.65em; font-weight: bold;">Web Connection</i>
-                </div>
-            </a>
-        </div>
+         <!-- Icon and Company Logo -->
+            <img class="title-bar-icon" src="../images/icon.png" />
+            <div class="title-bar no-slide-menu">
+                <a href="../">                    
+                    <div style="float: left; margin: 4px 5px; line-height: 1.0">
+                        <i style="color: #0092d0; font-size: 0.975em; font-weight: bold;">West Wind</i><br />
+                        <i style="color: whitesmoke; font-size: 1.7em; font-weight: bold;">Message Board</i>
+                    </div>
+                </a>
+            </div>
 
         <nav class="banner-menu-top pull-right">
             <a href="http://west-wind.com/webconnection/docs/" 

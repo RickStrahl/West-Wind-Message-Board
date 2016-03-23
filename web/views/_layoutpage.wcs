@@ -22,7 +22,7 @@
     <%= RenderSection("headers") %>
     <style>
         
-    </style>
+    </style> 
 </head>
 <body>    
     <div class="flex-master">

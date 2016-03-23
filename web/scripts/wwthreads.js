@@ -35,6 +35,10 @@ window.wwthreads = null;
                 loadTopicAjax(history.state.URL);
         }
 
+        // handle AJAX loading of topics        
+        $("#MessageList").on("click", ".message-item,.message-item >a", loadTopicAjax);
+
+
         $(document.body).on("click","#Search-Button,#Search-Button-Close",function() {
             $(".message-search-box").toggle();
         });
@@ -77,9 +81,7 @@ window.wwthreads = null;
 
         //showSidebar();
 
-        // handle AJAX loading of topics        
-        $("#MessageList").on("click", ".message-item,.message-item >a", loadTopicAjax);
-
+       
         // Collapsible Forum Headers
         $(".forum-list-header").click(function () {            
             var $el = $(this).next();            
