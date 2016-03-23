@@ -49,7 +49,7 @@ cResponseClass = [WWC_PAGERESPONSE]
 nPageScriptMode = 3
 
 *** Custom Error Page
-*cErrorTemplate = "~/Views/_ErrorTemplate.wcs"
+cErrorTemplate = "~/Views/_ErrorTemplate.wcs"
 
 cAuthenticationMode = "UserSecurity"
 cAuthenticatedUserId = ""
@@ -562,7 +562,7 @@ IF !poUser.Load(this.cAuthenticatedUserId)
    RETURN Response.ExpandScript("~/WriteMessage.wwt")
 ENDIF
 
-IF plEditing AND !(poMsg.UserId == this.cAuthenticatedUserId)
+IF plEditing AND !(poMsg.UserId == this.cAuthenticatedUserId OR this.lAuthenticatedAdmin)
    this.ErrorMsg("Access Denied","You can only edit your own messages.")
    RETURN
 ENDIF
