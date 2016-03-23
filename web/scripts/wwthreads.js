@@ -4,21 +4,53 @@ window.wwthreads = null;
     // exportable interface
     wwthreads = {
         initializeLayout: initializeLayout,
-        highlightCode: null // in aceConfig.js
+        highlightCode: null, // in aceConfig.js
 
-        //initializeTOC: initializeTOC
+        // this object is saved in localstorage
+        userData: {
+            lastAccess: new Date(),
+            lastMessageText: null,
+            threadMessages: null,
+            savedTime: new Date().getTime() - 310000,
+            save: function userData_save() {                
+                wwthreads.userData.savedTime = new Date().getTime();
+                if (localStorage)
+                    localStorage.setItem("wwt_userdata", JSON.stringify(wwthreads.userData));
+
+                
+            },
+            load: function userData_load() {
+                if (!localStorage)
+                    return;                
+                var data = localStorage.getItem("wwt_userdata");
+                if (data) {
+                    try {
+                        data = JSON.parseWithDate(data);
+                        $.extend(wwthreads.userData, data);
+                    }
+                    catch (ex) { localStorage.removeItem("wwt_userdata") };
+                }
+            },
+            getThreadMessages: function userData_getMessages() {
+                // stale after 5 minutes
+                if (wwthreads.userData.savedTime < new Date().getTime() - 300000)
+                    return null;
+                return wwthreads.userData.threadMessages;
+            }
+        }        
     }
 
-
     function initializeLayout() {
+        wwthreads.userData.load();
+
         // for old IE versions work around no FlexBox
         if (navigator.userAgent.indexOf("MSIE 9") > -1 ||
 	        navigator.userAgent.indexOf("MSIE 8") > -1 ||
 	        navigator.userAgent.indexOf("MSIE 7") > -1)
             $(document.body).addClass("old-ie");
 
+        loadMessageListAjax();
 
-        $.get("ThreadList.wwt", loadMessageList);
 
             // sidebar or hamburger click handler
         $(document.body).on("click", "#slide-menu-toggle", toggleSidebar);
@@ -35,20 +67,18 @@ window.wwthreads = null;
                 loadTopicAjax(history.state.URL);
         }
 
-        // handle AJAX loading of topics        
+        // handle AJAX loading of topics when clicking on topic in list       
         $("#MessageList").on("click", ".message-item,.message-item >a", loadTopicAjax);
 
+        // handle Message List refresh
+        $(document.body).on("click", "#Refresh-Button", function () { loadMessageListAjax(true); });
 
+        // Search button clicks
         $(document.body).on("click","#Search-Button,#Search-Button-Close",function() {
             $(".message-search-box").toggle();
-        });
-        $(document.body).on("click", "#Refresh-Button", function() {
-            $.get("ThreadList.wwt", loadMessageList);
-        });
-
+        });                
         $(".sidebar-left").on("click", "#Search-Button-Submit", messageSearchQuery);
         $(".sidebar-left").on("click", "#Search-Button-Clear", clearSearchQuery);
-
     }
 
     var sidebarTappedTwice = false;
@@ -74,14 +104,33 @@ window.wwthreads = null;
         return true;
     }
 
+    function loadMessageListAjax(forceReload) {
+        
+        // check for rl=1 query string which forces reload of thread list        
+        if (getUrlEncodedKey("rl", location.search))
+            forceReload = true;
+        var html = null;
+        if (!forceReload)
+            html = wwthreads.userData.getThreadMessages();
+
+        if (!html)
+            // load with AJAX
+            $.get("ThreadList.wwt",function(html) {                
+                wwthreads.userData.lastAccess = new Date();
+                wwthreads.userData.threadMessages = html;
+                wwthreads.userData.save();
+
+                loadMessageList(html);
+            });
+        else
+            loadMessageList(html); // load from cached list
+    }
     function loadMessageList(html) {        
         var $tocContent = $("<div>" + getBodyFromHtmlDocument(html) + "</div>").find(".message-list-container");
-        
-        $("#MessageList").html($tocContent.html());
+        var htmlToWrite = $tocContent.html();
 
-        //showSidebar();
+        $("#MessageList").html($tocContent.html(htmlToWrite));
 
-       
         // Collapsible Forum Headers
         $(".forum-list-header").click(function () {            
             var $el = $(this).next();            

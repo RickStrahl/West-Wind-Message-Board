@@ -171,8 +171,12 @@ SET ENGINEBEHAVIOR 70
     ENDIF
 #ENDIF
 
+
 *** Add any data paths - SET DEFAULT has already occurred so this is safe!
 SET PATH TO (this.oConfig.owwThreadProcess.cDataPath) ADDITIVE
+
+WAIT WINDOW this.oConfig.owwThreadProcess.cDataPath TIMEOUT 2
+WAIT WINDOW CURDIR() TIMEOUT 2
 
 *** Add any SET CLASSLIB or SET PROCEDURE code here
 

@@ -590,7 +590,9 @@ IF (Request.IsPostBack())
    ELSE
    	   loConfig = Server.oConfig
    	   loMsgBus.Sendemail(loConfig.cAdminMailServer,loConfig.cAdminMailUsername, loConfig.cAdminMailPassword, .T.)   
-   	   Response.Redirect("Thread" + TRIM(poMsg.ThreadId) + ".wwt#" + TRIM(poMsg.MsgId))   	      	      	   
+
+	   *** ?rl=1   - force list refresh
+   	   Response.Redirect("Thread" + TRIM(poMsg.ThreadId) + ".wwt#" + TRIM(poMsg.MsgId) + "?rl=1")   	      	      	   
 	   return
    ENDIF               
 ELSE

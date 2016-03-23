@@ -88,7 +88,7 @@
             </a>
         </div>
         <div class="edit-toolbar-sub">
-            This editor uses <a href="https://helpbuilder.west-wind.com/Docs/_4il175mgd.htm" target="wwthreadsexternal">Markdown text format</a>. Please format any code snippets using the <i class="fa fa-code"></i>  icon.
+            This editor uses <a href="https://helpbuilder.west-wind.com/Docs/_4il175mgd.htm" target="wwthreadsexternal" tabindex="-1">Markdown text format</a>. Please format any code snippets using the <i class="fa fa-code"></i>  icon.
         </div>
 
         <pre lang="markdown" id="Editor">
@@ -108,8 +108,6 @@
         <input type="hidden" id="MsgMode" name="MsgMode" value="<%= Request.FormOrValue(" MsgMode",pnMsgMode) %>" />
     </form>
 </div>
-
-
 
     <%
        if pnMsgMode = 2 
@@ -392,13 +390,23 @@
 <script src="~/scripts/wwhelp_editor.js"></script>
 <script src="~/WriteMessage.js"></script>
 <script src="bower_components/toastr/toastr.min.js" async></script>
-<script>
-
-</script>
 
 <% if (pnMsgMode == 2) %>
 <script>
     wwthreads.highlightCode();
+</script>    
+<% endif %>
+
+<% if (pnMsgMode == 1 and !plEditing) %>
+<script>
+    setTimeout(function () { $("#Subject").focus(); }, 150);    
 </script>
 <% endif %>
+
+<script>
+    setTimeout(function () {
+        toastr.info("Please mark up your code using the </> icon in the toolbar or by using ```lang / ```");
+    }, 2000);
+</script>
+
 <% endsection %>
