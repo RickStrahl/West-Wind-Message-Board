@@ -68,7 +68,15 @@
     <% llOpenForum = .T.
     endif %>
     <div class="message-item" data-id="<%= Threadid %>">
-        <i class="fa fa-thumb-tack" style="color: firebrick;float: left; "></i>
+        <div class="pull-left">
+            <i class="fa fa-thumb-tack<%= IIF(MsgCount -1 < 1,[ fa-rotate-90],[]) %>" style="color: firebrick;"></i>
+            <% if MsgCount - 1 > 0 %>
+                <div style="font-size:8pt; margin-top: 3px;">
+                <%= MsgCount - 1 %><i class="fa fa-comments-o" style="padding-left: 2px;color: steelblue;"></i>
+            </div>
+            <% endif %>
+        </div>
+
         <div class="message-header">
 
             <a href="Thread<%= ThreadId %>.wwt">
@@ -81,12 +89,6 @@
                 &nbsp;  &bull;  &nbsp;
                 <i class="fa  fa-clock-o" style="color:steelblue" title="Last update on"></i>
                 <%= ShortDate(TimeStamp,2) %>
-
-                <% if MsgCount - 1 > 0 %>
-                &nbsp;  &bull;  &nbsp;
-                <i class="fa fa-comments-o"></i>
-                <%= MsgCount - 1 %>
-                <% endif %>
 
             </div>
         </div>

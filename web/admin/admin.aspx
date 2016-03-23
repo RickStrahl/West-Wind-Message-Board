@@ -1,4 +1,4 @@
-<%@Page language="C#" Trace="False"%>
+<%@Page language="C#" Trace="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,8 @@
     
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />    
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../css/application.css" rel="stylesheet" />  
+    <link href="../css/application.css" rel="stylesheet" />      
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <style>
         .row li {
             margin-left: -15px;    
@@ -47,6 +48,7 @@
      this.Show = "wc";
 %>
 <body>
+<div class="flex-master">
    
     <div class="banner">
         <a class="slide-menu-toggle-open no-slide-menu"
@@ -69,7 +71,7 @@
         <nav class="banner-menu-top pull-right">
             <a href="http://west-wind.com/webconnection/docs/" 
                 target="top"
-                class="menu-hidable">
+                class="hidable">
                 <i class="fa fa-book"></i>
                 Documentation
             </a>
@@ -110,27 +112,26 @@
 
                 <h4>Log Files</h4>                
                 <ul>
-                    <li><b><a href="wc.wc?wwmaint~showlog">Show Web Connection Server Hit Log</a></b></li>
-                    <li><b><a href="wc.wc?wwmaint~showlog~Error">Show Server Error Log</a></b></li>
-                    <li><b><a href="wc.wc?wwMaint~ClearLog~NoBackup">Clear the Log to today's date</a></b></li>
-                    <li><b><a href="wc.wc?wwMaint~wcDLLErrorLog">Show ISAPI Error Log</a></b></li>
+                    <li><b><a href="wc.wc?wwmaint~showlog">Web Connection Server Request Log</a></b></li>
+                    <li><b><a href="wc.wc?wwmaint~showlog~Error">Web Connection Server Error Log</a></b></li>
+                    <li><b><a href="wc.wc?wwMaint~ClearLog~NoBackup">Clear Server Log to today's date</a></b></li>
+                    <li><b><a href="wc.wc?wwMaint~wcDLLErrorLog">Web Connection Module Error Log</a></b></li>
                 </ul>
                 
                 <h4>Server Settings</h4>
                 <ul>                    
-                    <li><b><a href="wc.wc?wwmaint~ShowStatus">Web Connection FoxPro Server Settings</a></b></li>
+                    <li><b><a href="wc.wc?wwmaint~ShowStatus">Web Connection Server Settings</a></b></li>
                     <li><b><a href="wc.wc?wwMaint~EditConfig">Edit Configuration Files</a></b></li>
                 </ul>
 
                 <h4>Server Resources</h4>
                 <ul>
                     <li>
-                        <b><a href="wc.wc?wwMaint~ReindexSystemFiles">Reindex Web Connection SystemFiles</b></li>
+                        <a href="wc.wc?wwMaint~ReindexSystemFiles"><b>Pack and Reindex wwSession Table</b></a></li>
                     <li>
-                        <b><a href="wc.wc?wwDemo~Reindex">Reindex Web Connection Demo Files</a></b>
+                        <a href="wc.wc?wwDemo~Reindex"><b>Pack and Reindex Web Connection Demo Files</b></a>
                     </li>                            
                     <li>
-                        
                         <b>Script Mode:</b>
                         <small>
                             <a href="wc.wc?wwMaint~ScriptMode~Interpreted">Interpreted</a>&nbsp; 
@@ -138,14 +139,16 @@
                         </small>
                         </li>
                         <li>
-                            <b>Compile WCS script pages</b>
-                            <br/>
-                            <small>
                             <form method="POST" action="wc.wc?wwmaint~CompileWCS">                    
-                                <input type="text" name="txtFileName" value="<%= this.Physical%>\*.wcs" size="30">
-                                <input type="submit" value="Compile" name="btnSubmit">
-                            </form>                            
-                            </small>
+                                <input type="text" 
+                                      name="txtFileName" 
+                                    class="form-control"
+                                    value="<%= Request.PhysicalApplicationPath %>*.wcs" style="width: 330px; margin-bottom: 5px;">                                
+                                 <button type="submit" name="btnSubmit" class="btn btn-primary">
+                                     <i class="fa fa-code"></i>
+                                     Compile WCS Script Pages
+                                 </button>
+                            </form>                                                       
                         </li>
                 
         </ul>
@@ -159,45 +162,110 @@
                 <h4>Module Administration</h4> 
                 <ul>
                  <li>                    
-                    <b><a href="wc.wc?_maintain~ShowStatus">Web Connection Module Administration</a></b><br>
+                    <b><a href="ModuleAdministration.wc">Web Connection Module Administration</a></b><br>
                     <small>Shows the status of the underlying .NET or ISAPI&nbsp; DLL connector flags, lets you switch from File to COM operation, shows
                     all instances of the server loaded under Com and the current state of the HoldRequests
                     flag.</small>
                 </li>
-
-                <li>
-                    <b><a href="wc.wc?_maintain~UpdateExe">Update Code online</a></b><br />
-                    <small>Update the EXE file online with an uploaded file as specified by the <i>ExeFile</i>
-                    and <i>UpdateFile</i> keys in wc.ini.Make sure you've uploaded the file first. You
-                    can FTP or copy the file directly or use the link below.</small>
-
-
-                    &nbsp;<form action="wc.wc?wwMaint~FileUpload" method="POST" enctype="multipart/form-data">
-                        <b>Upload file:</b><br />
-                        <input type="FILE" name="File" style="display: inline;">
-                        <input type="submit" value="Upload" />
-                        <br>
-                        <small>Note: the uploaded file goes into the Temp directory on the server. Use the <i>UpdateFile</i>
-                        key in wc.ini to configure the location and name of the uploaded file.</small><p>
-                        </p>
-                    </form>
-                    </li>
-                    
+                </ul>
                 
-                <li>
-                    <b><a href="wc.wc?wwMaint~RebootMachine">Reboot Machine</a> | <a href="wc.wc?wwMaint~RebootMachine~&RestartOnly=yes">
-                    Restart IIS</a></b>
-                    </br>
-                    <i><small>Make sure your server can fully restart without manual interaction or logons.</small></i>
-                </li>
+                <h4>Server Hotswapping</h4>
+                <ul>
+                    <li> <b>Upload new Web Connection Server</b><br />
+                        <p class="small">
+                            Upload a new Web Connection server EXE to the filename specified in the <b>UpdateExe</b>
+                            configuration setting.
+                        </p>
+
+                        <style>
+                            /* Container*/
+                            .fileUpload {
+                                position: relative;
+                                overflow: hidden;
+                            }
+                            /* hide the actual file upload control by making it invisible */
+                            .fileUpload input.upload {
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+                                margin: 0;
+                                padding: 0;
+                                font-size: 20px;
+                                cursor: pointer;
+                                opacity: 0;
+                                filter: alpha(opacity=0);
+                            }
+                        </style>
+
+                        <form action="Uploadexe.wc" method="POST" enctype="multipart/form-data">
+                            <div class="fileUpload btn btn-sm btn-primary stackable" style="width: 220px;">
+                                <span>
+                                    <i class="fa fa-upload"></i>
+                                    Upload Server Exe (.NET Handler)
+                                </span>
+                                <input type="file" id="file" name="file" class="upload" />
+                            </div>
+                            
+                            <button id="UploadButton" type="submit" class="visually-hidden" >                                                                
+                                Upload (.NET Module)
+                            </button>                            
+                            <script>
+                                document.getElementById("file").onchange = function () {                                    
+                                    $("#UploadButton").trigger("click");
+                                };
+                            </script>
+                        </form>
+                        
+                       
+                        <form action="wc.wc?wwMaint~FileUpload" method="POST" enctype="multipart/form-data" style="margin-top: 5px;">
+                            <div class="fileUpload btn btn-sm btn-primary stackable" style="width: 220px;">
+                                <span>
+                                    <i class="fa fa-upload"></i>
+                                    Upload Server Exe (ISAPI Handler)
+                                </span>
+                                <input type="file" id="file" name="file" class="upload" />
+                            </div>
+                            
+                            <button id="UploadButton" type="submit" class="visually-hidden" >                                
+                               Upload
+                            </button>                            
+                            <script>
+                                document.getElementById("file").onchange = function () {                                    
+                                    $("#UploadButton").trigger("click");
+                                };
+                            </script>
+                        </form>
+
+                        <p class="small" style="margin-top: 12px;">
+                            Once uploaded you can hotswap the uploaded server exe
+                            by copying the <b>UpdateExe</b> to the <b>ExeFile</b>.
+                        </p>
+                        <a href="wc.wc?_maintain~UpdateExe" class="btn btn-sm btn-primary" style="width: 140px;">
+                            <i class="fa fa-refresh"></i>
+                            Swap Server Exe
+                        </a>
+                    </li>                                  
+                
+                    <li>
+                        <b><a href="wc.wc?wwMaint~RebootMachine~&RestartOnly=yes"> Restart IIS</a> | <a href="wc.wc?wwMaint~RebootMachine">Reboot Machine</a></b>                        
+                        </br>
+                        <i><small>Make sure your server can fully restart without manual interaction or logons.</small></i>
+                    </li>
                 
                 </ul>
-            </div> <!-- end col 2 -->
+            </div> <!-- end col 2 --> 
         </div>
 
-<div class="well well-sm">
-<form action='' method='POST'>Exe file starts with: <input type='text' id='exeprefix' name='exeprefix' value='<%= this.Show %>' /><input type='submit' value='Refresh' /></form></td>
- </div>
+        <div class="well well-sm">
+            <form action='' method='POST'>
+                Exe file starts with: 
+            <input type='text' id='exeprefix' name='exeprefix' value='<%= this.Show %>' class="input-sm" />
+                <button type='submit' class="btn btn-default btn-sm">
+                    <i class="fa fa-refresh"></i>
+                    Refresh
+                </button>
+            </form>
+        </div>
 
 
         <table class="table table-condensed table-responsive table-striped" >
@@ -236,6 +304,7 @@
         <small>&copy; Westwind Technologies, 1995-<%= DateTime.Now.Year %></small>
     </footer>
    
+</div>
 
     <script type="text/javascript">
         function updateWebResources() {

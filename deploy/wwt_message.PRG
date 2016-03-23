@@ -1,6 +1,6 @@
 
 SET CLASSLIB TO wwBusiness ADDITIVE
-SET CLASSLIB TO wwUtils ADDITIVE
+SET PROCEDURE TO wwUtils ADDITIVE
 SET PROCEDURE TO wwCollections ADDITIVE
 SET PROCEDURE TO wwt_message.prg ADDITIVE
 
@@ -11,11 +11,11 @@ DEFINE CLASS wwt_message AS wwbusiness
 *************************************************************
 
 cAlias = "wwthreads"
-cDataPath = ".\data\"
+cDataPath = ""
 cFileName = "wwthreads"
 
 cPkField = "MsgId"
-cIdTable = ".\data\wwt_id.dbf"
+cIdTable = "wwt_id.dbf"
 
 *** Sql Connection String
 cConnectString = ""

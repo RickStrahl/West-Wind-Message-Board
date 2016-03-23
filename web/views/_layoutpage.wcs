@@ -28,12 +28,12 @@
     <div class="flex-master">
         <header class="banner">
             <!-- Icon and Company Logo -->
+            <img class="title-bar-icon" src="~/images/icon.png" />
             <div class="title-bar no-slide-menu">
-                <a href="~/">
-                    <img class="title-bar-icon" src="~/images/icon.png" />
+                <a href="~/">                    
                     <div style="float: left; margin: 4px 5px; line-height: 1.0">
-                        <i style="color: #0092d0; font-size: 0.9em; font-weight: bold;">West Wind</i><br />
-                        <i style="color: whitesmoke; font-size: 1.65em; font-weight: bold;">Message Board</i>
+                        <i style="color: #0092d0; font-size: 0.975em; font-weight: bold;">West Wind</i><br />
+                        <i style="color: whitesmoke; font-size: 1.7em; font-weight: bold;">Message Board</i>
                     </div>
                 </a>
             </div>

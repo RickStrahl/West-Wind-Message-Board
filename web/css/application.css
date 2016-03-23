@@ -177,14 +177,17 @@ input[type=checkbox].with-font:focus ~ label
 .title-bar {
     position: absolute;
     top: 2px;
-    left: 32px;
+    left: 65px !important;
     z-index: 11;
 }
 .title-bar.no-slide-menu {
     left: 5px;
 }
 .title-bar-icon {
-    height: 50px; 
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    height: 59px; 
     float: left
 }
 
@@ -202,7 +205,7 @@ input[type=checkbox].with-font:focus ~ label
     background: #434343;
     box-shadow: 3px 3px 6px #636363;
     color: white;
-    flex: 0 0 auto;  /* don't grow | shrink */
+   
 }
 .banner-logo {
 	height: 50px; 
@@ -223,7 +226,7 @@ input[type=checkbox].with-font:focus ~ label
 
 .banner nav a, .banner nav input {
     display: inline-block;
-    padding: 10px 4px 6px;
+    padding: 9px 4px 6px;
     color: #eee;    
     text-decoration: none;
     border-bottom: solid 4px transparent;
@@ -542,7 +545,7 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         
     }
     .message-item {        
-        padding: 2px 10px 2px 10px;
+        padding: 3px 10px 6px 8px;
         border-bottom: 1px solid #eee;
         margin: 0 5px
     }
@@ -550,21 +553,21 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
                 background: khaki;
                 border-radius: 3px;
             }
-     .message-item .fa-thumb-tack {
-         color: firebrick;float: left; margin-top: 11px; 
+     .message-item .pull-left {         
+         margin-top: 5px; 
          font-size: 1.1em;
      }
 
     .message-header {
         font-weight: bold;
-        margin-top: 9px;        
+        margin-top: 5px;        
         font-size: 1.1em;
-        padding-left: 20px;
+        padding-left: 30px;
         display: block
     }
     .message-detail {
         font-size: 0.8em;
-        padding: 3px 20px;
+        padding: 3px 30px;
     }
 
     .message-list-item {

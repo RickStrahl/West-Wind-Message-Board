@@ -19,8 +19,8 @@ DCOM_ProgId       =			"Wwthreads.WwthreadsServer"
 DCOM_UserId		  =			"Interactive User"
 
 *** Server Update Urls - fix these to point at your production Server/Virtual
-HTTP_UPLOADURL    =         "http://localhost/Wwthreads/wc.wc?_maintain~UploadExe"
-HTTP_UPDATEURL 	  =         "http://localhost/Wwthreads/wc.wc?_maintain~UpdateExe"
+HTTP_UPLOADURL    =         "http://support.west-wind.com/UploadExe.wc"
+HTTP_UPDATEURL 	  =         "http://support.west-wind.com/UpdateExe.wc"
 
 *** for ISAPI use this url
 * HTTP_UPLOADURL    =         "http://localhost/Wwthreads/wc.wc?wwmaint~FileUpload"

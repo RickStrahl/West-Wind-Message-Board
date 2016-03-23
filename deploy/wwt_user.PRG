@@ -1,5 +1,5 @@
 SET CLASSLIB TO wwBusiness ADDITIVE
-SET CLASSLIB TO wwUtils ADDITIVE
+SET PROCEDURE TO wwUtils ADDITIVE
 SET PROCEDURE TO wwCollections ADDITIVE
 SET PROCEDURE TO wwt_user.prg ADDITIVE
 
@@ -8,11 +8,11 @@ DEFINE CLASS wwt_user AS wwbusiness
 *************************************************************
 
 cAlias = "wwusers"
-cDataPath = ".\data\"
+cDataPath = ""
 cFileName = "wwusers"
 
 cPkField = "CookieId"
-cIdTable = ".\data\wwt_id.dbf"
+cIdTable = "wwt_id.dbf"
 
 *** Sql Connection String
 cConnectString = ""

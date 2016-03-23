@@ -65,6 +65,10 @@
                 <i class="fa fa-edit"></i>
                 Edit
             </a>
+            <a href="DeleteMessage.wwt?id=<%= MsgId %>" class="hover-dark">
+                <i class="fa fa-remove"></i>
+                Delete
+            </a>
             <% endif %>
         </div>
 

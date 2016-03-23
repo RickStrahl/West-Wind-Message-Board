@@ -31,55 +31,56 @@
     </style>
 </head>
 <body>
-    <div class="banner">
-        <a class="slide-menu-toggle-open no-slide-menu"
-           title="More Samples">
-            <i class="fa fa-bars"></i>
-        </a>
+    <div class="flex-master">
+        <div class="banner">
+            <a class="slide-menu-toggle-open no-slide-menu"
+               title="More Samples">
+                <i class="fa fa-bars"></i>
+            </a>
 
-        <div class="title-bar no-slide-menu">
-            <a href="~/">
-                <img src="~/images/icon.png"
-                     style="height: 45px; float: left" />
-                <div style="float: left; margin: 4px 5px; line-height: 1.0">
-                    <i style="color: #0092d0; font-size: 0.9em; font-weight: bold;">West Wind</i><br />
-                    <i style="color: whitesmoke; font-size: 1.65em; font-weight: bold;">Web Connection</i>
+            <div class="title-bar no-slide-menu">
+                <a href="~/">
+                    <img src="~/images/icon.png"
+                         style="height: 45px; float: left" />
+                    <div style="float: left; margin: 4px 5px; line-height: 1.0">
+                        <i style="color: #0092d0; font-size: 0.9em; font-weight: bold;">West Wind</i><br />
+                        <i style="color: whitesmoke; font-size: 1.65em; font-weight: bold;">Web Connection</i>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="banner-menu-top pull-right">
+                <a href="http://west-wind.com/webconnection/docs/" class="hidable">
+                    <i class="fa fa-book"></i>
+                    Documentation
+                </a>
+                <a href="~/admin/admin.aspx">
+                    <i class="fa fa-gears"></i>
+                    Admin
+                </a>
+            </nav>
+        </div>
+
+
+        <div id="MainView">
+            <div class="container">
+                <div class="page-header-text">
+                    <i class="fa fa-gear"></i>
+                    {0}
                 </div>
-            </a>
-        </div>
 
-        <nav class="banner-menu-top pull-right">            
-            <a href="http://west-wind.com/webconnection/docs/" class="hidable">
-                <i class="fa fa-book"></i>
-                Documentation
+                <div>
+                    {1}
+                </div>
+            </div>
+        </div> <!-- end #MainView -->
+
+        <footer>
+            <a href="http://www.west-wind.com/" class="pull-right">
+                <img src="~/images/WestwindText.png" />
             </a>
-            <a href="~/admin/admin.aspx">
-                <i class="fa fa-gears"></i>
-                Admin
-            </a>            
-        </nav>
+            <small>&copy; Westwind Technologies</small>
+        </footer>
     </div>
-
-
-    <div id="MainView">
-        <div class="container">
-            <div class="page-header-text">
-                <i class="fa fa-gear"></i>
-                {0}
-            </div>
-
-            <div>
-                {1}
-            </div>
-        </div>
-    </div> <!-- end #MainView -->
-
-    <footer>
-        <a href="http://www.west-wind.com/" class="pull-right">
-            <img src="~/images/WestwindText.png"/>
-        </a>
-        <small>&copy; Westwind Technologies</small>
-    </footer>
-
 </body>
 </html>

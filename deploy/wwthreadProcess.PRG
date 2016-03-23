@@ -49,11 +49,34 @@ cResponseClass = [WWC_PAGERESPONSE]
 nPageScriptMode = 3
 
 *** Custom Error Page
-cErrorTemplate = "~/Views/_ErrorTemplate.wcs"
+*cErrorTemplate = "~/Views/_ErrorTemplate.wcs"
 
 cAuthenticationMode = "UserSecurity"
 cAuthenticatedUserId = ""
 lAuthenticatedAdmin = .F.
+
+
+************************************************************************
+*  TestPage
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION TestPage()
+
+Response.Write("<pre>Path: ")
+Response.Write(SET("PATH") + CRLF )
+
+Response.Write("Server Path: " + CRLF)
+Response.Write( THIS.ResolvePath("~/") )
+
+Response.Write("Server Path: " + CRLF)
+Response.Write(Request.GetApplicationPath())
+
+ENDFUNC
+*   TestPage
 
 *********************************************************************
 * Function wwThreadProcess :: OnProcessInit
@@ -93,10 +116,15 @@ IF (lcScript != "threads" AND lcScript = "thread" AND lcScript != "threadlist" )
    lcThreadId = SUBSTR(lcScript,LEN("thread")+1)
    IF !EMPTY(lcThreadId)
 	   this.Thread(lcThreadId)
-	   return .F.
+	   return .F. && No further routing
    ENDIF
 ENDIF
 
+*** Handle messageXXXX.wwt scripts
+IF lcScript = "message" 
+   this.Message()
+   RETURN .F.  && No further routing
+ENDIF
 
 *** Add CORS header to allow x-site access from other domains/mobile devices
 *** Uncomment for JSON Services and change * to allowed domain list
@@ -366,7 +394,12 @@ FUNCTION Thread(lcThreadId)
 LOCAL loMsgBus
 
 loMsgBus = CREATEOBJECT("wwt_Message")
-loMsgBus.GetThreadMessages(lcThreadId)
+lnResult = loMsgBus.GetThreadMessages(lcThreadId)
+
+IF lnResult < 1
+   Response.Redirect("~/threads.wwt")
+   RETURN
+ENDIF
 
 PRIVATE poMarkdown
 poMarkdown = THIS.GetMarkdownParser()
@@ -445,6 +478,10 @@ FUNCTION Message()
 loMsgBus = CREATEOBJECT("wwt_Message")
 
 lcMsgId = Request.QueryString("id")
+IF EMPTY(lcMsgId) 
+   lcMsgId = STRTRAN(JUSTSTEM(Request.GetPhysicalPath()),"message","",1,1,1)   
+ENDIF
+
 loMsgBus.GetThreadMessages(lcMsgId,2)
 
 PRIVATE poMarkdown
@@ -501,18 +538,22 @@ ENDIF
 
 poMsg = loMsgBus.oData
 
+*** Force to markdown
+poMsg.Format = 2 && Markdown
+
 lcOrigId = poMsg.MsgId
 
 *** Override for a new message
-poMsg.MsgId = loMsgBus.CreateNewId()
 IF !plEditing
 	poMsg.Message = ""
+	poMsg.MsgId = loMsgBus.CreateNewId()
 ENDIF
 IF pnMsgMode = 2
    poMsg.To = ["] + TRIM(poMsg.FromName) + [" <] + TRIM(poMsg.FromEmail) + [>]
    IF ATC("re:",poMsg.Subject) = 0
       poMsg.Subject = "re: " + TRIM(poMsg.Subject)
    ENDIF
+   poMsg.TimeStamp = DATETIME()
 ENDIF
 
 poUser = CREATEOBJECT("wwt_user")
@@ -598,8 +639,160 @@ RETURN THIS.WriteMessage(Request.QueryString("id"))
 ENDFUNC
 *   EditMessage
 
+************************************************************************
+*  DeleteMessage
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION DeleteMessage()
+
+lcMsgId = Request.QueryString("id")
+
+poUser = CREATEOBJECT("wwt_user")
+IF !this.lAuthenticatedAdmin AND ;
+   (EMPTY(lcMsgId) OR !poUser.Load(this.cAuthenticatedUserId))
+   Response.Redirect("~/threads.wwt")
+   RETURN
+ENDIF
+
+lcThreadId = ""
+
+LOCAL loMsgBus as wwt_Message
+loMsgBus = CREATEOBJECT("wwt_Message")
+IF loMsgBus.Load(lcMsgId)
+   lcThreadId = TRIM(loMsgBus.oData.ThreadId)
+   IF (this.lAuthenticatedAdmin OR TRIM(loMsgBus.oData.UserId) == this.cAuthenticatedUserId)
+   	  loMsgBus.Delete(lcMsgId)
+   ENDIF
+ENDIF
+
+IF !EMPTY(lcThreadId)
+   Response.Redirect("~/Thread" + lcThreadId + ".wwt")
+ELSE
+   Response.Redirect("~/threads.wwt")
+ENDIF
+   
+ENDFUNC
+*   DeleteMessage
+
+************************************************************************
+*  ImageUpload
+****************************************
+***  Function: AjaxImage Upload
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION ImageUpload()
+
+IF EMPTY(this.cAuthenticatedUser)
+   ERROR "You have to be signed in to upload images."
+ENDIF
+
+loFiles = Request.GetMultiPartFiles("ImageUpload")
+IF loFiles.Count < 1
+	ERROR "No files uploaded."
+ENDIF
+
+loFile = loFiles.Item(1)
+lcNewFile =  SYS(2015) + "." + JUSTEXT(loFile.FileName)
+lcNewPath = this.ResolvePath("~/PostImages/" + TRANSFORM(YEAR(DATETIME())) + "/")
+IF !ISDIR(lcNewPath)
+    MD (lcNewPath)
+ENDIF
+lcFileName = lcNewPath + lcNewFile
+
+STRTOFILE(loFile.Content,lcFileName)	
+
+lcUrl = this.ResolveServerUrl("~/PostImages/"  + TRANSFORM(YEAR(DATETIME())) + "/" + lcNewFile)
+
+Response.ContentType = "application/json"
+Response.Write( JsonString(lcUrl) )
+ENDFUNC
+*   ImageUpload
 
 *** ADMIN METHODS
+
+************************************************************************
+FUNCTION  Backup()
+****************************************
+***  Function:
+***    Assume:
+************************************************************************
+LOCAL lcPath
+
+#IF .F. 
+LOCAL Request as wwRequest, Response as wwResponse
+#ENDIF
+
+IF !this.lAuthenticatedAdmin
+  Response.Redirect("~/")	
+  RETURN
+ENDIF
+
+IF EMPTY(Request.Querystring("instancing"))
+   Response.Redirect("backup.wwt?instancing=single")
+   RETURN
+ENDIF
+
+lcPath = JUSTPATH(Request.GetPhysicalPath()) + "\backup\"
+IF !ISDIR(lcPATH)
+   MD (lcPath)
+ENDIF
+ERASE (lcPath + "*.*")
+
+IF !USED("wwThreads")
+   USE wwThreads 
+ENDIF
+SELECT wwThreads
+
+COPY TO (lcPath + "wwThreads") FOR timestamp > DATE() - 1500
+
+IF !USED("wwUsers")
+   USE wwUsers 
+ENDIF
+SELECT wwUsers
+COPY TO (lcPath + "wwUsers") FOR Name # "  "
+
+IF !USED("wwt_forums")
+   USE wwt_forums IN 0
+ENDIF
+SELECT wwt_forums
+COPY TO (lcPath + "wwt_fourms")
+
+
+lcZipFileName = lcPath +  "wwThreads_"+DTOS(DATE()) + ".zip"
+
+IF ZipFiles(lcZipFileName,lcPath + "*.*") # 0
+   THIS.StandardPage("Problem Zipping files","This either means there's a permissions problem in the ~/admin/backup folder or the dzip/dunzip DLLs are not present in the application folder.")
+   RETURN
+ENDIF
+
+ERASE (lcPath + "wwThreads.*")
+ERASE (lcPath + "wwUsers.*")
+
+lnFileSize = FILESIZE(lcZipFileName)
+IF lnFileSize < 1
+   THIS.StandardPage("Failure backing up files")
+   RETURN
+ENDIF
+
+THIS.StandardPage("Backup file created",;
+                  "You can download it from here:<p>" + ;
+                  "<a href='backup/" + JUSTFNAME(lcZipFileName) + "'>Download backup file.")
+RETURN
+
+Response.AppendHeader("Content-length",TRANSFORM( lnFileSize) )
+Response.AppendHeader("Content-type","application/x-zip-compressed")
+Response.AppendHeader("Content-disposition","attachment; filename="+;
+                      JUSTSTEM(lcZipFileName)+".zip")
+
+Response.Write( FILETOSTR( lcZipFileName ) )                               
+ENDFUNC
+*  wwThreads :: Backup
 
 ************************************************************************
 *  Reindex

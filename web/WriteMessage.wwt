@@ -55,7 +55,6 @@
             <a id="btnCode" class="btn btn-sm btn-link">
                 <i class="fa fa-code"></i>
             </a>
-
             |
 
             <a id="btnBold" class="btn btn-sm btn-link">
@@ -112,8 +111,10 @@
 
 
 
-    <% SELE TMessages
-       if pnMsgMode = 2  %>
+    <%
+       if pnMsgMode = 2 
+         SELE TMessages
+    %>
 <hr />
 
 <div class="forum-header page-header-text">
@@ -294,6 +295,66 @@
     </div>
 </div>
 
+<div class="modal fade" id="ImageDialog" tabindex="-1" role="dialog" aria-labelledby="ImageDialog-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ImageDialog-label">Insert Image</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label" for="ImageHref">Image Url <span class="small">(external source ie. Flicker, ImgUr,Dropbox etc.)</span></label>
+                    <input type="text" class="form-control" id="ImageHref" placeholder="Provide a URL of an image on the Web">
+                </div>
+                <button class="btn btn-primary">
+                    <i class="fa fa-image"></i> 
+                    Insert Image Url
+                </button>
+
+               <hr />
+               
+                <form id="ajaxForm" name="ajaxForm" enctype="multipart/form-data">
+                    <style>
+                        .fileUpload {
+                            position: relative;
+                            overflow: hidden;
+                        }
+                            /* hide the actual file upload control by making it invisible */
+                            .fileUpload input.upload {
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+                                margin: 0;
+                                padding: 0;
+                                font-size: 20px;
+                                cursor: pointer;
+                                opacity: 0;
+                                filter: alpha(opacity=0);
+                            }
+                    </style>
+                    <div class="fileUpload btn btn-primary">
+                        <span>
+                            <i class="fa fa-upload"></i>
+                            Upload Image
+                            <i id="ajaxProgress" class="fa fa-spinner fa-spin" style="display: none"></i>
+                        </span>
+                        <input type="file" id="ajaxUpload" name="ajaxUpload"
+                               class="upload" accept="image/*"  />
+                    </div>
+                </form>
+
+
+
+</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- remove sections if you're not using them -->
 <% section="headers" %>
@@ -329,74 +390,9 @@
 
 <% section="scripts" %>
 <script src="~/scripts/wwhelp_editor.js"></script>
+<script src="~/WriteMessage.js"></script>
+<script src="bower_components/toastr/toastr.min.js" async></script>
 <script>
-    $(document).ready(function () {
-        var edResize = debounce(resizeEditor, 100);
-        //resizeEditor();
-        //$(window).resize(edResize);
-        function resizeEditor() {
-            $("#Editor").height(window.innerHeight - 500);
-        }
-        window.textEditor.setvalue($("#Message").val(), -1);
-    });
-
-
-    $(".edit-toolbar a").click(handleMenuButtons);
-
-    function handleMenuButtons(id) {
-        var $btn = $(this);
-        var id = null;
-        if (typeof id !== "string")
-            id = $btn.prop("id");
-
-        var selectedText = textEditor.getselection();
-
-        if (id === "btnBold")
-            textEditor.setselection("**" + selectedText + "**");
-        else if (id == "btnItalic")
-            textEditor.setselection("*" + selectedText + "*");
-        else if (id == "btnH2")
-            textEditor.setselection("## " + selectedText);
-        else if (id == "btnH3")
-            textEditor.setselection("### " + selectedText);
-        else if (id == "btnH4")
-            textEditor.setselection("#### " + selectedText);
-        else if (id == "btnH5")
-            textEditor.setselection("##### " + selectedText);
-        else if (id == "btnList") {
-
-        }
-        else if (id == "btnHref") {
-
-            $("#HrefLinkText").val(selectedText);
-            if (selectedText.indexOf("http") > -1)
-                $("#HrefLink").val(selectedText);
-            $("#HrefDialog").modal();
-            $("#btnPasteHref").click(function () {
-                var text = $("#HrefLinkText").val();
-                var link = $("#HrefLink").val();
-                var a = "<a href='" + link + "' target='wwthreadsexternal'>" + text + "</a>";
-                textEditor.setselection(a);
-            });
-        }
-        else if (id == "btnImage") {
-
-        }
-        else if (id == "btnCode") {
-            $("#CodeSnippet").val(selectedText);
-            $("#CodeDialog").modal();
-            $("#btnPasteCode").click(function () {
-                var code = $("#CodeSnippet").val();
-                var lang = $("#CodeLanguage").val();
-                var codeblock = "```" + lang + "\r\n" + 
-                       code + "\r\n" +
-                       "```"
-
-                textEditor.setselection(codeblock);
-            });
-        }
-
-    }
 
 </script>
 
