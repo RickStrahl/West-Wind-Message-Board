@@ -596,10 +596,12 @@ IF (Request.IsPostBack())
    	   poError.Header = "Please fix the following form entry errors"   	   
    ELSE
    	   loConfig = Server.oConfig
-   	   loMsgBus.Sendemail(loConfig.cAdminMailServer,loConfig.cAdminMailUsername, loConfig.cAdminMailPassword, .T.)   
-
+   	   IF !plEditing
+	   	   loMsgBus.SendEmail(loConfig.cAdminMailServer,loConfig.cAdminMailUsername, loConfig.cAdminMailPassword, .T.)   
+	   ENDIF
+	   
 	   *** ?rl=1   - force list refresh
-   	   Response.Redirect("Thread" + TRIM(poMsg.ThreadId) + ".wwt#" + TRIM(poMsg.MsgId) + "?rl=1")   	      	      	   
+   	   Response.Redirect("Thread" + TRIM(poMsg.ThreadId) + ".wwt?rl=1#" + TRIM(poMsg.MsgId))   	      	      	   
 	   return
    ENDIF               
 ELSE

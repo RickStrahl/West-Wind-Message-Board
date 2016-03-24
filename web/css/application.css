@@ -515,8 +515,6 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         color: steelblue;
         background: whitesmoke;        
     }
-
-
     .forum-header{
         background: #535353;
         color: white;
@@ -529,7 +527,7 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     .thread-title {
         padding: 5px 5px;
         color: firebrick;
-        font-size: 1.6em;
+        font-size: 1.5em;
         font-weight: bold;
          background: linear-gradient(to bottom, rgba(235,188,33,1) 0%,#fff4db 100%);
     }

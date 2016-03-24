@@ -12,6 +12,7 @@ window.wwthreads = null;
             lastMessageText: null,
             threadMessages: null,
             savedTime: new Date().getTime() - 310000,
+            sortAscending: true,
             save: function userData_save() {                
                 wwthreads.userData.savedTime = new Date().getTime();
                 if (localStorage)
@@ -173,11 +174,12 @@ window.wwthreads = null;
             var title = html.extract("<title>", "</title>");
             window.document.title = title;
 
-
             var $content = $html.find(".main-content");
             if ($content.length > 0) {
                 html = $content.html();
                 $(".main-content").html(html);
+
+                wwthreads.sortAscending = true;
 
                 // update the navigation history/url in addressbar
                 if (window.history.pushState && !hrefPassed)

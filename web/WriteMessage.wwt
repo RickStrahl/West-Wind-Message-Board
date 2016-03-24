@@ -407,9 +407,8 @@
 <script>
     setTimeout(function () {
         toastr.info(
-            'Please mark up your code using the Code formatting icon in the toolbar.',
-            'Code Formatting',
-            { "positionClass": "toast-middle-right" });
+            'Please mark up your code using the Code formatting icon <b></></b> in the toolbar.',
+            'Code Formatting', {escapeHtml: false});
     });
 </script>
 

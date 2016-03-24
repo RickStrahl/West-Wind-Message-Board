@@ -10,5 +10,11 @@
     "inputFiles": [
       "css/westwind.css"
     ]
+  },
+  {
+    "outputFileName": "bower_components/toastr/toastr.css",
+    "inputFiles": [
+      "bower_components/toastr/toastr.css"
+    ]
   }
 ]

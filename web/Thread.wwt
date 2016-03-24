@@ -1,5 +1,5 @@
-<% 
-    pcPageTitle = subject + " - West Wind Message Board" 
+<%
+    pcPageTitle = subject + " - West Wind Message Board"
     pcThreadId = Threadid
 %>
 <% Layout="~/views/_layoutpage.wcs" %>
@@ -16,91 +16,127 @@
     <div class="forum-header page-header-text">
         <%= forum %>
     </div>
+
+    <i id="ReverseMessageOrder" class="fa fa-sort pull-right" style="font-size: 1.4em; color: #535353;padding: 12px; cursor: pointer;"
+       title="Reverse message display order"></i>
     <div class="thread-title page-header-text" style="margin-bottom: 0;">
         <%= EncodeHtml(Subject) %>
     </div>
 
-    <%    
+    <%
+    lnI = 0
     SCAN
+       lnI = lnI + 1
     %>
     <a name="<%= MsgId %>"></a>
+    <div id="ThreadMessageList">
+        <article class="message-list-item" data-id="<%= msgId %>" data-sort="<%= lnI %>">
+            <div class="message-list-header">
 
-    <article class="message-list-item" data-id="<%= msgId %>">
-        <div class="message-list-header">
+                <div style="font-size: 0.825em">
+                    <a href="http://gravatar.com" target="wwthreadsexternal">
+                        <img class="gravatar" src="<%= GravatarLink(TRIM(FromEmail),120) %>"
+                             alt="Gravatar is a globally recognized avatar based on your email address." />
+                    </a>                    
 
-            <div style="font-size: 0.825em">
-                <a href="http://gravatar.com" target="wwthreadsexternal">
-                    <img class="gravatar" src="<%= GravatarLink(TRIM(FromEmail),120) %>"
-                         alt="Gravatar is a globally recognized avatar based on your email address." />
+                    <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
+
+                    <i class="fa fa-user fa-fw"></i>&nbsp;
+                    <%= EncodeHtml(FromName) %><br />
+
+                    <i class="fa fa-reply fa-fw"></i>&nbsp;
+                    <%= EncodeHtml(Process.GetRecipient(To)) %><br />
+
+                    <div class="pull-right hidable-xs small">
+
+                        <i class="fa fa-external-link"></i>
+                        <a href="#<%= MsgId %>" title="Message id - click to update the URL for a pasteable link.">
+                            <%=MsgId%>
+                        </a>
+                    </div>
+
+                    <i class="fa fa-clock-o fa-fw"></i>&nbsp;
+                    <%=ShortDate(TimeStamp,1 )%>  @ <%=ShortTime(TimeStamp)%><br />
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="message-toolbar">
+                <a href="ReplyMessage.wwt?id=<%= MsgId %>" class="hover-dark">
+                    <i class="fa fa-reply" style="color: lightgreen"></i>
+                    Reply
+                </a>
+                <% if UserId == Process.cAuthenticatedUserId OR Process.lAuthenticatedAdmin %>
+                <a href="EditMessage.wwt?id=<%= MsgId %>" class="hover-dark">
+                    <i class="fa fa-edit"></i>
+                    Edit
+                </a>
+                <a href="DeleteMessage.wwt?id=<%= MsgId %>" class="hover-dark">
+                    <i class="fa fa-remove"></i>
+                    Delete
+                </a>
+                <% endif %>
+                <% if Pinned %>
+                <a class="hover-dark  pull-right">
+                    <i class="fa fa-star" style="color: goldenrod" title="This thread is pinned."></i>
                 </a>
 
-                <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
-
-                <i class="fa fa-user fa-fw"></i>&nbsp;
-                <%= EncodeHtml(FromName) %><br />
-
-                <i class="fa fa-reply fa-fw"></i>&nbsp;
-                <%= EncodeHtml(Process.GetRecipient(To)) %><br />
-
-                <div class="pull-right hidable-xs small">
-
-                    <i class="fa fa-external-link"></i>
-                    <a href="#<%= MsgId %>" title="Message id - click to update the URL for a pasteable link.">
-                        <%=MsgId%>
-                    </a>
-                </div>
-
-                <i class="fa fa-clock-o fa-fw"></i>&nbsp;
-                <%=ShortDate(TimeStamp,1 )%>  @ <%=ShortTime(TimeStamp)%><br />
-                <div class="clearfix"></div>
+                <% endif %>
             </div>
-        </div>
-        <div class="message-toolbar">
-            <a href="ReplyMessage.wwt?id=<%= MsgId %>" class="hover-dark">
-                <i class="fa fa-reply" style="color: lightgreen"></i>
-                Reply
-            </a>
-            <% if UserId == Process.cAuthenticatedUserId OR Process.lAuthenticatedAdmin %>
-            <a href="EditMessage.wwt?id=<%= MsgId %>" class="hover-dark">
-                <i class="fa fa-edit"></i>
-                Edit
-            </a>
-            <a href="DeleteMessage.wwt?id=<%= MsgId %>" class="hover-dark">
-                <i class="fa fa-remove"></i>
-                Delete
-            </a>
-            <% endif %>
-            <% if Pinned %>
-            <a class="hover-dark  pull-right">
-                <i class="fa fa-star" style="color: goldenrod" title="This thread is pinned."></i>
-            </a>
-
-            <% endif %>
-        </div>
 
 
-        <div class="message-list-body">
-            <%=  iif(format=2,poMarkdown.Parse(Message),DisplayMemo(Message) ) %>
-        </div>
-    </article>
+            <div class="message-list-body">
+                <%=  iif(format=2,poMarkdown.Parse(Message),DisplayMemo(Message) ) %>
+            </div>
+        </article>
+    </div>
     <% ENDSCAN %>
 
 </div>
 <!-- end message content -->
-
 <!-- remove sections if you're not using them -->
 <% section="headers" %>
 <% endsection %>
 
 <% section="scripts" %>
+<script src="bower_components/toastr/toastr.min.js" async></script>
+<link href="bower_components/toastr/toastr.min.css" rel="stylesheet" async />
 <script>
-   setTimeout(function () {
-       var $el = $(".message-item[data-id=<%= pcThreadId %>]");
-       if ($el.length < 1)
-           return;
-       $el.addClass("selected");
-       $el[0].scrollIntoView();
+    setTimeout(function () {
+        var $el = $(".message-item[data-id=<%= pcThreadId %>]");
+        if ($el.length < 1)
+            return;
+        $el.addClass("selected");
+        $el[0].scrollIntoView();
+
+    }, 500);
+    
+    // handle sorting of thread messages
+    $(".main-content").on("click","#ReverseMessageOrder",function () {
+        wwthreads.sortAscending = !wwthreads.sortAscending;        
+
+        var $msgList = $(".message-list-item");        
+
+        $msgList.sort(function (a, b) {
+            var sort = a.getAttribute('data-sort') * 1;
+            var sort2 = b.getAttribute('data-sort') * 1;
+
+            var mult = 1;
+            if (!wwthreads.sortAscending)
+                mult = -1
+
+            if (sort > sort2)
+                return 1 * mult;
+            if (sort < sort2)
+                return -1 * mult;
             
-   }, 500);
+            return 0;
+        });        
+
+        $msgList.detach().appendTo("#ThreadMessageList")
+        toastr.clear();
+        toastr.success("Message order has been reversed to " +
+                       (wwthreads.sortAscending ? "ascending" : "descending"),
+                       "Thread Message Order");
+    });
 </script>
 <% endsection %>
