@@ -70,6 +70,12 @@
                 Delete
             </a>
             <% endif %>
+            <% if Pinned %>
+            <a class="hover-dark  pull-right">
+                <i class="fa fa-star" style="color: goldenrod" title="This thread is pinned."></i>
+            </a>
+
+            <% endif %>
         </div>
 
 

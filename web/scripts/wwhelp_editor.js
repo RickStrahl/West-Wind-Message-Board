@@ -52,7 +52,20 @@ var te = window.textEditor = {
 
         // disable keys in editor so we can handle them here
         // Alt-k - HREF dialog
-        editor.commands.bindKeys({ "alt-k": null });
+        editor.commands.bindKeys({
+            "alt-k": null,
+            "ctrl-b": function () { $("#btnBold").triggerHandler("click"); },
+            "ctrl-i": function () { $("#btnItalic").triggerHandler("click"); },
+            "ctrl-k": function () { $("#btnHref").triggerHandler("click"); },
+            "alt-c": function () { $("#btnCode").triggerHandler("click"); },
+            "alt-i": function () { $("#btnImage").triggerHandler("click"); },
+            "alt-2": function () { $("#btnH2").triggerHandler("click"); },
+            "alt-3": function () { $("#btnH3").triggerHandler("click"); },
+            "alt-4": function () { $("#btnH4").triggerHandler("click"); },
+            "alt-5": function () { $("#btnH5").triggerHandler("click"); }                        
+        });
+
+        
 
         editor.renderer.setPadding(15);
         editor.renderer.setScrollMargin(5, 5, 0, 0); // top,bottom,left,right

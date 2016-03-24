@@ -1,4 +1,4 @@
-<% pcPageTitle = "Message" %>
+<% pcPageTitle = "New Message - West Wind Messageboard" %>
 <% Layout="~/views/_layoutpage.wcs" %>
 <%
     *** pnMsgMode  -   1 - New, 2 - Reply
@@ -44,29 +44,25 @@
         </div>
 
         <div class="edit-toolbar">
-            <a id="btnHref" class="btn btn-sm btn-link">
+            <a id="btnHref" class="btn btn-sm btn-link" title="Insert a Web link (ctrl-k)">
                 <i class="fa fa-link"></i>
             </a>
 
-            <a id="btnImage" class="btn btn-sm btn-link">
+            <a id="btnImage" class="btn btn-sm btn-link" title="Insert an image from the Web or upload an image (alt-i)">
                 <i class="fa fa-image "></i>
             </a>
 
-            <a id="btnCode" class="btn btn-sm btn-link">
+            <a id="btnCode" class="btn btn-sm btn-link" title="Insert a code block. (alt-c)">
                 <i class="fa fa-code"></i>
             </a>
             |
 
-            <a id="btnBold" class="btn btn-sm btn-link">
+            <a id="btnBold" class="btn btn-sm btn-link" title="Make the selected text bold (ctrl-b)">
                 <i class="fa fa-bold"></i>
             </a>
 
-            <a id="btnItalic" class="btn btn-sm btn-link">
+            <a id="btnItalic" class="btn btn-sm btn-link" title="Make the selected text italic (ctrl-i)">
                 <i class="fa fa-italic"></i>
-            </a>
-
-            <a id="btnList" class="btn btn-sm btn-link">
-                <i class="fa fa-list"></i>
             </a>
 
             <span class="hidable-xs">|</span>
@@ -100,6 +96,16 @@
         <div id="spellfixes" style="display:none">
         </div>
 
+        <% if Process.lAuthenticatedAdmin %>
+        <div class="pull-right">            
+            <span class="with-font">
+                <input id="Pinned" name="Pinned" type="checkbox" class="with-font"
+                       <%= Request.FormChecked('Pinned',poMsg.Pinned) %> >
+                <label for="Pinned">Pinned</label>
+            </span>
+        </div>
+        <% endif %>
+
         <button type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary btn-lg" accesskey="S">
             <i class="fa fa-check" style="color: lightgreen"></i>
             Post Message
@@ -110,7 +116,7 @@
 </div>
 
     <%
-       if pnMsgMode = 2 
+       if pnMsgMode = 2
          SELE TMessages
     %>
 <hr />
@@ -175,8 +181,8 @@
                     <input type="text" class="form-control" id="HrefLink" placeholder="The URL to embed">
                 </div>
             </div>
-            <div class="modal-footer">                
-                <button type="button" id="btnPasteHref" data-dismiss="modal" class="btn btn-primary" >
+            <div class="modal-footer">
+                <button type="button" id="btnPasteHref" data-dismiss="modal" class="btn btn-primary">
                     <i class="fa fa-external-link"></i>
                     Paste Link
                 </button>
@@ -209,7 +215,7 @@
                             <option value="css">CSS</option>
                             <option value="less">Less</option>
                             <option value="sass">Sass</option>
-                            <option value="c_cpp">C/C++</option>                            
+                            <option value="c_cpp">C/C++</option>
                             <option value="sql">SQL</option>
                             <option value="sqlserver">SQL Server</option>
                             <option value="python">Python</option>
@@ -275,17 +281,16 @@
                             <option value="yaml">YAML</option>
                         </optgroup>
                     </select>
-                </div>                
+                </div>
                 <div class="form-group">
                     <label class="control-label" for="CodeSnippet">Code Snippet</label>
-                    <textarea class="form-control" id="CodeSnippet" placeholder="Code Snippet" style="height: 300px; font-family: Menlo, Consolas, monospace">
-                    </textarea>
+                    <textarea class="form-control" id="CodeSnippet" placeholder="Code Snippet" style="height: 300px; font-family: Menlo, Consolas, monospace"></textarea>
                 </div>
 
             </div>
-            <div class="modal-footer">                
+            <div class="modal-footer">
                 <button id="btnPasteCode" type="button" data-dismiss="modal" class="btn btn-primary">
-                    <i class="fa fa-code"></i> 
+                    <i class="fa fa-code"></i>
                     Paste Code
                 </button>
             </div>
@@ -303,51 +308,58 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label class="control-label" for="ImageHref">Image Url <span class="small">(external source ie. Flicker, ImgUr,Dropbox etc.)</span></label>
-                    <input type="text" class="form-control" id="ImageHref" placeholder="Provide a URL of an image on the Web">
+                    <input type="text" class="form-control" id="ImageLink" placeholder="Provide a URL of an image on the Web">
                 </div>
-                <button class="btn btn-primary">
-                    <i class="fa fa-image"></i> 
+                <button id="btnImageLink" class="btn btn-primary" data-dismiss="modal">
+                    <i class="fa fa-image"></i>
                     Insert Image Url
                 </button>
 
-               <hr />
-               
+                <hr />
+
                 <form id="ajaxForm" name="ajaxForm" enctype="multipart/form-data">
-                    <style>
-                        .fileUpload {
-                            position: relative;
-                            overflow: hidden;
-                        }
-                            /* hide the actual file upload control by making it invisible */
-                            .fileUpload input.upload {
-                                position: absolute;
-                                top: 0;
-                                right: 0;
-                                margin: 0;
-                                padding: 0;
-                                font-size: 20px;
-                                cursor: pointer;
-                                opacity: 0;
-                                filter: alpha(opacity=0);
+                    <div class="form-group">
+                        <label class="control-label">
+                            Upload and Image from your local device
+                        </label>
+                        <br />
+
+                        <style>
+                            .fileUpload {
+                                position: relative;
+                                overflow: hidden;
                             }
-                    </style>
-                    <div class="fileUpload btn btn-primary">
-                        <span>
-                            <i class="fa fa-upload"></i>
-                            Upload Image
-                            <i id="ajaxProgress" class="fa fa-spinner fa-spin" style="display: none"></i>
-                        </span>
-                        <input type="file" id="ajaxUpload" name="ajaxUpload"
-                               class="upload" accept="image/*"  />
+                                /* hide the actual file upload control by making it invisible */
+                                .fileUpload input.upload {
+                                    position: absolute;
+                                    top: 0;
+                                    right: 0;
+                                    margin: 0;
+                                    padding: 0;
+                                    font-size: 20px;
+                                    cursor: pointer;
+                                    opacity: 0;
+                                    filter: alpha(opacity=0);
+                                }
+                        </style>
+                        <div class="fileUpload btn btn-primary" >
+                            <span>
+                                <i class="fa fa-upload"></i>
+                                Upload Image...
+                                <i id="ajaxProgress" class="fa fa-spinner fa-spin" style="display: none"></i>
+                            </span>
+                            <input type="file" id="ajaxUpload" name="ajaxUpload"
+                                   class="upload" accept="image/*" />
+                        </div>
                     </div>
+
                 </form>
-
-
-
-</div>
+            </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" data-dismiss="modal" class="btn btn-default">
+                    <i class="fa fa-remove"></i>
+                    Cancel
+                </button>
             </div>
         </div>
     </div>
@@ -370,9 +382,10 @@
 
     .edit-toolbar a {
         padding: 0 8px;
-        font-size: 1.2em;
+        font-size: 1.1em;
         font-weight: bold;
     }
+
     .modal {
         z-index: 10000;
         margin-top: 100px;
@@ -380,7 +393,7 @@
 
     #Editor {
         width: 100%;
-        height: 50vh;
+        height: 55vh;
         min-height: 350px;
     }
 </style>
@@ -389,24 +402,29 @@
 <% section="scripts" %>
 <script src="~/scripts/wwhelp_editor.js"></script>
 <script src="~/WriteMessage.js"></script>
-<script src="bower_components/toastr/toastr.min.js" async></script>
+<script src="~/bower_components/toastr/toastr.min.js" async></script>
+<link href="~/bower_components/toastr/toastr.min.css" rel="stylesheet" async />
+<script>
+    setTimeout(function () {
+        toastr.info(
+            'Please mark up your code using the Code formatting icon in the toolbar.',
+            'Code Formatting',
+            { "positionClass": "toast-middle-right" });
+    });
+</script>
 
 <% if (pnMsgMode == 2) %>
 <script>
     wwthreads.highlightCode();
-</script>    
+</script>
 <% endif %>
 
 <% if (pnMsgMode == 1 and !plEditing) %>
 <script>
-    setTimeout(function () { $("#Subject").focus(); }, 150);    
+    setTimeout(function () { $("#Subject").focus(); }, 150);
 </script>
 <% endif %>
 
-<script>
-    setTimeout(function () {
-        toastr.info("Please mark up your code using the </> icon in the toolbar or by using ```lang / ```");
-    }, 2000);
-</script>
+
 
 <% endsection %>

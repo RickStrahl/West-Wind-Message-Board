@@ -70,8 +70,11 @@
     <div class="message-item" data-id="<%= Threadid %>">
         <div class="pull-left">
             <i class="fa fa-thumb-tack<%= IIF(MsgCount -1 < 1,[ fa-rotate-90],[]) %>" style="color: firebrick;"></i>
+            <%if Pinned %>
+            <i class="fa fa-star" style="color: goldenrod;font-size: 0.8em"></i>
+            <% endif %>
             <% if MsgCount - 1 > 0 %>
-                <div style="font-size:8pt; margin-top: 3px;">
+            <div style="font-size:8pt; margin-top: 3px;">
                 <%= MsgCount - 1 %><i class="fa fa-comments-o" style="padding-left: 2px;color: steelblue;"></i>
             </div>
             <% endif %>

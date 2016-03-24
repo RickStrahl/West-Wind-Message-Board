@@ -1,12 +1,40 @@
 $(document).ready(function () {
-    var edResize = debounce(resizeEditor, 100);
-    //resizeEditor();
-    //$(window).resize(edResize);
+    var edResize = debounce(resizeEditor, 100, true);    
     function resizeEditor() {
-        $("#Editor").height(window.innerHeight - 500);
+        $("#Editor").height(window.innerHeight - 425);
     }
-    window.textEditor.setvalue($("#Message").val(), -1);
-    setupUpload();
+    window.textEditor.setvalue($("#Message").val(), -1);    
+
+    // button click handlers
+    $("#btnPasteHref").click(function () {
+        var text = $("#HrefLinkText").val();
+        var link = $("#HrefLink").val();
+        var a = "<a href='" + link + "' target='wwthreadsexternal'>" + text + "</a>";
+        textEditor.setselection(a);
+        textEditor.setfocus();
+    });
+
+    $("#btnPasteCode").click(function () {
+        var code = $("#CodeSnippet").val();
+        var lang = $("#CodeLanguage").val();
+        var codeblock = "```" + lang + "\r\n" +
+            code + "\r\n" +
+            "```";
+
+        textEditor.setselection(codeblock);
+        textEditor.setfocus();        
+    });
+
+    $("#btnImageLink").click(function() {
+        var img = $("#ImageLink").val();
+        if (!img)
+            return;
+        var html = "![](" + img + ")";
+        textEditor.setselection(html);
+        textEditor.setfocus();
+    });
+
+    setupImageUpload();
 });
 
 
@@ -20,54 +48,45 @@ function handleMenuButtons(id) {
 
     var selectedText = textEditor.getselection();
 
-    if (id === "btnBold")
+    if (id === "btnBold") {
+        if (!selectedText)
+            return;
         textEditor.setselection("**" + selectedText + "**");
-    else if (id == "btnItalic")
+        textEditor.setfocus();
+    } else if (id == "btnItalic") {
+        if (!selectedText)
+            return;
         textEditor.setselection("*" + selectedText + "*");
-    else if (id == "btnH2")
+        textEditor.setfocus();
+    } else if (id == "btnH2") {
         textEditor.setselection("## " + selectedText);
-    else if (id == "btnH3")
+        textEditor.setfocus();
+    } else if (id == "btnH3") {
         textEditor.setselection("### " + selectedText);
-    else if (id == "btnH4")
+        textEditor.setfocus();
+    } else if (id == "btnH4") {
         textEditor.setselection("#### " + selectedText);
-    else if (id == "btnH5")
+        textEditor.setfocus();
+    } else if (id == "btnH5") {
         textEditor.setselection("##### " + selectedText);
-    else if (id == "btnList") {
+        textEditor.setfocus();
+    } else if (id == "btnList") {
 
-    }
-    else if (id == "btnHref") {
-
+    } else if (id == "btnHref") {
         $("#HrefLinkText").val(selectedText);
         if (selectedText.indexOf("http") > -1)
             $("#HrefLink").val(selectedText);
         $("#HrefDialog").modal();
-        $("#btnPasteHref").click(function () {
-            var text = $("#HrefLinkText").val();
-            var link = $("#HrefLink").val();
-            var a = "<a href='" + link + "' target='wwthreadsexternal'>" + text + "</a>";
-            textEditor.setselection(a);
-        });
-    }
-    else if (id == "btnImage") {
+    } else if (id == "btnImage") {
         $("#ImageDialog").modal();
-    }
-    else if (id == "btnCode") {
+    } else if (id == "btnCode") {
         $("#CodeSnippet").val(selectedText);
         $("#CodeDialog").modal();
-        $("#btnPasteCode").click(function () {
-            var code = $("#CodeSnippet").val();
-            var lang = $("#CodeLanguage").val();
-            var codeblock = "```" + lang + "\r\n" +
-                code + "\r\n" +
-                "```";
-
-            textEditor.setselection(codeblock);
-        });
     }
 
 }
 
-function setupUpload() {
+function setupImageUpload() {
     // *** Ajax upload
     // Catch the file selection
     var files = null;
@@ -75,6 +94,7 @@ function setupUpload() {
     
     $("#ajaxUpload").change(function (event) {        
         files = event.target.files;
+        $("#ImageDialog").modal('hide');
 
         // no further DOM processing
         event.stopPropagation();

@@ -56,27 +56,6 @@ cAuthenticatedUserId = ""
 lAuthenticatedAdmin = .F.
 
 
-************************************************************************
-*  TestPage
-****************************************
-***  Function:
-***    Assume:
-***      Pass:
-***    Return:
-************************************************************************
-FUNCTION TestPage()
-
-Response.Write("<pre>Path: ")
-Response.Write(SET("PATH") + CRLF )
-
-Response.Write("Server Path: " + CRLF)
-Response.Write( THIS.ResolvePath("~/") )
-
-Response.Write("Server Path: " + CRLF)
-Response.Write(Request.GetApplicationPath())
-
-ENDFUNC
-*   TestPage
 
 *********************************************************************
 * Function wwThreadProcess :: OnProcessInit
@@ -132,6 +111,21 @@ ENDIF
 
 RETURN .T.
 ENDFUNC
+
+************************************************************************
+*  CompleteResponse
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION CompleteResponse()
+
+DODEFAULT()
+
+ENDFUNC
+*   CompleteResponse
 
 ************************************************************************
 *  OnAuthenticateUser
@@ -304,11 +298,14 @@ ENDFUNC
 ***    Return:
 ************************************************************************
 FUNCTION ThreadList()
+LOCAL lcLastAccess, ltLastAccess
 
 #IF .F. 
 LOCAL Request as wwRequest, Response as wwResponse, Server as wwServer, ;
       THIS as wwProcess, Process as wwProcess, Session as wwSession
 #ENDIF
+
+
 
 PRIVATE poError as HtmlErrorDisplayConfig
 poError = CREATEOBJECT("HtmlErrorDisplayConfig")
@@ -317,11 +314,19 @@ LOCAL loMsgBus as wwt_Message
 loMsgBus = CREATEOBJECT("wwt_Message")
 
 poFilter = loMsgBus.CreateMessageQueryParms()
-Request.UnbindFormVars(poFilter)
+IF Request.IsPostBack()
+	Request.UnbindFormVars(poFilter)
+ELSE
+	ltLastAccess = DATE() - 30
+	lcLastAccess = Session.GetSessionVar("LastThreadListAccess")
+	IF !EMPTY(lcLastAccess)
+	   ltLastAccess = TTOD(CTOT(lcLastAccess))
+	ENDIF 
+    poFilter.StartDate = ltLastAccess
+ENDIF
 
 loMsgBus.GetForumList() && TForums
 lnResult = loMsgBus.GetThreads(poFilter) && TMessages
-
 
 IF lnResult > 1000
 	poError.Message = "This query returned too many records. Please refine your query to retrieve fewer result messages."
@@ -332,6 +337,8 @@ IF lnResult > 1000
 ENDIF
 
 Response.GzipCompression = .T.
+
+Session.SetSessionVar("LastThreadListAccess",TTOC(DATETIME(),3))
 
 Response.ExpandScript("~/threadList.wwt")
 RETURN

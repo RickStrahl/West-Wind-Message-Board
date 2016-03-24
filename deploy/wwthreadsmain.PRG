@@ -157,11 +157,6 @@ IF THIS.lShowServerForm
   THIS.oServerForm.Caption =This.cServerId + " - Web Connection " + WWVERSION
 ENDIF
 
-*** Load all application dependencies
-DO Load_Libs
-
-SET ENGINEBEHAVIOR 70
-
 *** Add persistent SQL Server Connection
 #IF WWC_USE_SQL_SYSTEMFILES
     THIS.AddProperty("oSQL", CREATE("wwSQL"))
@@ -175,10 +170,10 @@ SET ENGINEBEHAVIOR 70
 *** Add any data paths - SET DEFAULT has already occurred so this is safe!
 SET PATH TO (this.oConfig.owwThreadProcess.cDataPath) ADDITIVE
 
-WAIT WINDOW this.oConfig.owwThreadProcess.cDataPath TIMEOUT 2
-WAIT WINDOW CURDIR() TIMEOUT 2
+*** Load all application dependencies
+DO Load_Libs
 
-*** Add any SET CLASSLIB or SET PROCEDURE code here
+SET ENGINEBEHAVIOR 70
 
 
 

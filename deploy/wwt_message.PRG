@@ -45,9 +45,9 @@ pcForum = loQueryParms.Forum
 pcMsgId = PADR(loQueryParms.MsgId,FSIZE("MsgId","wwThreads"))
 pcSearch = loQueryParms.Search
 
-lcWhere = "TimeStamp >= pdStartDate AND TimeStamp < pdEndDate "
+lcWhere = "(Pinned OR TimeStamp >= pdStartDate AND TimeStamp < pdEndDate) "
 IF !EMPTY(pcForum)
-   lcWhere = lcWhere + " AND Forum == pcForum "
+   lcWhere = lcWhere + " AND (Forum == pcForum) "
 ENDIF
 IF !EMPTY(pcMsgId)
    lcWhere = lcWhere + " AND MsgId == pcMsgId "
@@ -57,11 +57,11 @@ IF !EMPTY(pcSearch)
 ENDIF
 
 TEXT TO lcSql NOSHOW TEXTMERGE
-SELECT ThreadId,MsgId, TimeStamp,Subject,FromName, FromEmail, Forum, 
+SELECT ThreadId,MsgId, TimeStamp,Subject,FromName, FromEmail, Forum, Pinned,
 	   (SELECT COUNT(*) WHERE ThreadId = wwt.ThreadId FROM wwThreads)  as MsgCount 
    FROM wwThreads as wwt 
    WHERE << lcWhere >>
-   ORDER BY Forum, TimeStamp DESC 
+   ORDER BY Forum, Pinned DESC, TimeStamp DESC 
    GROUP BY Forum, ThreadId 
    into cursor TMessages   
 ENDTEXT
