@@ -13,6 +13,9 @@ $(document).ready(function () {
         textEditor.setselection(a);
         textEditor.setfocus();
     });
+    $("#HrefDialog").on('shown.bs.modal', function () {        
+        $('#HrefLink').focus();
+    });
 
     $("#btnPasteCode").click(function () {
         var code = $("#CodeSnippet").val();
@@ -24,6 +27,9 @@ $(document).ready(function () {
         textEditor.setselection(codeblock);
         textEditor.setfocus();        
     });
+    $("#CodeDialog").on('shown.bs.modal', function () {
+        $('#CodeLanguage').focus();
+    });
 
     $("#btnImageLink").click(function() {
         var img = $("#ImageLink").val();
@@ -32,6 +38,9 @@ $(document).ready(function () {
         var html = "![](" + img + ")";
         textEditor.setselection(html);
         textEditor.setfocus();
+    });
+    $("#ImageDialog").on('shown.bs.modal', function () {
+        $('#ImageLink').focus();
     });
 
     setupImageUpload();
@@ -77,8 +86,9 @@ function handleMenuButtons(id) {
         if (selectedText.indexOf("http") > -1)
             $("#HrefLink").val(selectedText);
         $("#HrefDialog").modal();
+
     } else if (id == "btnImage") {
-        $("#ImageDialog").modal();
+        $("#ImageDialog").modal();        
     } else if (id == "btnCode") {
         $("#CodeSnippet").val(selectedText);
         $("#CodeDialog").modal();
@@ -94,7 +104,7 @@ function setupImageUpload() {
     
     $("#ajaxUpload").change(function (event) {        
         files = event.target.files;
-        $("#ImageDialog").modal('hide');
+        $("#UploadProgress").show();
 
         // no further DOM processing
         event.stopPropagation();
@@ -103,15 +113,21 @@ function setupImageUpload() {
         uploadFiles({
             id: "ImageUpload",
             uploadUrl: "ImageUpload.wwt",
-            success: function uploadSuccess(imageUrl, textStatus, jqXHR) {                
-                toastr.success("Upload completed...", 3000);
-                
-                if (imageUrl) 
-                    textEditor.setselection("![](" + imageUrl + ")");
+            success: function uploadSuccess(imageUrl, textStatus, jqXHR) {                                
+                toastr.success("The image has been uploaded and embedded into your message.", "Image Upload completed", 3000);
 
-                $("#ImageModel").modal("hide");
+                $("#UploadProgress").hide();
+                $("#ImageDialog").modal("hide");
+
+
+                if (imageUrl) {
+                    textEditor.setselection("![](" + imageUrl + ")\r\n");
+                    textEditor.setfocus();
+                }
             },
             error: function uploadError(jqXHR, textStatus, errorThrown) {                
+                $("#UploadProgress").hide();
+
                 var msg = "Unknown error.";
                 if (jqXHR.responseText) {
                     try {
@@ -129,7 +145,7 @@ function setupImageUpload() {
                     window.location.href = ("#/login");
                 }
             },
-            progress: function (e) {
+            progress: function (e) {                
                 showStatus(Math.floor(e.loaded / e.total * 100) + "% uploaded");
             }
         });

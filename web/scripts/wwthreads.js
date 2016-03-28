@@ -5,6 +5,8 @@ window.wwthreads = null;
     wwthreads = {
         initializeLayout: initializeLayout,
         highlightCode: null, // in aceConfig.js
+        sortAscending: true,   // for reverseMessageOrder
+        loadMessages: loadMessageListAjax,
 
         // this object is saved in localstorage
         userData: {
@@ -17,8 +19,6 @@ window.wwthreads = null;
                 wwthreads.userData.savedTime = new Date().getTime();
                 if (localStorage)
                     localStorage.setItem("wwt_userdata", JSON.stringify(wwthreads.userData));
-
-                
             },
             load: function userData_load() {
                 if (!localStorage)
@@ -50,10 +50,12 @@ window.wwthreads = null;
 	        navigator.userAgent.indexOf("MSIE 7") > -1)
             $(document.body).addClass("old-ie");
 
+
         loadMessageListAjax();
 
-
-            // sidebar or hamburger click handler
+        /* Event Handler hookups */
+        
+        // sidebar or hamburger click handler
         $(document.body).on("click", "#slide-menu-toggle", toggleSidebar);
         $(document.body).on("dblclick touchend", ".splitter", toggleSidebar);
 
@@ -72,7 +74,15 @@ window.wwthreads = null;
         $("#MessageList").on("click", ".message-item,.message-item >a", loadTopicAjax);
 
         // handle Message List refresh
-        $(document.body).on("click", "#Refresh-Button", function () { loadMessageListAjax(true); });
+        $(document.body).on("click", "#Refresh-Button", function() {
+            loadMessageListAjax(true)
+                .then(function() {
+                        toastr.success("Thread listing updated.");
+                    },
+                    function() {
+                        toastr.error("Updating of the thread listing failed.");
+                    });
+        });
 
         // Search button clicks
         $(document.body).on("click","#Search-Button,#Search-Button-Close",function() {
@@ -80,6 +90,10 @@ window.wwthreads = null;
         });                
         $(".sidebar-left").on("click", "#Search-Button-Submit", messageSearchQuery);
         $(".sidebar-left").on("click", "#Search-Button-Clear", clearSearchQuery);
+
+        // handle sorting of thread messages in a thread
+        $(".main-content").on("click", "#ReverseMessageOrder", reverseMessageOrder);
+
     }
 
     var sidebarTappedTwice = false;
@@ -105,25 +119,29 @@ window.wwthreads = null;
         return true;
     }
 
-    function loadMessageListAjax(forceReload) {
-        
+    function loadMessageListAjax(forceReload) {        
         // check for rl=1 query string which forces reload of thread list        
         if (getUrlEncodedKey("rl", location.search))
-            forceReload = true;
+            forceReload = true;            
+
         var html = null;
         if (!forceReload)
             html = wwthreads.userData.getThreadMessages();
 
-        if (!html)
+        if (!html) {            
+            var forum = getUrlEncodedKey("forum", location.search);
+            var url = "ThreadList.wwt" +
+                      (forum ? "?forum=" + forum : "");
+
             // load with AJAX
-            $.get("ThreadList.wwt",function(html) {                
+            return $.get(url, function(html) {
                 wwthreads.userData.lastAccess = new Date();
                 wwthreads.userData.threadMessages = html;
                 wwthreads.userData.save();
 
                 loadMessageList(html);
             });
-        else
+        } else
             loadMessageList(html); // load from cached list
     }
     function loadMessageList(html) {        
@@ -196,6 +214,37 @@ window.wwthreads = null;
             //CreateHeaderLinks();
         });
         return false;  // don't allow click              
+    };
+
+    function reverseMessageOrder() {
+        wwthreads.sortAscending = !wwthreads.sortAscending;
+
+        var $msgList = $(".message-list-item");
+
+        $msgList.sort(function (a, b) {
+            var sort = a.getAttribute('data-sort') * 1;
+            var sort2 = b.getAttribute('data-sort') * 1;
+
+            console.log(sort, sort2);
+
+            var mult = 1;
+            if (!wwthreads.sortAscending)
+                mult = -1
+
+            if (sort > sort2)
+                return 1 * mult;
+            if (sort < sort2)
+                return -1 * mult;
+
+            return 0;
+        });
+
+        $msgList.detach().appendTo("#ThreadMessageList");
+
+        toastr.clear();
+        toastr.success("Message order has been reversed to " +
+                        (wwthreads.sortAscending ? "ascending" : "descending"),
+                        "Thread Message Order");
     };
 
     function messageSearchQuery() {

@@ -1,4 +1,4 @@
-﻿<% pcPageTitle = "dasdasd" %>
+﻿<% pcPageTitle = pcHeader %>
 <% Layout="~/views/_layoutpage.wcs" %>
 
 <div class="main-content" style="margin: 30px auto;padding: 20px;">

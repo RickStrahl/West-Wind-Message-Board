@@ -24,7 +24,6 @@
 
     <%= HtmlErrorDisplay(poError) %>
 
-
     <form action="" method="post" class="form-horizontal">
         <div class="form-group ">
             <label class="control-label col-sm-2 hidable" for="Subject">Subject</label>
@@ -286,7 +285,6 @@
                     <label class="control-label" for="CodeSnippet">Code Snippet</label>
                     <textarea class="form-control" id="CodeSnippet" placeholder="Code Snippet" style="height: 300px; font-family: Menlo, Consolas, monospace"></textarea>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button id="btnPasteCode" type="button" data-dismiss="modal" class="btn btn-primary">
@@ -345,7 +343,7 @@
                         <div class="fileUpload btn btn-primary" >
                             <span>
                                 <i class="fa fa-upload"></i>
-                                Upload Image...
+                                Upload Image... <i id="UploadProgress" class="fa fa-spinner fa-spin" style="display:none"></i> 
                                 <i id="ajaxProgress" class="fa fa-spinner fa-spin" style="display: none"></i>
                             </span>
                             <input type="file" id="ajaxUpload" name="ajaxUpload"
@@ -400,15 +398,14 @@
 <% endsection %>
 
 <% section="scripts" %>
-<script src="~/scripts/wwhelp_editor.js"></script>
+<script src="~/scripts/wwthreads_editor.js"></script>
 <script src="~/WriteMessage.js"></script>
-<script src="~/bower_components/toastr/toastr.min.js" async></script>
-<link href="~/bower_components/toastr/toastr.min.css" rel="stylesheet" async />
 <script>
     setTimeout(function () {
         toastr.info(
-            'Please mark up your code using the Code formatting icon <b></></b> in the toolbar.',
-            'Code Formatting', {escapeHtml: false});
+            'Please use the <i class="fa fa-code" style="font-size: 1.2em;font-weight: bold"></i> ' +
+            'button to embed nicely formated, syntax colored code listings.',        
+            'Format your Code', {escapeHtml: false, timeOut: 5000});
     });
 </script>
 
@@ -423,7 +420,5 @@
     setTimeout(function () { $("#Subject").focus(); }, 150);
 </script>
 <% endif %>
-
-
 
 <% endsection %>

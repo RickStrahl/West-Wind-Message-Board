@@ -1,4 +1,4 @@
-<% pcPageTitle = "Messages - West Wind Message Board" %>
+<% pcPageTitle = "West Wind Message Board" %>
 <% Layout="~/views/_layoutpage.wcs" %>
 
 <% #if .f. %>
@@ -11,16 +11,18 @@
 	 <% if empty(pcThreadId) %>
         <div style="display:flex">
             <iframe style="flex-direction: row; flex: 1 1 auto; width: 100%; min-height: 500px;margin:0; border: none;" 
-                    src="http://west-wind.com/wconnect/westwindnews.wst">
+                    src="//west-wind.com/wconnect/westwindnews.wst">
             </iframe>
         </div>   
-    <% else %>
-        <h1>Other stuff here</h1>
     <% endif %>
 
 <!-- remove sections if you're not using them -->
 <% section="headers" %>
+    <meta name="description" content="Support Web site for West Wind tools and products and general Web and Enterprise development discussions for Visual FoxPro and .NET developers.">
+
+    <meta name="keywords" content="FoxPro,Visual FoxPro,VFP,Fox,FoxPro Development,Web,HTML,CSS,JavaScript,C#,.NET,Visual Studio,XML,Web Connection,COM,COM+,SOAP,Messaging,Distributed,Web Monitor,wwIPStuff,ISAPI,DHTML,Dynamic HTML,Rick Strahl,Frederik Strahl,Message Board,Programming,HTTP,COM,DCOM,C++,West Wind Internet Protocols,HTML Help Builder,SOAP,wwSOAP,Web Services,e-Commerce,ecommerce,">   
 <% endsection %>
+
 
 <% section="scripts" %>
 <style>
@@ -38,11 +40,12 @@
 <script>
     var frameResize = debounce(function () {
         console.log("frameResize");
-        $("iframe").height($(window).height() - 91);        
+        $("iframe").height($(window).height() - 105);        
     }, 5);
     frameResize();
     $(window).resize(frameResize);
     
-
+    // force message list to renew on first load
+     wwthreads.loadMessages(true);
 </script>
 <% endsection %>

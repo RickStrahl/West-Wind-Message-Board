@@ -21,7 +21,7 @@ endif
 <div class="main-content" style="margin: 30px auto;padding: 20px;">
     <div class="page-header-text">
         <i class="fa fa-unlock-alt"></i>
-        Application Sign in asdasdas
+        Message Board Sign in
     </div>
     
     <%= HtmlErrorDisplay(pcErrorMessage,"warning") %>

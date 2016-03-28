@@ -16,5 +16,11 @@
     "inputFiles": [
       "bower_components/toastr/toastr.css"
     ]
+  },
+  {
+    "outputFileName": "scripts/wwthreads.js",
+    "inputFiles": [
+      "scripts/wwthreads.js"
+    ]
   }
 ]

@@ -305,8 +305,6 @@ LOCAL Request as wwRequest, Response as wwResponse, Server as wwServer, ;
       THIS as wwProcess, Process as wwProcess, Session as wwSession
 #ENDIF
 
-
-
 PRIVATE poError as HtmlErrorDisplayConfig
 poError = CREATEOBJECT("HtmlErrorDisplayConfig")
 
@@ -317,12 +315,14 @@ poFilter = loMsgBus.CreateMessageQueryParms()
 IF Request.IsPostBack()
 	Request.UnbindFormVars(poFilter)
 ELSE
+
 	ltLastAccess = DATE() - 30
 	lcLastAccess = Session.GetSessionVar("LastThreadListAccess")
 	IF !EMPTY(lcLastAccess)
 	   ltLastAccess = TTOD(CTOT(lcLastAccess))
-	ENDIF 
+	ENDIF 	
     poFilter.StartDate = ltLastAccess
+	poFilter.Forum = Request.QueryString("Forum")
 ENDIF
 
 loMsgBus.GetForumList() && TForums
@@ -720,6 +720,8 @@ STRTOFILE(loFile.Content,lcFileName)
 
 lcUrl = this.ResolveServerUrl("~/PostImages/"  + TRANSFORM(YEAR(DATETIME())) + "/" + lcNewFile)
 
+lcUrl = STRTRAN(lcUrl,"http://","//",1,1,1)
+
 Response.ContentType = "application/json"
 Response.Write( JsonString(lcUrl) )
 ENDFUNC
@@ -805,6 +807,66 @@ Response.Write( FILETOSTR( lcZipFileName ) )
 ENDFUNC
 *  wwThreads :: Backup
 
+
+************************************************************************
+*  CleanupUnreferencedImages
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION CleanupUnreferencedImages()
+LOCAL lcSourcePath, llError, lcPath, lcYear, ldStartDate, ldEndDate,;
+      lnCount, lnX, lcFile, lnDeleted
+
+IF !THIS.lAuthenticatedAdmin
+   this.ErrorMsg("Access denied","You have to be an administrator in order to access this task.")
+   RETURN
+ENDIF
+
+lcSourcePath = this.ResolvePath("~/PostImages/")
+llError = .F.
+
+CREATE CURSOR TDirs( Path c(128) )
+
+GetDirs(ADDBS(lcSourcePath),lcSourcePath)
+INDEX ON Path DESCENDING TAG PATH
+
+lnDeleted = 0
+
+*** Delete files for the current year
+SCAN
+   lcPath = lcSourcePath + ADDBS(TRIM(path))
+   lcYear = STREXTRACT(lcPath,"PostImages\","\")
+   
+   ldStartDate = CTOT( lcYear + "-01-01T00:00" )
+   ldEndDate = CTOT( TRANSFORM(VAL(lcYear)+1) + "-01-01T00:00" )
+   
+   lnCount = ADIR(laFiles,lcPath + "*.*")
+   FOR lnX = 1 TO lnCount
+       lcFile = JUSTFNAME(laFiles[lnX,1])
+       SELECT msgId FROM wwThreads ;
+           WHERE timestamp >= ldStartDate AND ;
+                 timestamp < ldEndDate AND ;           		
+	             ATC(lcFile,Message) > 0 ;
+           INTO ARRAY laMsgs
+           
+       IF _tally = 0
+          DELETE FILE (lcPath + lcFile)
+          lnDeleted = lnDeleted + 1 
+       ENDIF
+   ENDFOR   
+ENDSCAN
+
+USE IN TDirs
+
+THIS.ErrorMsg("Images cleanup complete",;
+   "Removed " + TRANSFORM(lnDeleted) + " unreferenced images from PostImages folder.")
+   
+ENDFUNC
+*   CleanupUnreferencedImages
+
 ************************************************************************
 *  Reindex
 ****************************************
@@ -815,9 +877,6 @@ ENDFUNC
 ************************************************************************
 FUNCTION Reindex()
 
-IF !this.Authenticate("ANY","",.T.) OR EMPTY(this.cAuthenticatedUserId) 
-   Response.Redirect("~/Login.wwt?returnurl=Reindex.wwt")
-ENDIF
 IF !THIS.lAuthenticatedAdmin
    this.ErrorMsg("Access denied","You have to be an administrator in order to access this task.")
    RETURN

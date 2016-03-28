@@ -74,7 +74,7 @@
             <i class="fa fa-star" style="color: goldenrod;font-size: 0.8em"></i>
             <% endif %>
             <% if MsgCount - 1 > 0 %>
-            <div style="font-size:8pt; margin-top: 3px;">
+            <div style="font-size:8pt; margin-top: 3px;margin-left: -2px">
                 <%= MsgCount - 1 %><i class="fa fa-comments-o" style="padding-left: 2px;color: steelblue;"></i>
             </div>
             <% endif %>
@@ -82,16 +82,14 @@
 
         <div class="message-header">
 
-            <a href="Thread<%= ThreadId %>.wwt">
-                <%= EncodeHtml(Subject)  %>
-            </a>
+            <a href="Thread<%= ThreadId %>.wwt"><%= EncodeHtml(TRIM(Subject))  %></a>
         </div>
         <div class="message-detail">
             <div>
                 <b><%= FromName %></b>
                 &nbsp;  &bull;  &nbsp;
                 <i class="fa  fa-clock-o" style="color:steelblue" title="Last update on"></i>
-                <%= ShortDate(TimeStamp,2) %>
+                <%= HumanizedDate(TimeStamp) %>
 
             </div>
         </div>

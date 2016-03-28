@@ -56,17 +56,34 @@ IF !EMPTY(pcSearch)
    lcWhere = lcWhere + " AND ( ATC(pcSearch,Subject)>0 OR  ATC(pcSearch,Message)>0 ) "   
 ENDIF
 
+* MIN(TTOC(TimeStamp,1) + "|" + Subject)  as Subject, 
+
+
 TEXT TO lcSql NOSHOW TEXTMERGE
-SELECT ThreadId,MsgId, TimeStamp,Subject,FromName, FromEmail, Forum, Pinned,
-	   (SELECT COUNT(*) WHERE ThreadId = wwt.ThreadId FROM wwThreads)  as MsgCount 
+SELECT ThreadId,MsgId, TimeStamp,  STRTRAN(Subject,"re: ","",1,1,1) as Subject,
+		FromName, FromEmail, Forum, MAX(Pinned) as pinned,
+	   (SELECT COUNT(MsgId) WHERE ThreadId = wwt.ThreadId FROM wwThreads)  as MsgCount 
    FROM wwThreads as wwt 
    WHERE << lcWhere >>
-   ORDER BY Forum, Pinned DESC, TimeStamp DESC 
-   GROUP BY Forum, ThreadId 
-   into cursor TMessages   
+   GROUP BY Forum, ThreadId    
 ENDTEXT
 
-RETURN this.Query(lcSql,"TMessages")
+lnResult = this.Query(lcSql,"TMessages2")
+
+IF this.lError
+   RETURN -1
+ENDIF   
+
+*(       SUBSTR(Subject,AT("|",Subject) + 1 ) as Subject ;   
+*** Must refilter the list as ORDER BY 
+*** gets hammered by the GROUP BY clause
+SELECT ThreadId,MsgId,TimeStamp,FromName,FromEmail,Forum,Pinned, MsgCount, Subject ;
+   FROM TMessages2 ;
+   ORDER BY Forum, Pinned DESC, TimeStamp DESC ;
+   INTO CURSOR TMessages
+USE IN TMessages2
+
+RETURN lnResult
 ENDFUNC
 *   GetMessages()
 

@@ -69,6 +69,10 @@
                 <i class="fa fa-book"></i>
                 Documentation
             </a>
+            <a href="admin_wwt.htm">
+                <i class="fa fa-edit"></i>
+                wwThreads
+            </a>
             <a href="../">
                 <i class="fa fa-home"></i>
                 Home
@@ -299,6 +303,9 @@
     </footer>
    
 </div>
+
+</div>
+
 
     <script type="text/javascript">
         function updateWebResources() {
