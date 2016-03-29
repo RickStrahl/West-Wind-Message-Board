@@ -1,11 +1,11 @@
 window.wwthreads = null;
 
 (function (undefined) {
+
     // exportable interface
     wwthreads = {
         initializeLayout: initializeLayout,
-        highlightCode: null, // in aceConfig.js
-        sortAscending: true,   // for reverseMessageOrder
+        highlightCode: null, // in aceConfig.js        
         loadMessages: loadMessageListAjax,
 
         // this object is saved in localstorage
@@ -41,7 +41,16 @@ window.wwthreads = null;
         }        
     }
 
-    function initializeLayout() {
+    // INITIALIZATION for each page
+    // home page forces reload
+    var forceReload = false;
+    if (location.pathname.indexOf(".wwt") < 1)
+        forceReload = true;
+    initializeLayout(forceReload);
+    
+
+    function initializeLayout(forceReload) {
+        
         wwthreads.userData.load();
 
         // for old IE versions work around no FlexBox
@@ -51,7 +60,7 @@ window.wwthreads = null;
             $(document.body).addClass("old-ie");
 
 
-        loadMessageListAjax();
+        loadMessageListAjax(forceReload);
 
         /* Event Handler hookups */
         
@@ -91,9 +100,23 @@ window.wwthreads = null;
         $(".sidebar-left").on("click", "#Search-Button-Submit", messageSearchQuery);
         $(".sidebar-left").on("click", "#Search-Button-Clear", clearSearchQuery);
 
-        // handle sorting of thread messages in a thread
-        $(".main-content").on("click", "#ReverseMessageOrder", reverseMessageOrder);
 
+
+        setTimeout(function() {
+            // handle sorting of thread messages in a thread        
+            $(".main-content").on("click", "#MessageOrderDown", function rvDown() {
+                reverseMessageOrder(true);
+                wwthreads.userData.save();
+                return false;
+            });
+            $(".main-content").on("click", "#MessageOrderUp", function rvUp() {
+                reverseMessageOrder(false);
+                wwthreads.userData.save();
+                return false;
+            });
+        },2000);
+
+        reverseMessageOrder(wwthreads.userData.sortAscending);
     }
 
     var sidebarTappedTwice = false;
@@ -169,6 +192,12 @@ window.wwthreads = null;
             var $el = $(this).next();
             $el.show(600);
         });
+        // Date controls - .not() to avoid native control mods
+        $("#StartDate,#EndDate").datetimepicker({
+            format: "MM/DD/YYYY",
+            keyBinds: { "delete": null }   // leave delete key
+        });
+
 
         return false;
     }
@@ -211,25 +240,32 @@ window.wwthreads = null;
                 return;
 
             wwthreads.highlightCode();
-            //CreateHeaderLinks();
+
+            reverseMessageOrder(wwthreads.userData.sortAscending);            
         });
+
         return false;  // don't allow click              
     };
 
-    function reverseMessageOrder() {
-        wwthreads.sortAscending = !wwthreads.sortAscending;
+    function reverseMessageOrder(sortOrder) {
+        var oldOrder = wwthreads.userData.sortAscending;
 
+        if (typeof sortOrder == "boolean")
+            wwthreads.userData.sortAscending = sortOrder;
+        else
+            // toggle
+            wwthreads.userData.sortAscending = !wwthreads.userData.sortAscending;
+        
+        // already sorted - do nothing
         var $msgList = $(".message-list-item");
 
-        $msgList.sort(function (a, b) {
+        $msgList.sort(function(a, b) {
             var sort = a.getAttribute('data-sort') * 1;
             var sort2 = b.getAttribute('data-sort') * 1;
 
-            console.log(sort, sort2);
-
             var mult = 1;
-            if (!wwthreads.sortAscending)
-                mult = -1
+            if (!wwthreads.userData.sortAscending)
+                mult = -1;
 
             if (sort > sort2)
                 return 1 * mult;
@@ -238,14 +274,26 @@ window.wwthreads = null;
 
             return 0;
         });
-
+        
         $msgList.detach().appendTo("#ThreadMessageList");
 
-        toastr.clear();
-        toastr.success("Message order has been reversed to " +
-                        (wwthreads.sortAscending ? "ascending" : "descending"),
-                        "Thread Message Order");
+        if (wwthreads.userData.sortAscending !== oldOrder) {
+            toastr.clear();
+            toastr.success("Message order has been reversed to " +
+                (wwthreads.userData.sortAscending ? "ascending" : "descending") + ".",
+                "Thread Message Order");
+        }
+
+        // always update the ui
+        $("#SortContainer .fa").removeClass("selected");
+
+        if (wwthreads.userData.sortAscending)
+            $("#MessageOrderDown").addClass("selected");
+        else
+            $("#MessageOrderUp").addClass("selected");
     };
+
+
 
     function messageSearchQuery() {
         $.post("ThreadList.wwt", {
@@ -253,7 +301,7 @@ window.wwthreads = null;
             EndDate: $("#EndDate_field").val(),
             Forum: $("#Forum").val(),
             Search: $("#Search").val(),
-            MsgId: $("MsgId").val()
+            MsgId: $("#MsgId").val()
         }, loadMessageList);
     }
 

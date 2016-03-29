@@ -389,6 +389,8 @@ ENDFUNC
 *   Threads
 
 
+
+
 ************************************************************************
 *  Thread
 ****************************************
@@ -418,6 +420,20 @@ poUser = loMsgBus.oData
 Response.ExpandScript("~/thread.wwt")
 ENDFUNC
 *   Thread
+
+
+************************************************************************
+*  ShowThread
+****************************************
+***  Function: Legacy for forwarding of old requests
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION ShowThreadMessages()
+Response.Redirect("~/Thread" + Request.QueryString("ThreadId") + ".wwt",.T.)
+ENDFUNC
+*   ShowThread
 
 
 ************************************************************************
@@ -610,7 +626,7 @@ ENDIF
 
 IF pnMsgMode = 2
 	loMsgBus = CREATEOBJECT("wwt_Message")
-	loMsgBus.GetThreadMessages(lcOrigId, 2)
+	loMsgBus.GetThreadMessages(poMsg.ThreadId)
 	
 	PRIVATE poMarkdown
 	poMarkdown = THIS.GetMarkdownParser()	

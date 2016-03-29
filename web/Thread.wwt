@@ -17,8 +17,13 @@
         <%= forum %>
     </div>
 
-    <i id="ReverseMessageOrder" class="fa fa-sort pull-right" style="font-size: 1.4em; color: #535353;padding: 12px; cursor: pointer;"
-       title="Reverse message display order"></i>
+    <div id="SortContainer" class="pull-right" style="margin-right: 5px;">
+        <i id="MessageOrderDown" class="fa fa-sort-numeric-asc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 1px; cursor: pointer;"
+           title="Display messages oldest messages first"></i>
+
+        <i id="MessageOrderUp" class="fa fa-sort-numeric-desc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 2px; cursor: pointer;"
+           title="Display messages latest messages first"></i>
+    </div>
 
     <div class="thread-title page-header-text" style="margin-bottom: 0;">
         <%= EncodeHtml(TRIM(Subject)) %>
@@ -41,6 +46,8 @@
                     </a>                    
 
                     <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
+
+                    
 
                     <i class="fa fa-user fa-fw"></i>&nbsp;
                     <%= EncodeHtml(FromName) %><br />
@@ -106,7 +113,8 @@
             return;
         $el.addClass("selected");
         $el[0].scrollIntoView();
-
     }, 500);
+
+
 </script>
 <% endsection %>

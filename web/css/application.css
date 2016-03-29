@@ -131,13 +131,18 @@ input[type=checkbox].with-font:focus ~ label
     position: absolute;
     width: 1px; 
 }
+.bootstrap-datetimepicker-widget.dropdown-menu {
+  background: whitesmoke;
+}
+
 
 /* hidden in below tablet and phone (-xs) sizes respectively */
 .hidable, .hidable-xs {   }
 
 /* flows child elements evenly to fill 100%*/
 .responsive-container {
-    display: flex;    
+    display: flex;   
+    flex-direction: row; 
 }
 .responsive-container>* {
     margin-right: 3px;
@@ -589,6 +594,10 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     .message-list-body a {
         font-weight: bold;
     }
+    .message-list-body img {
+        display: block;
+        max-width: 100%;
+    }
     .message-toolbar {
         background: #535353;
         color: whitesmoke;
@@ -605,7 +614,11 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         background: #e3ebf5;
         border-radius: 2px;
     }
-    
+    #SortContainer .fa.selected {
+        background: goldenrod;
+        border-radius: 2px;
+    }
+
     .quotedmessagetext {
         font-size: 0.825em;
         padding: 10px;

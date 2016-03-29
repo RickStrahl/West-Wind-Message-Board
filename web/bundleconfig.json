@@ -22,5 +22,11 @@
     "inputFiles": [
       "scripts/wwthreads.js"
     ]
+  },
+  {
+    "outputFileName": "scripts/ww.jquery.js",
+    "inputFiles": [
+      "scripts/ww.jquery.js"
+    ]
   }
 ]

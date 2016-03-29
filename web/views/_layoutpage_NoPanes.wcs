@@ -1,11 +1,15 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title><%= IIF(vartype(pcPageTitle)="C",pcPageTitle,"") %></title>
+     <title><%= IIF(vartype(pcPageTitle)="C",pcPageTitle,"") %></title>
 
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />    
+
+    <meta name="description" content="Support Web site for West Wind tools and products and general Web and Enterprise development discussions for Visual FoxPro and .NET developers.">
+    <meta name="keywords" content="FoxPro,Visual FoxPro,VFP,Fox,FoxPro Development,Web,HTML,CSS,JavaScript,C#,.NET,Visual Studio,XML,Web Connection,COM,COM+,SOAP,Messaging,Distributed,Web Monitor,wwIPStuff,ISAPI,DHTML,Dynamic HTML,Rick Strahl,Frederik Strahl,Message Board,Programming,HTTP,COM,DCOM,C++,West Wind Internet Protocols,HTML Help Builder,SOAP,wwSOAP,Web Services,e-Commerce,ecommerce,">   
+
 
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -108,14 +112,7 @@
 
         <div class="page-content">
 
-            <div id="MessageList" class="sidebar-left toc-content">
-                <nav class="visually-hidden">
-                    <a href="ThreadList.wwt">Message List</a>
-                </nav>
-            </div>
-
-            <div class="splitter">
-            </div>
+            
 
             <div id="MainView" class="main-content">
                 <%= RenderContent() %>

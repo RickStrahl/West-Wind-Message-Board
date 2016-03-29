@@ -28,5 +28,8 @@
     "eonasdan-bootstrap-datetimepicker": "~4.17.37",
     "moment": "~2.10.6",
     "jquery-resizable": "^0.15.0"
+  },
+  "resolutions": {
+    "jquery": ">= 1.9.1"
   }
 }

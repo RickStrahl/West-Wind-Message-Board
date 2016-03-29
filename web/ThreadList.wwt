@@ -1,3 +1,9 @@
+<%
+    pcPageTitle ="Message List - West Wind Message Board"
+    pcThreadId = Threadid
+%>
+<% Layout="~/views/_layoutpage_NoPanes.wcs" %>
+
 <% #if .f. %>
 <!-- only for intellisense to work better -->
 <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
@@ -6,7 +12,8 @@
 <% #endif  %>
 
 <div class="message-list-container">
-    <div class="message-search-box" style="">
+    <div class="message-search-box">
+        
         <div class="form-group">
             <%= HtmlDateTextBox("StartDate",poFilter.StartDate,[placeholder="Start Date" class="form-control input-sm"],0) %>
             <%= HtmlDateTextBox("EndDate",poFilter.EndDate,[placeholder="End Date" class="form-control input-sm"],0) %>
@@ -24,7 +31,7 @@
                    value="<%= Request.FormOrValue([Search],poFilter.Search) %>" />
         </div>
         <div class="form-group ">
-            <input type="text" id="Search" name="Search" class="form-control input-sm"
+            <input type="text" id="MsgId" name="MsgId" class="form-control input-sm"
                    placeholder="Message Id"
                    value="<%= Request.FormOrValue([MsgId],poFilter.MsgId) %>" />
         </div>
@@ -41,9 +48,7 @@
             <i class="fa fa-remove"></i>
             Close
         </button>
-
     </div>
-
 
     <%= HtmlErrorDisplay(poError) %>
 

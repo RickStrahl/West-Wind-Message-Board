@@ -45,7 +45,7 @@
     frameResize();
     $(window).resize(frameResize);
     
-    // force message list to renew on first load
-     wwthreads.loadMessages(true);
+    // force message list to renew on first load    
+    //wwthreads.initializeLayout(true);
 </script>
 <% endsection %>

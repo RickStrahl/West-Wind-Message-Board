@@ -118,47 +118,60 @@
        if pnMsgMode = 2
          SELE TMessages
     %>
-<hr />
+        <hr />
 
-<div class="forum-header page-header-text">
-    <%= forum %>
-</div>
-<div class="thread-title page-header-text">
-    <%= EncodeHtml(Subject) %>
-</div>
-
-        <% SCAN %>
-<a name="<%= MsgId %>"></a>
-
-<article class="message-list-item" data-id="<%= msgId %>">
-    <div class="message-list-header">
-
-        <div class="pull-right hidable-xs">
-            <a href="#<%= MsgId %>"><%=MsgId%></a>
+        <div class="forum-header page-header-text">
+            <%= forum %>
         </div>
 
-        <div style="font-size: 0.825em">
-            <img src="<%= GravatarLink(TRIM(FromEmail),60) %>"
-                 style="float: left; margin: 0 15px 0 0; width: 60px; height: 60px; border-radius: 4px; box-shadow: 2px 2px 3px #535353"
-                 alt="Gratar Image based on email address" />
+        <div id="SortContainer" class="pull-right" style="margin-right: 5px;">
+            <i id="MessageOrderDown" class="fa fa-sort-numeric-asc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 1px; cursor: pointer;"
+               title="Display messages oldest messages first"></i>
 
-            <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
-
-            <i class="fa fa-user"></i>&nbsp;
-            <%= EncodeHtml(FromName) %><br />
-
-            <i class="fa fa-clock-o"></i>&nbsp;
-            <%=ShortDate(TimeStamp,1 )%>  @ <%=ShortTime(TimeStamp)%><br />
-            <div class="clearfix"></div>
+            <i id="MessageOrderUp" class="fa fa-sort-numeric-desc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 2px; cursor: pointer;"
+               title="Display messages latest messages first"></i>
         </div>
-    </div>
+
+        <div class="thread-title page-header-text">
+            <%= EncodeHtml(Subject) %>
+        </div>
+
+        <div id="ThreadMessageList">
+
+    <% SCAN %>
+
+    <a name="<%= MsgId %>"></a>
+
+    <article class="message-list-item" data-id="<%= MsgId %>">
+        <div class="message-list-header">
+
+            <div class="pull-right hidable-xs">
+                <a href="#<%= MsgId %>"><%= MsgId %></a>
+            </div>
+
+            <div style="font-size: 0.825em">
+                <img src="<%= GravatarLink(TRIM(FromEmail),60) %>"
+                     style="float: left; margin: 0 15px 0 0; width: 60px; height: 60px; border-radius: 4px; box-shadow: 2px 2px 3px #535353"
+                     alt="Gratar Image based on email address" />
+
+                <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
+
+                <i class="fa fa-user"></i>&nbsp;
+                <%= EncodeHtml(FromName) %><br />
+
+                <i class="fa fa-clock-o"></i>&nbsp;
+                <%=ShortDate(TimeStamp,1 )%>  @ <%= ShortTime(TimeStamp)%><br />
+                <div class="clearfix"></div>
+            </div>
+        </div>
 
 
-    <div class="message-list-body">
-        <%=  iif(format=2,poMarkdown.Parse(Message),DisplayMemo(Message) ) %>
-    </div>
-</article>
-        <% ENDSCAN %>
+        <div class="message-list-body">
+            <%=  iif(format=2,poMarkdown.Parse(Message),DisplayMemo(Message) ) %>
+        </div>
+    </article>
+    <% ENDSCAN %>
+</div>
     <% endif %>
 
 

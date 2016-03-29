@@ -48,16 +48,16 @@ pcSearch = loQueryParms.Search
 lcWhere = "(Pinned OR TimeStamp >= pdStartDate AND TimeStamp < pdEndDate) "
 IF !EMPTY(pcForum)
    lcWhere = lcWhere + " AND (Forum == pcForum) "
-ENDIF
-IF !EMPTY(pcMsgId)
-   lcWhere = lcWhere + " AND MsgId == pcMsgId "
 ENDIF   
 IF !EMPTY(pcSearch)
    lcWhere = lcWhere + " AND ( ATC(pcSearch,Subject)>0 OR  ATC(pcSearch,Message)>0 ) "   
 ENDIF
 
-* MIN(TTOC(TimeStamp,1) + "|" + Subject)  as Subject, 
+IF !EMPTY(pcMsgId)
+   lcWhere = " MsgId == pcMsgId "
+ENDIF
 
+* MIN(TTOC(TimeStamp,1) + "|" + Subject)  as Subject, 
 
 TEXT TO lcSql NOSHOW TEXTMERGE
 SELECT ThreadId,MsgId, TimeStamp,  STRTRAN(Subject,"re: ","",1,1,1) as Subject,
@@ -209,6 +209,9 @@ loIP.cContentType = "text/html"
 
 pcMsgId = THIS.oData.MsgId
 loIP.cMessage = this.RenderMessage(this.oData.MsgId,2)
+
+*** Fix up - protocol agnostic links for email
+loIP.cMessage = STRTRAN(loIp.cMessage,[="//],[="http://])
 
 loIP.SendMailAsync()
 

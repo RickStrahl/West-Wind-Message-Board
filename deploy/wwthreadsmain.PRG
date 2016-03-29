@@ -172,10 +172,7 @@ SET PATH TO (this.oConfig.owwThreadProcess.cDataPath) ADDITIVE
 
 *** Load all application dependencies
 DO Load_Libs
-
 SET ENGINEBEHAVIOR 70
-
-
 
 ENDFUNC
 * OnLoad
