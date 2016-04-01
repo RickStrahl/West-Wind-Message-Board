@@ -19,14 +19,18 @@
 LPARAMETERS lcIISPath
 
 
-IF FILE("WCONNECT.APP")
-   MessageBox("This feature only works in the full version of Web Connection",48,"Wwthreads")
-   RETURN
-ENDIF
+*!*	IF FILE("WCONNECT.APP")   
+*!*	   MessageBox("Automatic Server configuration does not work in the Shareware version of Web Connection",;
+*!*	              48,"Wwthreads")
+*!*	   RETURN
+*!*	ENDIF
 
 DO wwUtils	
+TRY
 SET CLASSLIB TO WebServer ADDIT
 SET CLASSLIB TO wwXML ADdit
+CATCH
+ENDTRY
 
 IF !IsAdmin() 
    MESSAGEBOX("Admin privileges are required to configure the Web Server." + CHR(13) +;

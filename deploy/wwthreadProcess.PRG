@@ -292,18 +292,8 @@ ENDFUNC
 ************************************************************************
 *  ThreadList
 ****************************************
-***  Function: ThreadList partial page
-***    Assume:
-***      Pass:
-***    Return:
-************************************************************************
 FUNCTION ThreadList()
 LOCAL lcLastAccess, ltLastAccess
-
-#IF .F. 
-LOCAL Request as wwRequest, Response as wwResponse, Server as wwServer, ;
-      THIS as wwProcess, Process as wwProcess, Session as wwSession
-#ENDIF
 
 PRIVATE poError as HtmlErrorDisplayConfig
 poError = CREATEOBJECT("HtmlErrorDisplayConfig")
@@ -315,12 +305,11 @@ poFilter = loMsgBus.CreateMessageQueryParms()
 IF Request.IsPostBack()
 	Request.UnbindFormVars(poFilter)
 ELSE
-
 	ltLastAccess = DATE() - 30
-	lcLastAccess = Session.GetSessionVar("LastThreadListAccess")
+	lcLastAccess = Session.GetSessionVar("LastThreadListAccess")	
 	IF !EMPTY(lcLastAccess)
 	   ltLastAccess = TTOD(CTOT(lcLastAccess))
-	ENDIF 	
+	ENDIF
     poFilter.StartDate = ltLastAccess
 	poFilter.Forum = Request.QueryString("Forum")
 ENDIF
@@ -341,7 +330,6 @@ Response.GzipCompression = .T.
 Session.SetSessionVar("LastThreadListAccess",TTOC(DATETIME(),3))
 
 Response.ExpandScript("~/threadList.wwt")
-RETURN
 ENDFUNC
 *   ThreadList
 
@@ -699,7 +687,7 @@ ENDIF
 IF !EMPTY(lcThreadId)
    Response.Redirect("~/Thread" + lcThreadId + ".wwt")
 ELSE
-   Response.Redirect("~/threads.wwt")
+   this.StandardPage("Message has been deleted.","The message has been removed from the message board.")
 ENDIF
    
 ENDFUNC

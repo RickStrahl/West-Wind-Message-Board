@@ -46,6 +46,7 @@ pcMsgId = PADR(loQueryParms.MsgId,FSIZE("MsgId","wwThreads"))
 pcSearch = loQueryParms.Search
 
 lcWhere = "(Pinned OR TimeStamp >= pdStartDate AND TimeStamp < pdEndDate) "
+
 IF !EMPTY(pcForum)
    lcWhere = lcWhere + " AND (Forum == pcForum) "
 ENDIF   

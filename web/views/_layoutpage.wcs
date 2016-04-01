@@ -122,10 +122,13 @@
 
                 <% IF LOWER(JustStem(Request.GetPhysicalPath())) != "threads" %>
                 <footer>
-                    <a href="http://www.west-wind.com/" class="pull-right">
-                        <img src="~/images/WestwindText.png" />
-                    </a>
-                    <small>&copy; <%= Year(DateTime()) %></small>
+                    <div class="pull-right">
+                        <a href="http://www.west-wind.com/">
+                            <img src="~/images/WestwindText.png" />
+                        </a>
+                    </div>
+                    <small>&copy; 1996-<%= Year(DateTime()) %> </small>
+
                 </footer>
                 <% endif %>
             </div> <!-- end #MainView -->

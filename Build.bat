@@ -1,5 +1,5 @@
-set src=c:\webconnection\fox\samples\wwthreads
 set live=c:\webconnectionprojects\wwthreads
+set src=c:\webconnection\fox\samples\wwthreads
 
 robocopy %live%\deploy %src%\deploy /MIR
 robocopy %live%\web %src%\web /MIR

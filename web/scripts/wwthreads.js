@@ -44,8 +44,11 @@ window.wwthreads = null;
     // INITIALIZATION for each page
     // home page forces reload
     var forceReload = false;
+
+    // default homepage / reloads - others just used cached version
     if (location.pathname.indexOf(".wwt") < 1)
         forceReload = true;
+
     initializeLayout(forceReload);
     
 
