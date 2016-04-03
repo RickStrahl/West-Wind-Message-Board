@@ -115,15 +115,11 @@
         $el.addClass("selected");
         $el[0].scrollIntoView();      
     }, 500);
-
-    setTimeout(function() {
-          //  if a msg was selected try to scroll to it
+    setTimeout(function() {          
         var msgId = "<%= pcMsgId %>"
         if (msgId) {            
             window.location.href = "#" + msgId;
         }
     }, 50);
-    
-
 </script>
 <% endsection %>

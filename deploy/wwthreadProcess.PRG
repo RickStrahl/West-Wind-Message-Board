@@ -317,6 +317,12 @@ ENDIF
 loMsgBus.GetForumList() && TForums
 lnResult = loMsgBus.GetThreads(poFilter) && TMessages
 
+IF lnResult < 1
+	poError.Message = "<p>This search returned no matching threads, so there's nothing to show here.<p>" +;
+	                  "<p>Please retry searching with broader search terms.</p>"
+	poError.Header = "No messages to display"
+
+ENDIF
 IF lnResult > 1000
 	poError.Message = "This query returned too many records. Please refine your query to retrieve fewer result messages."
 	poError.Header = "Too many Messages"
