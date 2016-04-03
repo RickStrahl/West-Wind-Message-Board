@@ -9,9 +9,9 @@ LPARAMETERS llToCode
 IF !llToCode
     CLOSE ALL
     SET CLASSLIB TO 
-	DO GENXML WITH "Wwthreads.pjx"
+	DO \wwapps\tools\GENXML WITH "Wwthreads.pjx"
 ELSE
-    DO GENCODE WITH "Wwthreads.twofox"
+    DO \wwapps\tools\GENCODE WITH "Wwthreads.twofox"
 ENDIF
 
 

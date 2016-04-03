@@ -124,3 +124,6 @@ UpgradeLog*.XML
 /deploy/data/wwusers.DBF
 /deploy/data/wwusers.FPT
 /deploy/data/wwusers.cdx
+/.vs
+deploy/Wwthreads.PJX
+deploy/Wwthreads.PJT
