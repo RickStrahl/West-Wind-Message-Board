@@ -269,6 +269,30 @@ ENDFUNC
 *   RenderMessage
 
 ************************************************************************
+*  GetThreadIdFromMsgId
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION GetThreadIdFromMsgId(lcMsgId)
+
+this.Open()
+
+lcMsgId = PADR(lcMsgId,FSIZE("MsgId","wwThreads"))
+LOCAL ARRAY laThreadId[1]
+SELECT ThreadId FROM wwThreads WHERE MsgId == ?lcMsgid INTO ARRAY laThreadId
+
+IF _TALLY = 0
+   RETURN ""
+ENDIF
+
+RETURN laThreadId[1]   
+ENDFUNC
+*   GetThreadIdFromMsgId
+
+************************************************************************
 *  New
 ****************************************
 ***  Function:

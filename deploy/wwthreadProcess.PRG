@@ -493,10 +493,13 @@ IF EMPTY(lcMsgId)
    lcMsgId = STRTRAN(JUSTSTEM(Request.GetPhysicalPath()),"message","",1,1,1)   
 ENDIF
 
-loMsgBus.GetThreadMessages(lcMsgId,2)
+lcThreadId = loMsgBus.GetThreadIdFromMsgId(lcMsgId)
 
-PRIVATE poMarkdown
+loMsgBus.GetThreadMessages(lcThreadId)
+
+PRIVATE poMarkdown, pcMsgId
 poMarkdown = THIS.GetMarkdownParser()
+pcMsgId = lcMsgId  && try to select the message
 
 Response.ExpandScript("~/thread.wwt")
 ENDFUNC

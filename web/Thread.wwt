@@ -34,9 +34,11 @@
     SCAN
        lnI = lnI + 1
     %>
-    <a name="<%= MsgId %>"></a>
+    
     <div id="ThreadMessageList">
+        
         <article class="message-list-item" data-id="<%= msgId %>" data-sort="<%= lnI %>">
+            <a name="<%= MsgId %>"></a>
             <div class="message-list-header">
 
                 <div style="font-size: 0.825em">
@@ -46,8 +48,6 @@
                     </a>                    
 
                     <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
-
-                    
 
                     <i class="fa fa-user fa-fw"></i>&nbsp;
                     <%= EncodeHtml(FromName) %><br />
@@ -102,6 +102,7 @@
 </div>
 <!-- end message content -->
 <!-- remove sections if you're not using them -->
+
 <% section="headers" %>
 <% endsection %>
 
@@ -112,9 +113,17 @@
         if ($el.length < 1)
             return;
         $el.addClass("selected");
-        $el[0].scrollIntoView();
+        $el[0].scrollIntoView();      
     }, 500);
 
+    setTimeout(function() {
+          //  if a msg was selected try to scroll to it
+        var msgId = "<%= pcMsgId %>"
+        if (msgId) {            
+            window.location.href = "#" + msgId;
+        }
+    }, 50);
+    
 
 </script>
 <% endsection %>
