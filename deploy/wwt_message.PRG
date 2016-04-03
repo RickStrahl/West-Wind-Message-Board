@@ -44,6 +44,7 @@ pdEndDate = loQueryParms.EndDate + 1
 pcForum = loQueryParms.Forum
 pcMsgId = PADR(loQueryParms.MsgId,FSIZE("MsgId","wwThreads"))
 pcSearch = loQueryParms.Search
+pcFromName = LOWER(loQueryParms.FromName)
 
 lcWhere = "(Pinned OR TimeStamp >= pdStartDate AND TimeStamp < pdEndDate) "
 
@@ -53,7 +54,11 @@ ENDIF
 IF !EMPTY(pcSearch)
    lcWhere = lcWhere + " AND ( ATC(pcSearch,Subject)>0 OR  ATC(pcSearch,Message)>0 ) "   
 ENDIF
+IF !EMPTY(pcFromName)
+   lcWhere = lcWhere + " AND LOWER(FromName) = pcFromName "
+ENDIF
 
+*** If a MsgId is supplied throw all the other filters out
 IF !EMPTY(pcMsgId)
    lcWhere = " MsgId == pcMsgId "
 ENDIF
@@ -105,6 +110,7 @@ ADDPROPERTY(loQueryParms,"Forum","")
 ADDPROPERTY(loQueryParms,"Search","")
 ADDPROPERTY(loQueryParms,"Search2","")
 ADDPROPERTY(loQueryParms,"MsgId","")
+ADDPROPERTY(loQueryParms,"FromName","")
 
 RETURN loQueryParms
 ENDFUNC

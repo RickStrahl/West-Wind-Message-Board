@@ -23,13 +23,20 @@
             <%= HtmlDropdown("Forum",Trim(poFilter.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
             [class="form-control input-sm"],"-- Select a Forum --","") %>
         </div>
-
+        
+          <div class="form-group ">
+            <input type="text" id="FromName" name="FromName" class="form-control input-sm"
+                   placeholder="User who wrote the message"
+                   value="<%= Request.FormOrValue([FromName],poFilter.FromName) %>" />
+        </div>
 
         <div class="form-group ">
             <input type="text" id="Search" name="Search" class="form-control input-sm"
                    placeholder="Search Phrase"
                    value="<%= Request.FormOrValue([Search],poFilter.Search) %>" />
         </div>
+
+      
         <div class="form-group ">
             <input type="text" id="MsgId" name="MsgId" class="form-control input-sm"
                    placeholder="Message Id"

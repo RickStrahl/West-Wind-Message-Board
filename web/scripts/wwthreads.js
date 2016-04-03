@@ -304,7 +304,8 @@ window.wwthreads = null;
             EndDate: $("#EndDate_field").val(),
             Forum: $("#Forum").val(),
             Search: $("#Search").val(),
-            MsgId: $("#MsgId").val()
+            MsgId: $("#MsgId").val(),
+            FromName: $("#FromName").val()
         }, loadMessageList);
     }
 
