@@ -31,3 +31,9 @@ You'll also have to run Bower to restore the various script libraries. To do thi
 cd web
 bower install
 ```
+
+### Message Board Data
+The repository doesn't include the data because binary files in the repo are a pain. You an use the files from the `Templates\EmptyData` and copy them into the `deploy\data` folder to get initial data.
+
+### No Project File
+The repository doesn't include the binary project file, instead it's encoded by [Christof Wollenhaupt's TwoFox](http://www.foxpert.com/downloads.htm) using GenXml/GenCode.
