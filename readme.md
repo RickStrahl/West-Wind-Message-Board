@@ -1,5 +1,5 @@
 ## West Wind Message Board Sample
-# A sample application for the West Wind Web Connection FoxPro framework
+#### A sample application for the West Wind Web Connection FoxPro framework
 
 This is the repository that contains the latest changes to the West Wind Message Board sample application that ships with West Wind Web Connection. The code here will always be the most current and what will eventually be shipped.
 
