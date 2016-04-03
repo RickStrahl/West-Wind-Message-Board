@@ -311,10 +311,11 @@ window.wwthreads = null;
 
     function clearSearchQuery() {        
         $("#StartDate_field").val(""),
-            $("#EndDate_field").val(""),
-            $("#Forum").val(""),
-            $("#Search").val(""),
-            $("MsgId").val("");
+        $("#EndDate_field").val(""),
+        $("#Forum").val(""),
+        $("#Search").val(""),
+        $("MsgId").val("");
+        $("#FromName").val("");
         $.post("ThreadList.wwt", loadMessageList);
     }
 

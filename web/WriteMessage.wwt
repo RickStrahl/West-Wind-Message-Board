@@ -411,8 +411,8 @@
 <% endsection %>
 
 <% section="scripts" %>
-<script src="~/scripts/wwthreads_editor.js"></script>
-<script src="~/scripts/WriteMessage.js"></script>
+<script src="~/scripts/wwthreads_editor.js?v1.1"></script>
+<script src="~/scripts/WriteMessage.js?v1.1"></script>
 <script>
     setTimeout(function () {
         toastr.info(

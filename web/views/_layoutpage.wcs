@@ -146,10 +146,10 @@
     <script src="~/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
 
-    <script src="~/scripts/wwthreads.min.js"></script>
+    <script src="~/scripts/wwthreads.min.js?v1.1"></script>
     <script src="~/scripts/Ace/ace.js"></script>
     <script src="~/scripts/wwthreads_editorSettings.js"></script>
-    <script src="~/scripts/AceConfig.js"></script>
+    <script src="~/scripts/AceConfig.js?v1.1"></script>
     <script src="~/bower_components/toastr/toastr.min.js" async></script>
     <link href="~/bower_components/toastr/toastr.min.css" rel="stylesheet" async />
 
