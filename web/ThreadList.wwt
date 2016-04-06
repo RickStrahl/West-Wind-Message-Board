@@ -1,15 +1,15 @@
 <%
     pcPageTitle ="Message List - West Wind Message Board"
-    pcThreadId = Threadid
+    pcThreadId = Threadid 
 %>
-<% Layout="~/views/_layoutpage_NoPanes.wcs" %>
+<% Layout="~/views/_layoutpage_NoPanes.wcs" %> 
 
 <% #if .f. %>
 <!-- only for intellisense to work better -->
 <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 <link href="css/application.css" rel="stylesheet" />
-<% #endif  %>
+<% #endif  %> 
 
 <div class="message-list-container">
     <div class="message-search-box">

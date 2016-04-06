@@ -396,6 +396,8 @@ ENDFUNC
 FUNCTION Thread(lcThreadId)
 LOCAL loMsgBus
 
+pcMsgId = Request.QueryString("msgId")
+
 loMsgBus = CREATEOBJECT("wwt_Message")
 lnResult = loMsgBus.GetThreadMessages(lcThreadId)
 

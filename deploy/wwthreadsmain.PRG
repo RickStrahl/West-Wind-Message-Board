@@ -266,14 +266,13 @@ RETURN
 ENDDEFINE
 * EOC Wwthreads
 
-
 ***************************************************************
 DEFINE CLASS WwthreadsConfig AS wwServerConfig
 ***************************************************************
 *: Author: Rick Strahl
 *:         (c) West Wind Technologies, 1999
 *:Contact: http://www.west-wind.com
-*******&&******************************************************
+***************************************************************
 #IF .F.
 *:Help Documentation
 *:Topic:

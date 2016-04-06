@@ -5,6 +5,9 @@
 ***            Web Server for you from this file.
 ***
 ***            You can modify this script to fit your exact needs
+***
+***            You can customize operation of this script in 
+***            wwthreads.ini in the [ServerConfig] section.
 ***            
 ***    Assume: Called from WwthreadsMain.prg startup code
 ***            with lcAction parameter
@@ -18,17 +21,10 @@
 ************************************************************************
 LPARAMETERS lcIISPath
 
-
-*!*	IF FILE("WCONNECT.APP")   
-*!*	   MessageBox("Automatic Server configuration does not work in the Shareware version of Web Connection",;
-*!*	              48,"Wwthreads")
-*!*	   RETURN
-*!*	ENDIF
-
 DO wwUtils	
 TRY
-SET CLASSLIB TO WebServer ADDIT
-SET CLASSLIB TO wwXML ADdit
+	SET CLASSLIB TO WebServer ADDIT
+	SET CLASSLIB TO wwXML ADdit
 CATCH
 ENDTRY
 
