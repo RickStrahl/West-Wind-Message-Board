@@ -308,7 +308,7 @@ ELSE
 	ltLastAccess = DATE() - 30
 	lcLastAccess = Session.GetSessionVar("LastThreadListAccess")	
 	IF !EMPTY(lcLastAccess)
-	   ltLastAccess = TTOD(CTOT(lcLastAccess))
+	   ltLastAccess = TTOD(CTOT(lcLastAccess)) -1
 	ENDIF
     poFilter.StartDate = ltLastAccess
 	poFilter.Forum = Request.QueryString("Forum")

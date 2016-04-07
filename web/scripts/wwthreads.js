@@ -205,50 +205,55 @@ window.wwthreads = null;
         return false;
     }
 
-    function loadTopicAjax(href) {        
+function loadTopicAjax(href) {        
 
-        var hrefPassed = true;
-        if (typeof href != "string") {
-            hrefPassed = false;
-            var $el = $(this);
-            var threadId = $el.data("id");
-            href = "Thread" + threadId + ".wwt";
+    var hrefPassed = true;
+    if (typeof href != "string") {
+        hrefPassed = false;
+        var $el = $(this);
+        var threadId = $el.data("id");
+        href = "Thread" + threadId + ".wwt";
 
-            $(".message-item").removeClass("selected");
-            $el.addClass("selected");            
-        }
+        $(".message-item").removeClass("selected");
+        $el.addClass("selected");            
+    }
 
-        $.get(href, function(html) {
-            var $html = $(html);
+    $.get(href, function(html) {
+        var $html = $(html);
 
-            var title = html.extract("<title>", "</title>");
-            window.document.title = title;
+        var title = html.extract("<title>", "</title>");
+        window.document.title = title;
 
-            var $content = $html.find(".main-content");
-            if ($content.length > 0) {
-                html = $content.html();
-                $(".main-content").html(html);
+        var $content = $html.find(".main-content");
+        if ($content.length > 0) {
+            html = $content.html();
+            $(".main-content").html(html);
 
-                wwthreads.sortAscending = true;
+            wwthreads.sortAscending = true;
 
-                // update the navigation history/url in addressbar
-                if (window.history.pushState && !hrefPassed)
-                    window.history.pushState({ title: '', URL: href }, "", href);
+            // update the navigation history/url in addressbar
+            if (window.history.pushState && !hrefPassed)
+                window.history.pushState({ title: '', URL: href }, "", href);
 
-                $(".main-content").scrollTop(0);
+            $(".main-content").scrollTop(0);
 
-                if (window.outerWidth < 769)
-                    $(".sidebar-left").width(0);                
-            } else
-                return;
+            if (window.outerWidth < 769)
+                $(".sidebar-left").width(0);
 
-            wwthreads.highlightCode();
+            // fire google ads  
+            setTimeout(function() {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            }, 500);
+        } else
+            return;
 
-            reverseMessageOrder(wwthreads.userData.sortAscending);            
-        });
+        wwthreads.highlightCode();
 
-        return false;  // don't allow click              
-    };
+        reverseMessageOrder(wwthreads.userData.sortAscending);            
+    });
+
+    return false;  // don't allow click              
+};
 
     function reverseMessageOrder(sortOrder) {
         var oldOrder = wwthreads.userData.sortAscending;

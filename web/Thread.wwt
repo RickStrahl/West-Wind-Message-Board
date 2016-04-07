@@ -35,8 +35,7 @@
        lnI = lnI + 1
     %>
     
-    <div id="ThreadMessageList">
-        
+    <div id="ThreadMessageList">              
         <article class="message-list-item" data-id="<%= msgId %>" data-sort="<%= lnI %>">
             <a name="<%= MsgId %>"></a>
             <div class="message-list-header">
@@ -95,11 +94,26 @@
             <div class="message-list-body">
                 <%=  iif(format=2,poMarkdown.Parse(Message),DisplayMemo(Message) ) %>
             </div>
+            
+             <% if lnI = 1 OR lnI = 3 or lnI=6 %>               
+                <!-- script in layout and on bottom and ajax refresh in loadTopicAjax()
+                <!-- MessageBoard Thread Responsive Ad -->
+                <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-2013123155768157"
+                        data-ad-slot="6363211617"
+                        data-ad-format="auto"></ins>           
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            <% endif %>
         </article>
+        
+
     </div>
     <% ENDSCAN %>
 
-</div>
+</div> 
 <!-- end message content -->
 <!-- remove sections if you're not using them -->
 
