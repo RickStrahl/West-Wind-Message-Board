@@ -93,18 +93,26 @@
             <i class="fa fa-bars" style="cursor: pointer;padding: 5px;" id="slide-menu-toggle" title="Toggle the message list side menu."></i>
 
             &nbsp;&nbsp;
-            <a href="WriteMessage.wwt">
+            <a href="WriteMessage.wwt" title="Write a new message">
                 <i class="fa fa-edit"></i>
-                New Message
-            </a>
-            <a id="Refresh-Button" href="javascript:{}" title="Refresh the message list.">
-                <i class="fa fa-refresh"></i>
-                Refresh
+                <span class="hidable-xs">New Message</span>
             </a>
             <a id="Search-Button" href="javascript:{}">
                 <i class="fa fa-search"></i>
-                Search
+                <span class="hidable-xs">Search</span>
             </a>
+            <a id="Refresh-Latest-Button" href="javascript:{}" title="Refresh the message list with messages since last message load.">
+                <i class="fa fa-refresh"></i>         
+                <span class="hidable-xs">Latest</span>       
+            </a>
+            <a id="Refresh-Button" 
+                href="javascript:{}" 
+                title="Repeat and refresh results from the last search." >
+                <i class="fa fa-repeat"></i>
+                <span class="hidable-xs">Redo</span>                       
+            </a>
+            
+            
         </div>
 
         <div class="page-content">

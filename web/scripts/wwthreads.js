@@ -86,7 +86,7 @@ window.wwthreads = null;
         $("#MessageList").on("click", ".message-item,.message-item >a", loadTopicAjax);
 
         // handle Message List refresh
-        $(document.body).on("click", "#Refresh-Button", function() {
+        $(document.body).on("click", "#Refresh-Latest-Button", function() {
             loadMessageListAjax(true)
                 .then(function() {
                         toastr.success("Thread listing updated.");
@@ -99,8 +99,8 @@ window.wwthreads = null;
         // Search button clicks
         $(document.body).on("click","#Search-Button,#Search-Button-Close",function() {
             $(".message-search-box").toggle();
-        });                
-        $(".sidebar-left").on("click", "#Search-Button-Submit", messageSearchQuery);
+        });        
+        $(document.body).on("click", "#Search-Button-Submit,#Refresh-Button", messageSearchQuery);
         $(".sidebar-left").on("click", "#Search-Button-Clear", clearSearchQuery);
         $(".sidebar-left").on("keypress", ".message-search-box input", function (e) {
             console.log(e.which);
@@ -308,10 +308,8 @@ function loadTopicAjax(href) {
         else
             $("#MessageOrderUp").addClass("selected");
     };
-
-
-
-    function messageSearchQuery() {
+    
+    function messageSearchQuery() {        
         $("#ThreadListing").html("<div style='margin: 70px 45%;width: 100%;'><i class='fa fa-circle-o-notch fa-4x fa-spin'></i><div>");
 
         $.post("ThreadList.wwt", {

@@ -259,17 +259,17 @@ input[type=checkbox].with-font:focus ~ label
     flex: none;
     background: #585858;    
     background-image: url('../images/FloralBackground_darkgrey.gif');
-    font-size: 1.1em;
-    padding: 3px 8px;
+    font-size: 1.2em;
+    padding: 2px 8px;
     color: white;    
 }
 .menu-toolbar a, .menu-toolbar a:visited {
     color: white;
     text-decoration: none;
-    padding: 2px 5px;
+    padding: 5px 10px;
     border-radius: 2px;
     display: inline-block;
-    margin-right: 6px;
+    margin-right: 4px;
 }
 .menu-toolbar a .fa {
     color: gold;
