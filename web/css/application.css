@@ -143,6 +143,7 @@ input[type=checkbox].with-font:focus ~ label
 .responsive-container {
     display: flex;   
     flex-direction: row; 
+    width: 100%;
 }
 .responsive-container>* {
     margin-right: 3px;

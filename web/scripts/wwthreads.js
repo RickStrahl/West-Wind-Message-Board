@@ -102,8 +102,13 @@ window.wwthreads = null;
         });                
         $(".sidebar-left").on("click", "#Search-Button-Submit", messageSearchQuery);
         $(".sidebar-left").on("click", "#Search-Button-Clear", clearSearchQuery);
-
-
+        $(".sidebar-left").on("keypress", ".message-search-box input", function (e) {
+            console.log(e.which);
+            if (e.which === 13) {
+                messageSearchQuery();
+                return false;
+            }
+        });
 
         setTimeout(function() {
             // handle sorting of thread messages in a thread        
@@ -198,7 +203,10 @@ window.wwthreads = null;
         // Date controls - .not() to avoid native control mods
         $("#StartDate,#EndDate").datetimepicker({
             format: "MM/DD/YYYY",
-            keyBinds: { "delete": null }   // leave delete key
+            keyBinds: {
+                "enter": messageSearchQuery,
+                "delete": null  // leave delete ke                
+            }  
         });
 
 
@@ -304,6 +312,8 @@ function loadTopicAjax(href) {
 
 
     function messageSearchQuery() {
+        $("#ThreadListing").html("<div style='margin: 70px 45%;width: 100%;'><i class='fa fa-circle-o-notch fa-4x fa-spin'></i><div>");
+
         $.post("ThreadList.wwt", {
             StartDate: $("#StartDate_field").val(),
             EndDate: $("#EndDate_field").val(),

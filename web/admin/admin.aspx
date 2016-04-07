@@ -45,7 +45,7 @@
   }
 
   if (string.IsNullOrEmpty(this.Show))
-     this.Show = "wc";
+     this.Show = "wwt";
 %>
 <body>
 <div class="flex-master">

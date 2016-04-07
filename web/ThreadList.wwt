@@ -13,12 +13,25 @@
 
 <div class="message-list-container">
     <div class="message-search-box">
-        
-        <div class="form-group">
-            <%= HtmlDateTextBox("StartDate",poFilter.StartDate,[placeholder="Start Date" class="form-control input-sm"],0) %>
-            <%= HtmlDateTextBox("EndDate",poFilter.EndDate,[placeholder="End Date" class="form-control input-sm"],0) %>
-        </div>
+        <div class="form-group responsive-container" style="padding-right: 5px;">
 
+            <div class="input-group" id="StartDate" style="width: 50%">
+                <input id="StartDate_field" name="StartDate" type="text" 
+                       class="form-control input-sm" value="<%= Request.FormDateOrValue('StartDate',poFilter.StartDate) %>" />
+                <span class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </span>
+           </div>
+            
+           <div class="input-group" id="EndDate" style="width: 50%">
+                <input id="EndDate_field" name="EndDate" type="text" 
+                       class="form-control input-sm" value="<%= Request.FormDateOrValue('EndDate',poFilter.EndDate) %>" />
+                <span class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </span>
+           </div>
+        </div>
+               
         <div class="form-group">
             <%= HtmlDropdown("Forum",Trim(poFilter.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
             [class="form-control input-sm"],"-- Select a Forum --","") %>
@@ -57,6 +70,8 @@
         </button>
     </div>
 
+    <div id="ThreadListing">
+        
     <%= HtmlErrorDisplay(poError) %>
 
     <%
@@ -69,6 +84,7 @@
     <% if llOpenForum %>
 </div>
             <% endif %>
+
 
 <div class="forum-list-header">
     <div class="pull-right expand-forum" style="font-size: 0.8em; color: goldenrod; padding: 4px">
@@ -108,4 +124,6 @@
     </div>
     <%  lcForum = TMessages.Forum
     ENDSCAN %>
+</div>
+
 </div>
