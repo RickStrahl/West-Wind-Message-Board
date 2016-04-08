@@ -483,9 +483,11 @@ IF THIS.nDataMode = 0
       THIS.SetError("Unable to open Customer file due to exclusive use.")
       RETURN .F.
    ENDIF
-
+   
    DELETE TAG ALL
+     
    PACK
+   PACK MEMO
 
    INDEX ON threadid TAG threadid
    INDEX ON forum TAG forum

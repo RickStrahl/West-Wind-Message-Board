@@ -223,9 +223,12 @@ IF THIS.nDataMode = 0
    ENDIF
 
    DELETE TAG ALL
+   
+   DELETE FOR EMPTY(NAME)
+
    PACK
-
-
+   INDEX ON CookieId TAG CookieId
+   INDEX ON Email TAG Email   
 
    USE
 ENDIF
