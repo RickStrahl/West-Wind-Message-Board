@@ -58,7 +58,7 @@
 
                         <i class="fa fa-external-link"></i>
                         <a href="#<%= MsgId %>" title="Message id - click to update the URL for a pasteable link.">
-                            <%=MsgId%>
+                            <%= MsgId %>
                         </a>
                     </div>
 

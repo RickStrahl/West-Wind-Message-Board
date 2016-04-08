@@ -51,11 +51,13 @@ nPageScriptMode = 3
 *** Custom Error Page
 cErrorTemplate = "~/Views/_ErrorTemplate.wcs"
 
+*** User related short cut values
 cAuthenticationMode = "UserSecurity"
 cAuthenticatedUserId = ""
 lAuthenticatedAdmin = .F.
 
-
+*** oUser data instance
+oUser = .null.
 
 *********************************************************************
 * Function wwThreadProcess :: OnProcessInit
@@ -73,7 +75,6 @@ THIS.InitSession("wwt",24000 * 30,.T.)
 *** specific checks for specific requests
 this.Authenticate("ANY","",.T.)
 
-*!*
 *!*	lcScriptName = LOWER(JUSTFNAME(Request.GetPhysicalPath()))
 *!*	llIgnoreLoginRequest = INLIST(lcScriptName,"default","login","logout")
 *!*
@@ -87,7 +88,6 @@ this.Authenticate("ANY","",.T.)
 *** Assume all form and query request data is UTF-8
 Response.Encoding = "UTF8"
 Request.lUtf8Encoding = .T.
-
 
 *** Handle urls like ShowMessage131231.wwt 
 lcScript = LOWER( JUSTSTEM(this.oRequest.GetPhysicalPath()) )
@@ -157,11 +157,11 @@ ENDIF
 
 *** Assign the user
 this.cAuthenticatedUser = lcEmail && email
-this.cAuthenticatedName = loUserBus.oData.Name
+this.cAuthenticatedName = TRIM(loUserBus.oData.Name)
 
 *** Add a custom sessionvar we can pick up on each request
 Session.SetSessionVar("_authenticatedUserId",loUserBus.oData.CookieId)
-Session.SetSessionVar("_authenticatedName",loUserBus.oData.Name)
+Session.SetSessionVar("_authenticatedName",TRIM(loUserBus.oData.Name))
 Session.SetSessionVar("_authenticatedAdmin",IIF(loUserBus.oData.Admin != 0,"True",""))
 
 ENDFUNC
@@ -178,10 +178,23 @@ ENDFUNC
 ************************************************************************
 FUNCTION OnAuthenticated()
 
-*** Set our custom properties from Session
-this.cAuthenticatedName = Session.GetSessionVar("_authenticatedName")
-this.cAuthenticatedUserId = Session.GetSessionVar("_authenticatedUserId")
-this.lAuthenticatedAdmin = !EMPTY(Session.GetSessionVar("_authenticatedAdmin"))
+LOCAL loUser as wwt_user, loData
+loUser = CREATEOBJECT("wwt_user")
+IF loUser.LoadFromEmail(this.cAutHENTICATEDUSER)
+   this.oUser = loUser
+   loData = loUser.oData
+   loData.LastOn = DATETIME()
+   this.oUser.Save()   
+
+   this.cAuthenticatedName = TRIM(loData.Name)
+   this.cAuthenticatedUserId = TRIM(loData.CookieId)
+   this.lAuthenticatedAdmin = IIF(loData.Admin # 0,.t.,.f.)
+ELSE
+	*** get our custom properties from Session
+	this.cAuthenticatedName = Session.GetSessionVar("_authenticatedName")
+	this.cAuthenticatedUserId = Session.GetSessionVar("_authenticatedUserId")
+	this.lAuthenticatedAdmin = !EMPTY(Session.GetSessionVar("_authenticatedAdmin"))
+ENDIF
 
 ENDFUNC
 *   OnAuthenticated
@@ -284,6 +297,7 @@ ENDFUNC
 ************************************************************************
 FUNCTION Logout()
 THIS.Authenticate("Logout")
+this.oUser = null
 Response.Redirect("~/")
 ENDFUNC
 *   Logout
@@ -411,8 +425,6 @@ poMarkdown = THIS.GetMarkdownParser()
 
 Response.GzipCompression = .T.
 
-poUser = loMsgBus.oData
-
 Response.ExpandScript("~/thread.wwt")
 ENDFUNC
 *   Thread
@@ -449,7 +461,7 @@ poError = CREATEOBJECT("HtmlErrorDisplayConfig")
 
 loUserBUs = CREATEOBJECT("wwt_User")
 
-IF EMPTY(THIS.cAuthenticatedUserId) OR !loUserBus.Load(this.cAuthenticatedUserId)
+IF ISNULL(this.oUser)
    loUserBus.New()
    plNewUser = .T.
 ENDIF   
@@ -505,7 +517,7 @@ lcThreadId = loMsgBus.GetThreadIdFromMsgId(lcMsgId)
 
 loMsgBus.GetThreadMessages(lcThreadId)
 
-PRIVATE poMarkdown, pcMsgId
+PRIVATE poMarkdown, pcMsgId, poMessage
 poMarkdown = THIS.GetMarkdownParser()
 pcMsgId = lcMsgId  && try to select the message
 
@@ -578,8 +590,8 @@ IF pnMsgMode = 2
    poMsg.TimeStamp = DATETIME()
 ENDIF
 
-poUser = CREATEOBJECT("wwt_user")
-IF !poUser.Load(this.cAuthenticatedUserId)
+poUser = this.oUser
+IF ISNULL(poUser)
    poError.Message = "You're not logged in or your account info is invalid. Please log in again."
    RETURN Response.ExpandScript("~/WriteMessage.wwt")
 ENDIF
@@ -597,10 +609,12 @@ IF (Request.IsPostBack())
    ENDIF
    
    IF poError.Errors.Count < 1 
-   	    poMsg.FromName = TRIM(poUser.oData.Name)
-   	    poMsg.FromEmail = TRIM(poUser.oData.Email)
-   	    poMsg.UserId = poUser.oData.CookieId
-   
+        IF !plEditing
+	   	    poMsg.FromName = TRIM(poUser.oData.Name)
+	   	    poMsg.FromEmail = TRIM(poUser.oData.Email)
+	   	    poMsg.UserId = poUser.oData.CookieId
+   		ENDIF
+   		
        IF !loMsgBus.Save() 
 	      poError.Message = loMsgBus.cErrorMsg      
        ENDIF  
@@ -679,7 +693,7 @@ lcMsgId = Request.QueryString("id")
 
 poUser = CREATEOBJECT("wwt_user")
 IF !this.lAuthenticatedAdmin AND ;
-   (EMPTY(lcMsgId) OR !poUser.Load(this.cAuthenticatedUserId))
+   (EMPTY(lcMsgId) OR ISNULL(poUser))
    Response.Redirect("~/threads.wwt")
    RETURN
 ENDIF
@@ -714,7 +728,7 @@ ENDFUNC
 ************************************************************************
 FUNCTION ImageUpload()
 
-IF EMPTY(this.cAuthenticatedUser)
+IF ISNULL(THIS.oUser)
    ERROR "You have to be signed in to upload images."
 ENDIF
 
@@ -904,7 +918,15 @@ IF !loMsgBus.Reindex()
    RETURN
 ENDIF
 
-THIS.StandardPage("Messages Reindexed","Messages have been reindexed and packed successfully.")
+loUserBus = CREATEOBJECT("wwt_User")
+IF !loUserBus.Reindex()
+   this.ErrorMsg("Unable to reindex Users", ;
+     "The user table most likely is locked. Try unloading all but one instance of the server and retry this operation.")
+   RETURN
+ENDIF
+
+
+THIS.StandardPage("Message Board Tables Reindexed","Messages and Users have been reindexed and packed successfully.")
 ENDFUNC
 *   Reindex
 
