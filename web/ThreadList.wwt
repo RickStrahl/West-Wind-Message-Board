@@ -97,7 +97,7 @@
     endif %>
     <div class="message-item" data-id="<%= Threadid %>">
         <div class="pull-left">
-            <i class="fa fa-thumb-tack<%= IIF(MsgCount -1 < 1,[ fa-rotate-90],[]) %>" style="color: firebrick;"></i>
+            <i class="fa fa-thumb-tack<%= IIF(MsgCount -1 < 1,[ fa-rotate-90 fa-red],[ fa-green]) %>" ></i>
             <%if Pinned %>
             <i class="fa fa-star" style="color: goldenrod;font-size: 0.8em"></i>
             <% endif %>

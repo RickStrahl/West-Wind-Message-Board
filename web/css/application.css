@@ -103,13 +103,20 @@ input[type=checkbox].with-font:focus ~ label
     color: green; /* highlight both box and label */
 }
 
-
 /* BootStrap overrides */
 
 .panel-heading {
     font-weight: bold;
 }
-
+.fa-green {
+    color: green;
+}
+.fa-red {
+    color: firebrick;
+}
+.fa-lightgreen {
+    color: lightgreen;
+}
 /* Common CSS */
 
 .right{ 
