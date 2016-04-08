@@ -76,6 +76,15 @@
                                 Profile
                             </a>
                         </li>
+                        <% if Process.lAuthenticatedAdmin %>
+                        <li>
+                            <a href="~/admin/admin.aspx">
+                                <i class="fa fa-gears"></i>
+                                Admin Page
+                            </a>
+                        </li>
+                        <% endif %>
+                        <li role="separator" class="divider"></li>
                         <li>
                             <a href="logout.wwt">
                                 <i class="fa fa-lock"></i>&nbsp;
