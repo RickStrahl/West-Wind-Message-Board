@@ -514,6 +514,10 @@ IF EMPTY(lcMsgId)
 ENDIF
 
 lcThreadId = loMsgBus.GetThreadIdFromMsgId(lcMsgId)
+IF EMPTY(lcThreadId)
+   THIS.ErrorMsg("Invalid Message Id","The message you're trying to access, has been removed or is no longer accessible. Please select another message to view.")
+   RETURN
+ENDIF
 
 loMsgBus.GetThreadMessages(lcThreadId)
 
