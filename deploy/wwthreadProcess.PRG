@@ -641,12 +641,14 @@ ELSE
 
 ENDIF
 
+
+PRIVATE poMarkdown
+poMarkdown = THIS.GetMarkdownParser()	
+
 IF pnMsgMode = 2
 	loMsgBus = CREATEOBJECT("wwt_Message")
 	loMsgBus.GetThreadMessages(poMsg.ThreadId)
 	
-	PRIVATE poMarkdown
-	poMarkdown = THIS.GetMarkdownParser()	
 ENDIF
 
 

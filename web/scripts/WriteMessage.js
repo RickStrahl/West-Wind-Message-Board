@@ -44,6 +44,12 @@ $(document).ready(function () {
     });
 
     setupImageUpload();
+
+    // Preview Editor Hookup
+    var markdownFunc = debounce(markdown, 800,false);
+    $("#Editor").keyup(function() {
+        markdownFunc(textEditor.getvalue());
+    });
 });
 
 
@@ -206,4 +212,31 @@ function setupImageUpload() {
             }
         });
     }
+}
+
+function markdown(markdownText) {
+    if (!markdownText)
+        var markdownText = te.getvalue();
+
+    marked.setOptions({
+        renderer: new marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false
+    });
+    var md = marked(markdownText);
+    md = md.replace(/><code class="lang-/g, ' lang="');
+
+    $("#Preview").html("<hr/>" + md + "<hr/>");
+    wwthreads.highlightCode("#Preview pre[lang]");
+
+    //<pre><code class="lang-javascript">x++;
+    //var next = x + 10;
+    //</code></pre>
+
+    // <pre lang="javascript">
 }

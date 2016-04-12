@@ -644,7 +644,7 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     }
     @media(min-width: 1200px){
         .main-content{
-            font-size: 1.1em;            
+            font-size: 1.15em;            
         }
         .message-list-body {
             padding: 15px 3.5%;

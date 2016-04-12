@@ -31,7 +31,10 @@
         return editor;
     }
 
-    function highlightCode() {        
+    function highlightCode(sel) {
+        if (!sel)
+            sel = "pre[lang]";
+
         // attach ace to formatted code controls if they are loaded and visible
         $("pre[lang]").each(function () {            
             var $el = $(this);
