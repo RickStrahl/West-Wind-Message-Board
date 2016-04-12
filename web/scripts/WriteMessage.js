@@ -57,7 +57,9 @@ $(".edit-toolbar a").click(handleMenuButtons);
 
 function handleMenuButtons(id) {
     var $btn = $(this);
-    var id = null;
+    var id = null, output = "", lines;
+    
+
     if (typeof id !== "string")
         id = $btn.prop("id");
 
@@ -73,6 +75,21 @@ function handleMenuButtons(id) {
             return;
         textEditor.setselection("*" + selectedText + "*");
         textEditor.setfocus();
+    } else if (id == "btnQuote") {
+        if (!selectedText)
+            return;
+
+        lines = selectedText.split('\n');        
+        lines.forEach(function (val, i) {            
+            output += "> " + val.replace("\r", "") + "\r\n";            
+        });
+        textEditor.setselection(output);
+    } else if (id == "btnList") {
+        lines = selectedText.split('\n');
+        lines.forEach(function (val, i) {
+            output += "* " + val.replace("\r", "") + "\r\n";
+        });
+        textEditor.setselection(output);
     } else if (id == "btnH2") {
         textEditor.setselection("## " + selectedText);
         textEditor.setfocus();
@@ -100,6 +117,8 @@ function handleMenuButtons(id) {
         $("#CodeDialog").modal();
     }
 
+    // force update
+    markdown();
 }
 
 function setupImageUpload() {

@@ -63,6 +63,14 @@
             <a id="btnItalic" class="btn btn-sm btn-link" title="Make the selected text italic (ctrl-i)">
                 <i class="fa fa-italic"></i>
             </a>
+            
+            <a id="btnQuote" class="btn btn-sm btn-link hidable-xs" title="Quote and indent text.">
+                <i class="fa fa-quote-left"></i>
+            </a>
+            
+            <a id="btnList" class="btn btn-sm btn-link hidable-xs" title="Turn lines into list items.">
+                <i class="fa fa-list"></i>
+            </a>
 
             <span class="hidable-xs">|</span>
 
@@ -115,7 +123,7 @@
     </form>
 </div>
 
-<div id="Preview" class="message-list-body">            
+<div id="Preview" class="message-list-body" style="font-size: 1.1em">            
 </div>
 
     <%
