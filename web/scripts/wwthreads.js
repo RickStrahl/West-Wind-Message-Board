@@ -5,7 +5,12 @@ window.wwthreads = null;
     // exportable interface
     wwthreads = {
         initializeLayout: initializeLayout,
-        highlightCode: null, // in aceConfig.js        
+        highlightCode: function () {             
+                $('pre code').each(function (i, block) {
+                    hljs.highlightBlock(block);
+                    //hljs.registerLanguage("foxpro", language)
+                });           
+        },
         loadMessages: loadMessageListAjax,
 
         // this object is saved in localstorage

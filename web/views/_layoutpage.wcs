@@ -165,10 +165,19 @@
     <script src="~/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
 
-    <script src="~/scripts/wwthreads.min.js?v1.1"></script>
+    <script src="~/scripts/wwthreads.js?v1.1"></script>
+    <% #if false %>
     <script src="~/scripts/Ace/ace.js"></script>
     <script src="~/scripts/wwthreads_editorSettings.js"></script>
     <script src="~/scripts/AceConfig.js?v1.1"></script>
+    <% #endif %>
+    
+    <link href="scripts/highlightjs/styles/zenburn.css" rel="stylesheet" />
+    <script src="scripts/highlightjs/highlight.pack.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+
     <script src="~/bower_components/toastr/toastr.min.js" async></script>
     <link href="~/bower_components/toastr/toastr.min.css" rel="stylesheet" async />
 

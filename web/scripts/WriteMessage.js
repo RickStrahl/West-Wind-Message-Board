@@ -240,10 +240,10 @@ function markdown(markdownText) {
     marked.setOptions({
         renderer: new marked.Renderer(),
         gfm: true,
-        tables: true,
+        tables: false,
         breaks: false,
         pedantic: false,
-        sanitize: true,
+        sanitize: false,
         smartLists: true,
         smartypants: false
     });

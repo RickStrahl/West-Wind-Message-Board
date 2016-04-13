@@ -968,8 +968,12 @@ IF VARTYPE(__wwThreadsMarkdownParser) = "O"
    poMarkdown = __wwThreadsMarkdownParser
 ELSE
 	poMarkDown =  CreateObject("MarkdownParserExtended")
-	poMarkdown.cCodeBlockStartHtml = [<pre lang="###language###">]  + CHR(13) + CHR(10) 
-	poMarkdown.cCodeBlockEndHtml = [</pre>]
+	
+	poMarkdown.cCodeBlockStartHtml = [<pre class="no-container"><code class="###language###">]
+	poMarkdown.cCodeBlockEndHtml = [</code></pre>]
+	
+	*poMarkdown.cCodeBlockStartHtml = [<pre lang="###language###">]  + CHR(13) + CHR(10) 
+	*poMarkdown.cCodeBlockEndHtml = [</pre>]
 ENDIF
 
 RETURN poMarkdown

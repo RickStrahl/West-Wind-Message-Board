@@ -1,7 +1,7 @@
 (function () {
     // These settings control how code is rendered in help files (wwhelp_editorsettings.js)
     var editorSettings = window.editorSettings;
-    wwthreads.highlightCode = highlightCode;
+    //wwthreads.highlightCode = highlightCode;
 
     function configureAceEditor(editor, editorSettings) {
         var session = editor.getSession();
