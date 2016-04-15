@@ -113,11 +113,11 @@
         <div class="page-content">
 
             
-
             <div id="MainView" class="main-content">
                 <%= RenderContent() %>
 
-                <% IF LOWER(JustStem(Request.GetPhysicalPath())) != "threads" %>
+                <%  lcFileStem = LOWER(JustStem(Request.GetPhysicalPath()))
+					IF  lcFileStem != "threads" AND lcFileStem != "threadlist" %>
                 <footer>
                     <a href="http://www.west-wind.com/" class="pull-right">
                         <img src="~/images/WestwindText.png" />

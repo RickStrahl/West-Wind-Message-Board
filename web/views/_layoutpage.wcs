@@ -172,8 +172,9 @@
     <script src="~/scripts/AceConfig.js?v1.1"></script>
     <% #endif %>
     
-    <link href="scripts/highlightjs/styles/zenburn.css" rel="stylesheet" />
-    <script src="scripts/highlightjs/highlight.pack.js"></script>
+    <link href="~/scripts/highlightjs/styles/twilight.css" rel="stylesheet" />
+    <script src="~/scripts/highlightjs/highlight.pack.js"></script>
+    
     <script>
         hljs.initHighlightingOnLoad();
     </script>

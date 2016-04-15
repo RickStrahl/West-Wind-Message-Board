@@ -7,8 +7,7 @@ window.wwthreads = null;
         initializeLayout: initializeLayout,
         highlightCode: function () {             
                 $('pre code').each(function (i, block) {
-                    hljs.highlightBlock(block);
-                    //hljs.registerLanguage("foxpro", language)
+                    hljs.highlightBlock(block);                             
                 });           
         },
         loadMessages: loadMessageListAjax,
