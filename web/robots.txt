@@ -1,0 +1,10 @@
+﻿user-agent: *
+allow: /
+
+user-agent: *
+disallow: /Reply.*.wwt
+
+user-agent: *
+disallow: /Write.*.wwt
+
+Sitemap: http://support.west-wind.com/Sitemap.aspx
