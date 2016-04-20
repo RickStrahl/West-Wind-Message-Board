@@ -9,7 +9,9 @@ $(document).ready(function () {
     $("#btnPasteHref").click(function () {
         var text = $("#HrefLinkText").val();
         var link = $("#HrefLink").val();
-        var a = "<a href='" + link + "' target='wwthreadsexternal'>" + text + "</a>";
+        //var a = "<a href='" + link + "' target='wwthreadsexternal'>" + text + "</a>";
+        var a = "[" + text + "](" + link + ")";
+
         textEditor.setselection(a);
         textEditor.setfocus();
     });

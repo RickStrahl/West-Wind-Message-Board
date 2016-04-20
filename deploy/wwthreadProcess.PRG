@@ -971,6 +971,7 @@ ELSE
 	
 	poMarkdown.cCodeBlockStartHtml = [<pre class="no-container"><code class="###language###">]
 	poMarkdown.cCodeBlockEndHtml = [</code></pre>]
+	poMarkdown.cLinkTarget = "wwt"
 	
 	*poMarkdown.cCodeBlockStartHtml = [<pre lang="###language###">]  + CHR(13) + CHR(10) 
 	*poMarkdown.cCodeBlockEndHtml = [</pre>]
