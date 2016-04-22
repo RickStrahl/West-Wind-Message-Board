@@ -255,6 +255,8 @@ function loadTopicAjax(href) {
             // fire google ads  
             setTimeout(function() {
                 (adsbygoogle = window.adsbygoogle || []).push({});
+                _gaq.push(['_setAccount', 'UA-9492219-13']);
+                _gaq.push(['_trackPageview']);
             }, 500);
         } else
             return;
