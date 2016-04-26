@@ -250,7 +250,7 @@ function markdown(markdownText) {
         smartypants: false
     });
     var md = marked(markdownText);
-    md = md.replace(/><code class="lang-/g, ' lang="');
+    md = md.replace(/><code class="lang-/g, ' class="no-container"><code class="lang-"');
 
     $("#Preview").html("<hr/>" + md + "<hr/>");
     wwthreads.highlightCode("#Preview pre[lang]");
