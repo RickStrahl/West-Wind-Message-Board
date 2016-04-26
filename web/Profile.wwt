@@ -1,3 +1,7 @@
+<% #if .f. %>
+    SourceFile="~/../Deploy/wwThreadProcess.prg"
+<% #endif %>
+
 <% pcPageTitle = "Profile" %>
 <% Layout="~/views/_layoutpage.wcs" %>
 

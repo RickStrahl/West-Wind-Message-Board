@@ -459,11 +459,13 @@ PRIVATE plNewUser, poUser
 plNewUser = .F.
 poError = CREATEOBJECT("HtmlErrorDisplayConfig")
 
-loUserBUs = CREATEOBJECT("wwt_User")
+loUserBus = CREATEOBJECT("wwt_User")
 
 IF ISNULL(this.oUser)
    loUserBus.New()
    plNewUser = .T.
+ELSE
+   loUserBus.Load(this.cAuthenticatedUserId)
 ENDIF   
 poUser = loUserBus.oData
 
