@@ -11,8 +11,7 @@ based on dark.css by Vladimir Epifanov
   padding: 0.5em;
   background: #333;
   color: #E2E2E2;
-  font-weight: normal;  
-  font-size: 1.15em !important;  
+  font-weight: normal;   
 }
 
 .hljs-keyword,

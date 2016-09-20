@@ -422,6 +422,12 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     display: none;
 }
 
+
+
+.hljs {
+	font-size: 1em !important;
+}
+
 /* West Wind Main Page Layout */
 
 #MainView {
