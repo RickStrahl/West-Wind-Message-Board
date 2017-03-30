@@ -764,6 +764,68 @@ Response.Write( JsonString(lcUrl) )
 ENDFUNC
 *   ImageUpload
 
+
+************************************************************************
+*  ImagePasteUpload
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION ImagePasteUpload()
+LOCAL lcData, lcNewFile, lcNewPath, lcFilename, lcUrl, lcImageFormat
+
+lcData = Request.Form()
+Response.ContentType = "application/json"
+
+IF (lcData != "data:image")
+   Response.Write("null")
+   RETURN
+ENDIF
+
+lnAt = AT(",",lcData)
+IF lnAt <1
+   Response.Write("null")
+   RETURN
+ENDIF
+
+lcFileData = SUBSTR(lcData,lnAt+1)
+
+lcImageFormat = STREXTRACT(lcData,"data:",";")
+
+lcExt = "png"
+DO CASE 
+CASE (lcImageFormat = "image/png")
+  lcExt = "png"
+CASE (lcImageFormat = "image/jpeg")
+  lcExt = "jpg"
+CASE (lcImageFormat = "image/gif")
+  lcExt = "gif"
+OTHERWISE
+   Response.Write("null")
+   return
+ENDCASE
+
+lcNewFile =  "_" + GetUniqueId() + "." + lcExt
+lcNewPath = this.ResolvePath("~/PostImages/" + TRANSFORM(YEAR(DATETIME())) + "/")
+IF !ISDIR(lcNewPath)
+    MD (lcNewPath)
+ENDIF
+lcFileName = lcNewPath + lcNewFile
+
+STRTOFILE(STRCONV(lcFileData,14),lcFileName)
+
+	
+lcUrl = this.ResolveServerUrl("~/PostImages/"  + TRANSFORM(YEAR(DATETIME())) + "/" + lcNewFile)
+
+lcUrl = STRTRAN(lcUrl,"http://","//",1,1,1)
+
+Response.ContentType = "application/json"
+Response.Write( JsonString(lcUrl) )
+ENDFUNC
+*   ImagePasteUpload
+
 *** ADMIN METHODS
 
 ************************************************************************

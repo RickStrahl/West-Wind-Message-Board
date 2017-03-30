@@ -165,6 +165,50 @@ function setSelection(el, sel) {
         },20);
 }
 
+var mousePos = { x: 0, y: 0 };
+window.onmousemove = function (e) {
+    mousePos.x = e.clientX;
+    mousePos.y = e.clientY;
+}
+
+document.onpaste = function (event) {
+    var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    console.log(JSON.stringify(items)); // will give you the mime types
+    for (var i in items) {
+        var item = items[i];
+        if (item.kind === 'file') {
+            var blob = item.getAsFile();
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var opt = {
+                    method: "POST",
+                    contentType: "raw/data",
+                    accepts: "application/json",
+                    noPostEncoding: true
+                };                
+                var http = new HttpClient(opt);
+                http.evalResult = true;
+                http.send("ImagePasteUpload.wwt",
+                    event.target.result,
+                    function (url) {
+                        console.log("url: " + url);
+                        if (!url)
+                            toastr.error("Image upload failed.");
+                        else {
+                            setSelection($("#Message")[0], "![](" + url + ")");
+                            toastr.success("Image uploaded...");
+                        }
+                    },
+                    function (error) {
+                        toastr.error("Image upload failed.");
+                    });
+            
+                console.log(event.target.result);
+            }; // data url!
+            reader.readAsDataURL(blob);
+        }
+    }
+}
 
 
 
