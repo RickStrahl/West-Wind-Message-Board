@@ -127,7 +127,7 @@
                     <li>
                         <a href="wc.wc?wwMaint~ReindexSystemFiles"><b>Pack and Reindex wwSession Table</b></a></li>
                     <li>
-                        <a href="wc.wc?wwDemo~Reindex"><b>Pack and Reindex Web Connection Demo Files</b></a>
+                        <a href="Reindex.wwd"><b>Pack and Reindex Web Connection Demo Files</b></a>
                     </li>                            
                     <li>
                         <b>Script Mode:</b>
@@ -238,7 +238,7 @@
                             Once uploaded you can hotswap the uploaded server exe
                             by copying the <b>UpdateExe</b> to the <b>ExeFile</b>.
                         </p>
-                        <a href="wc.wc?_maintain~UpdateExe" class="btn btn-sm btn-primary" style="width: 140px;">
+                        <a href="UpdateExe.wc" class="btn btn-sm btn-primary" style="width: 140px;">
                             <i class="fa fa-refresh"></i>
                             Swap Server Exe
                         </a>

@@ -5,12 +5,12 @@
 %>
 <% Layout="~/views/_layoutpage.wcs" %>
 
-<% #if .f. %>
+<% if .f. %>
 <!-- only for intellisense to work better -->
 <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 <link href="css/application.css" rel="stylesheet" />
-<% #endif  %>
+<% endif  %>
 
 <!-- begin message content -->
 <div class="main-content">

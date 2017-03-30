@@ -17,9 +17,9 @@
 
     <link href="~/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />   
     <link href="~/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/css/application.min.css" rel="stylesheet" />
+    <link href="~/css/application.css" rel="stylesheet" />
         
-    <%= RenderSection("headers") %>
+    <%= RenderSection("headers") %> 
     <style>
         
     </style> 
@@ -166,11 +166,11 @@
 
 
     <script src="~/scripts/wwthreads.js?v1.1"></script>
-    <% #if .F. %>
+    <!--<% #if .F. %>
     <script src="~/scripts/Ace/ace.js"></script>
     <script src="~/scripts/wwthreads_editorSettings.js"></script>
     <script src="~/scripts/AceConfig.js?v1.1"></script>
-    <% #endif %>
+    <% #endif %>-->
     
     <link href="~/scripts/highlightjs/styles/twilight.css" rel="stylesheet" />
     <script src="~/scripts/highlightjs/highlight.pack.js"></script>
@@ -179,8 +179,8 @@
         hljs.initHighlightingOnLoad();
     </script>
 
-    <script src="~/bower_components/toastr/toastr.min.js" async></script>
-    <link href="~/bower_components/toastr/toastr.min.css" rel="stylesheet" async />
+    <script src="~/bower_components/toastr/toastr.min.js" ></script>
+    <link href="~/bower_components/toastr/toastr.min.css" rel="stylesheet" />
 
     <script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async ></script>
     

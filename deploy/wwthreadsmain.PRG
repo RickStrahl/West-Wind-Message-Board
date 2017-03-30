@@ -326,7 +326,6 @@ cVirtualPath = "/wwThreads/"
 ENDDEFINE
 
 
-
 *** Configuration class for the wwThreadProcess Process class
 DEFINE CLASS wwThreadProcessConfig as wwConfig
 

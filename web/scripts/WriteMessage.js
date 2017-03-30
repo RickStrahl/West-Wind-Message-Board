@@ -1,19 +1,22 @@
 $(document).ready(function () {
-    var edResize = debounce(resizeEditor, 100, true);    
-    function resizeEditor() {
-        $("#Editor").height(window.innerHeight - 425);
-    }
-    window.textEditor.setvalue($("#Message").val(), -1);    
+    var edResize = debounce(resizeEditor, 100, true);
+    var $msg = $("#Message");
 
+    function resizeEditor() {
+        $msg.height(window.innerHeight - 425);
+    }
+    
     // button click handlers
-    $("#btnPasteHref").click(function () {
+    $("#btnPasteHref").click(function () {        
         var text = $("#HrefLinkText").val();
         var link = $("#HrefLink").val();
         //var a = "<a href='" + link + "' target='wwthreadsexternal'>" + text + "</a>";
-        var a = "[" + text + "](" + link + ")";
+        var html = "[" + text + "](" + link + ")";
 
-        textEditor.setselection(a);
-        textEditor.setfocus();
+        setTimeout(function() { 
+            setSelection($msg[0], html);
+        },80);
+       
     });
     $("#HrefDialog").on('shown.bs.modal', function () {        
         $('#HrefLink').focus();
@@ -22,12 +25,13 @@ $(document).ready(function () {
     $("#btnPasteCode").click(function () {
         var code = $("#CodeSnippet").val();
         var lang = $("#CodeLanguage").val();
-        var codeblock = "```" + lang + "\r\n" +
-            code + "\r\n" +
-            "```";
+        var html = "```" + lang + "\n" +
+            code + "\n" +
+            "```\n";
 
-        textEditor.setselection(codeblock);
-        textEditor.setfocus();        
+        setTimeout(function () {
+            setSelection($msg[0], html);
+        }, 80);
     });
     $("#CodeDialog").on('shown.bs.modal', function () {
         $('#CodeLanguage').focus();
@@ -38,8 +42,10 @@ $(document).ready(function () {
         if (!img)
             return;
         var html = "![](" + img + ")";
-        textEditor.setselection(html);
-        textEditor.setfocus();
+
+        setTimeout(function () {
+            setSelection($msg[0], html);
+        }, 80);
     });
     $("#ImageDialog").on('shown.bs.modal', function () {
         $('#ImageLink').focus();
@@ -48,80 +54,120 @@ $(document).ready(function () {
     setupImageUpload();
 
     // Preview Editor Hookup
-    var markdownFunc = debounce(markdown, 800,false);
-    $("#Editor").keyup(function() {
-        markdownFunc(textEditor.getvalue());
-    });
+    var markdownFunc = debounce(markdown, 1000,false);
+    $("#Message").keyup(function() {
+        markdownFunc();
+    });    
 });
 
 
-$(".edit-toolbar a").click(handleMenuButtons);
+// handle editor buttons
+$(document)
+    .on("click",
+    ".edit-toolbar>a", toolbarHandler);
 
-function handleMenuButtons(id) {
-    var $btn = $(this);
-    var id = null, output = "", lines;
+function toolbarHandler(id) {
+        
+    var msg = document.getElementById("Message");
+    msg.focus();
+    var text = msg.value;
     
-
+    var nSelStart = msg.selectionStart;
+    var nSelEnd = msg.selectionEnd;
+    
+    var sel = text.substring(nSelStart, nSelEnd);
+    
     if (typeof id !== "string")
-        id = $btn.prop("id");
+        id = this.id;
 
-    var selectedText = textEditor.getselection();
-
-    if (id === "btnBold") {
-        if (!selectedText)
-            return;
-        textEditor.setselection("**" + selectedText + "**");
-        textEditor.setfocus();
-    } else if (id == "btnItalic") {
-        if (!selectedText)
-            return;
-        textEditor.setselection("*" + selectedText + "*");
-        textEditor.setfocus();
-    } else if (id == "btnQuote") {
-        if (!selectedText)
-            return;
-
-        lines = selectedText.split('\n');        
-        lines.forEach(function (val, i) {            
-            output += "> " + val.replace("\r", "") + "\r\n";            
-        });
-        textEditor.setselection(output);
-    } else if (id == "btnList") {
-        lines = selectedText.split('\n');
+    if (id === "btnBold")
+        sel = "**" + sel + "**";
+    else if (id === "btnItalic")
+        sel = "*" + sel + "*";
+    else if (id === "btnQuote") {
+        var lines = sel.split('\n');
+        sel = "";
         lines.forEach(function (val, i) {
-            output += "* " + val.replace("\r", "") + "\r\n";
+            sel += "> " + val.replace("\r", "").replace("\n","") + "\n";
         });
-        textEditor.setselection(output);
-    } else if (id == "btnH2") {
-        textEditor.setselection("## " + selectedText);
-        textEditor.setfocus();
-    } else if (id == "btnH3") {
-        textEditor.setselection("### " + selectedText);
-        textEditor.setfocus();
-    } else if (id == "btnH4") {
-        textEditor.setselection("#### " + selectedText);
-        textEditor.setfocus();
-    } else if (id == "btnH5") {
-        textEditor.setselection("##### " + selectedText);
-        textEditor.setfocus();
     } else if (id == "btnList") {
-
-    } else if (id == "btnHref") {
-        $("#HrefLinkText").val(selectedText);
-        if (selectedText.indexOf("http") > -1)
-            $("#HrefLink").val(selectedText);
-        $("#HrefDialog").modal();
-
-    } else if (id == "btnImage") {
-        $("#ImageDialog").modal();        
-    } else if (id == "btnCode") {
-        $("#CodeSnippet").val(selectedText);
-        $("#CodeDialog").modal();
+        var lines = sel.split('\n');
+        sel = "";
+        lines.forEach(function(val, i) {
+            sel += "* " + val.replace("\r", "") + "\n";
+        });        
     }
+    else if (id === "btnH2") {
+        sel = "## " + sel;        
+    } else if (id === "btnH3") {
+        sel = "### " + sel;        
+    } else if (id === "btnH4") {
+        sel = "#### " + sel;        
+    } else if (id === "btnH5") {
+        sel = "###### " + sel;        
+    }
+    else if (id === "btnHref") {
+        $("#HrefLinkText").val(sel);
+        if (sel.indexOf("http") > -1)
+            $("#HrefLink").val(sel);
+        $("#HrefDialog").modal();
+        return;
+
+    } else if (id === "btnImage") {
+        $("#ImageDialog").modal();
+        return;
+    } else if (id === "btnCode") {
+        $("#CodeSnippet").val(sel);
+        $("#CodeDialog").modal();
+        return;
+    }
+
+    setSelection(msg, sel);
+
 
     // force update
     markdown();
 }
+
+function setSelection(el, sel) {
+    el.focus();
+
+    var nSelStart = el.selectionStart;
+    var nSelEnd = el.selectionEnd;
+
+    var selectionPoint = nSelStart + sel.length;
+
+    console.log(nSelStart, nSelEnd);
+
+    var oldText = el.value;
+
+    if (el.setRangeText) {
+        document.execCommand("insertText", false, sel);
+
+        // Works but fucks up Undo buffer
+        //if (el.setRangeText)
+        //    el.setRangeText(sel);
+    } else {
+        // Internet Explorer doesn't allow pasting into text box
+        // so let's replace the whole shebang
+        var newText = oldText.substr(0, nSelStart) +
+            sel +
+            oldText.substr(nSelEnd);
+        el.value = newText;
+    }
+
+    setTimeout(function() {
+            if (selectionPoint > 0) {
+                el.selectionStart = selectionPoint;
+                el.selectionEnd = selectionPoint;
+            } else
+                el.selectionStart = el.selectionEnd;
+        },20);
+}
+
+
+
+
 
 function setupImageUpload() {
     // *** Ajax upload
@@ -237,8 +283,9 @@ function setupImageUpload() {
 
 function markdown(markdownText) {
     if (!markdownText)
-        var markdownText = te.getvalue();
+        markdownText = $("#Message").val();
 
+    console.log(markdownText);
     marked.setOptions({
         renderer: new marked.Renderer(),
         gfm: true,

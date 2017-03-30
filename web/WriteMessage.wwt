@@ -95,11 +95,12 @@
             This editor uses <a href="https://helpbuilder.west-wind.com/Docs/_4il175mgd.htm" target="wwthreadsexternal" tabindex="-1">Markdown text format</a>. Please format any code snippets using the <i class="fa fa-code"></i>  icon.
         </div>
 
-        <pre lang="markdown" id="Editor">
-        </pre>
-        <textarea id="Message" name="Message" class="hidden"><%= Request.FormOrValue('Message',poMsg.Message) %></textarea>
-             
-
+        <!--<pre lang="markdown" id="Editor">
+        </pre>-->
+        <textarea id="Message" name="Message"
+                  style="min-height: 350px;padding: 5px; font-family: Consolas, Menlo, monospace; border: none;
+                  background: #333; width: 100% ; color: #fafafa "><%= Request.FormOrValue('Message',poMsg.Message) %></textarea>
+        
         <div id="message"
              style="display: none; position: absolute; right: 15px; bottom: 5px; padding: 10px; background: darkred; color: white; opacity: 0.90; border-radius: 4px"></div>
         <div id="spellfixes" style="display:none">
@@ -425,11 +426,11 @@
 
 <% section="scripts" %>
 
-<script src="~/scripts/Ace/ace.js"></script>
+<!--<script src="~/scripts/Ace/ace.js"></script>
 <script src="~/scripts/wwthreads_editorSettings.js"></script>
-<script src="~/scripts/AceConfig.js?v1.1"></script>    
+<script src="~/scripts/AceConfig.js?v1.1"></script>-->    
+<!--<script src="~/scripts/wwthreads_editor.js?v1.1"></script>-->
 
-<script src="~/scripts/wwthreads_editor.js?v1.1"></script>
 <script src="~/scripts/WriteMessage.js?v1.1"></script>
 <script>
     setTimeout(function () {

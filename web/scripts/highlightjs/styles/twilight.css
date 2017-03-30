@@ -9,9 +9,10 @@ based on dark.css by Vladimir Epifanov
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #333;
+  background: #252525;
   color: #E2E2E2;
-  font-weight: normal;   
+  font-weight: normal;  
+  font-size: 1.15em !important;  
 }
 
 .hljs-keyword,
@@ -53,7 +54,7 @@ based on dark.css by Vladimir Epifanov
 .hljs-selector-class,
 .hljs-section,
 .hljs-type {  
-  color:#CDA869;
+  color:#d5ad69;
 }
 
 .hljs-symbol,

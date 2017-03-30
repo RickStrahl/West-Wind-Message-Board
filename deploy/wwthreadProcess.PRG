@@ -257,7 +257,7 @@ IF !loUserBus.LoadFromEmail(lcEmail)
    RETURN
 ENDIF
 
-loUserBus.oData.Password = SUBSTR(SYS(2015),2)
+loUserBus.oData.Password = GetUniqueId()
 loUserBUs.Save()
 
 loIP = CREATEOBJECT([WWC_WWSMTP])
