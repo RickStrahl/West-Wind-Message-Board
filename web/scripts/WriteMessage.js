@@ -55,7 +55,7 @@ $(document).ready(function () {
 
     // Preview Editor Hookup
     var markdownFunc = debounce(markdown, 1000,false);
-    $("#Message").keyup(function() {
+    $msg.keyup(function() {
         markdownFunc();
     });    
 });
@@ -131,23 +131,22 @@ function toolbarHandler(id) {
 
 function setSelection(el, sel) {
     el.focus();
-
+    
     var nSelStart = el.selectionStart;
     var nSelEnd = el.selectionEnd;
 
     var selectionPoint = nSelStart + sel.length;
 
-    console.log(nSelStart, nSelEnd);
-
     var oldText = el.value;
-
-    if (el.setRangeText) {
+    
+    // if(document.queryCommandSupported("insertText"))  // doesn't work reliably
+    if (navigator.userAgent.indexOf("Safari") > 0)
+        // chrome and safari - this works best
         document.execCommand("insertText", false, sel);
-
-        // Works but fucks up Undo buffer
-        //if (el.setRangeText)
-        //    el.setRangeText(sel);
-    } else {
+    //// Works but fucks up Undo buffer    
+    //else if (el.setRangeText)
+    //    el.setRangeText(sel);
+    else {
         // Internet Explorer doesn't allow pasting into text box
         // so let's replace the whole shebang
         var newText = oldText.substr(0, nSelStart) +
@@ -173,7 +172,7 @@ window.onmousemove = function (e) {
 
 document.onpaste = function (event) {
     var items = (event.clipboardData || event.originalEvent.clipboardData).items;
-    console.log(JSON.stringify(items)); // will give you the mime types
+    //console.log(JSON.stringify(items)); // will give you the mime types
     for (var i in items) {
         var item = items[i];
         if (item.kind === 'file') {
@@ -203,7 +202,7 @@ document.onpaste = function (event) {
                         toastr.error("Image upload failed.");
                     });
             
-                console.log(event.target.result);
+                //console.log(event.target.result);
             }; // data url!
             reader.readAsDataURL(blob);
         }
@@ -230,7 +229,7 @@ function setupImageUpload() {
         uploadFiles({
             id: "ImageUpload",
             uploadUrl: "ImageUpload.wwt",
-            success: function uploadSuccess(imageUrl, textStatus, jqXHR) {                                
+            success: function uploadSuccess(imageUrl, textStatus, jqXHR) {                    
                 toastr.success("The image has been uploaded and embedded into your message.", "Image Upload completed", 3000);
 
                 $("#UploadProgress").hide();
@@ -238,8 +237,8 @@ function setupImageUpload() {
 
 
                 if (imageUrl) {
-                    textEditor.setselection("![](" + imageUrl + ")\r\n");
-                    textEditor.setfocus();
+                    setSelection($("#Message")[0], "![](" + imageUrl + ")\r\n");
+                    markdown();
                 }
             },
             error: function uploadError(jqXHR, textStatus, errorThrown) {                
@@ -328,8 +327,7 @@ function setupImageUpload() {
 function markdown(markdownText) {
     if (!markdownText)
         markdownText = $("#Message").val();
-
-    console.log(markdownText);
+    
     marked.setOptions({
         renderer: new marked.Renderer(),
         gfm: true,

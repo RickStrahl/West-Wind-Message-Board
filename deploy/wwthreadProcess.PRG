@@ -735,6 +735,7 @@ ENDFUNC
 ***    Return:
 ************************************************************************
 FUNCTION ImageUpload()
+LOCAL lcExt, loFile, lcNewFile, lcNewPath
 
 IF ISNULL(THIS.oUser)
    ERROR "You have to be signed in to upload images."
@@ -746,14 +747,32 @@ IF loFiles.Count < 1
 ENDIF
 
 loFile = loFiles.Item(1)
-lcNewFile =  SYS(2015) + "." + JUSTEXT(loFile.FileName)
+
+IF LEN(loFile.Content) > 360000
+   ERROR "Error: Image is too large. Max size: 350k. Please resize or compress the image before uploading."
+   RETURN
+ENDIF
+
+lcExt = LOWER(JUSTEXT(loFile.FileName))
+IF !INLIST(lcExt,"png","jpg","jpeg","gif")
+	ERROR "Invalid image extension."
+ENDIF
+
+
+lcNewFile =  SYS(2015) + "." + lcExt
 lcNewPath = this.ResolvePath("~/PostImages/" + TRANSFORM(YEAR(DATETIME())) + "/")
 IF !ISDIR(lcNewPath)
     MD (lcNewPath)
 ENDIF
 lcFileName = lcNewPath + lcNewFile
+lcExt = LOWER(JUSTEXT(lcFileName))
 
 STRTOFILE(loFile.Content,lcFileName)	
+
+IF (lcExt = "png")
+  lcCmd = [pngout.exe "] + lcFilename  + ["]
+  RUN /n7 &lcCmd
+ENDIF
 
 lcUrl = this.ResolveServerUrl("~/PostImages/"  + TRANSFORM(YEAR(DATETIME())) + "/" + lcNewFile)
 
@@ -780,13 +799,13 @@ lcData = Request.Form()
 Response.ContentType = "application/json"
 
 IF (lcData != "data:image")
-   Response.Write("null")
+   Response.Write(JsonString("Error: Invalid data format for upload."))
    RETURN
 ENDIF
 
 lnAt = AT(",",lcData)
 IF lnAt <1
-   Response.Write("null")
+   Response.Write(JsonString("Error: Invalid data format for upload."))
    RETURN
 ENDIF
 
@@ -803,7 +822,7 @@ CASE (lcImageFormat = "image/jpeg")
 CASE (lcImageFormat = "image/gif")
   lcExt = "gif"
 OTHERWISE
-   Response.Write("null")
+   Response.Write(JsonString("Error: Invalid image format."))
    return
 ENDCASE
 
@@ -816,7 +835,38 @@ lcFileName = lcNewPath + lcNewFile
 
 STRTOFILE(STRCONV(lcFileData,14),lcFileName)
 
-	
+
+IF (lcExt = "png")
+  llToJpg = .f.
+  IF LEN(lcFileData) > 100000
+        lcJpgFilename = FORCEEXT(lcFilename,"jpg")
+		loBridge = GetwwDotnetBridge()
+		TRY
+			*** Make sure image is not too big
+			*infile, outfile, jpeg quality, dpi
+			llResult = loBridge.InvokeStaticMethod("Westwind.Utilities.ImageUtils","ConvertImageFile",lcFilename, lcJpgFilename, 85, 96)
+		CATCH
+		ENDTRY
+				
+		IF FILE(lcJpgFilename)
+			IF FileSize(lcFileName) > FileSize(lcJpgFileName)
+			   ERASE (lcFilename)
+			   llToJpg = .T.
+               lcFilename = lcJpgFilename
+               lcNewFile = FORCEEXT(lcNewFile,"jpg")
+			ELSE
+			   ERASE (lcJpgFilename)
+			ENDIF
+		ENDIF
+  ENDIF
+
+  
+  IF !llToJpg
+	  lcCmd = [pngout.exe "] + lcFilename  + ["]
+	  RUN /N7 &lcCmd
+  ENDIF
+ENDIF
+
 lcUrl = this.ResolveServerUrl("~/PostImages/"  + TRANSFORM(YEAR(DATETIME())) + "/" + lcNewFile)
 
 lcUrl = STRTRAN(lcUrl,"http://","//",1,1,1)
