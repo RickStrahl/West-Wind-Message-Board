@@ -48,7 +48,7 @@
                 <i class="fa fa-link"></i>
             </a>
 
-            <a id="btnImage" class="btn btn-sm btn-link" title="Insert an image from the Web or upload an image (alt-i)">
+            <a id="btnImage" class="btn btn-sm btn-link" title="Insert an image from the Web or upload an image. (alt-i)">
                 <i class="fa fa-image "></i>
             </a>
 
@@ -65,8 +65,12 @@
                 <i class="fa fa-italic"></i>
             </a>
             
-            <a id="btnQuote" class="btn btn-sm btn-link hidable-xs" title="Quote and indent text.">
+            <a id="btnQuote" class="btn btn-sm btn-link hidable-xs" title="Quote and indent text. (ctrl-q)">
                 <i class="fa fa-quote-left"></i>
+            </a>
+
+            <a id="btnInlineCode" class="btn btn-sm btn-link hidable-xs" style="text-decoration: none" title="Inline code.">
+                <i>`</i><i class="fa fa-code"></i><i>`</i>
             </a>
             
             <a id="btnList" class="btn btn-sm btn-link hidable-xs" title="Turn lines into list items.">
