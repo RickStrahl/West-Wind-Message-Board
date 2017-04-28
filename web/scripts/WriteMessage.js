@@ -5,9 +5,10 @@ $(document).ready(function () {
     function resizeEditor() {
         $msg.height(window.innerHeight - 425);
     }
-    
+
     // button click handlers
-    $("#btnPasteHref").click(function () {        
+    $("#btnPasteHref").click(function () {
+        ;
         var text = $("#HrefLinkText").val();
         var link = $("#HrefLink").val();
         //var a = "<a href='" + link + "' target='wwthreadsexternal'>" + text + "</a>";
@@ -15,9 +16,9 @@ $(document).ready(function () {
 
         setTimeout(function() { 
             setSelection($msg[0], html);
-        },80);
-       
+        },80);       
     });
+
     $("#HrefDialog").on('shown.bs.modal', function () {        
         $('#HrefLink').focus();
     });
@@ -25,6 +26,13 @@ $(document).ready(function () {
     $("#btnPasteCode").click(function () {
         var code = $("#CodeSnippet").val();
         var lang = $("#CodeLanguage").val();
+
+        if (lang === "txt" &&
+            confirm("No code language selected. Do you want to format yuor code with a specific code language?")) {
+            $("#CodeLanguage").focus();
+            return;
+        }
+            
         var html = "```" + lang + "\n" +
             code + "\n" +
             "```\n";
@@ -32,6 +40,8 @@ $(document).ready(function () {
         setTimeout(function () {
             setSelection($msg[0], html);
         }, 80);
+
+        $("#CodeDialog").modal('hide');
     });
     $("#CodeDialog").on('shown.bs.modal', function () {
         $('#CodeLanguage').focus();
@@ -46,6 +56,7 @@ $(document).ready(function () {
         setTimeout(function () {
             setSelection($msg[0], html);
         }, 80);
+        
     });
     $("#ImageDialog").on('shown.bs.modal', function () {
         $('#ImageLink').focus();

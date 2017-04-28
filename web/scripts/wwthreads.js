@@ -114,6 +114,12 @@ window.wwthreads = null;
             }
         });
 
+        // clickable links
+        
+        $(".message-list-body img").click(function () {
+            window.open(this.src);
+        });
+
         setTimeout(function() {
             // handle sorting of thread messages in a thread        
             $(".main-content").on("click", "#MessageOrderDown", function rvDown() {

@@ -19,8 +19,8 @@ DCOM_ProgId       =			"Wwthreads.WwthreadsServer"
 DCOM_UserId		  =			"Interactive User"
 
 *** Server Update Urls - fix these to point at your production Server/Virtual
-HTTP_UPLOADURL    =         "http://support.west-wind.com/UploadExe.wc"
-HTTP_UPDATEURL 	  =         "http://support.west-wind.com/UpdateExe.wc"
+HTTP_UPLOADURL    =         "https://support.west-wind.com/admin/UploadExe.wc"
+HTTP_UPDATEURL 	  =         "https://support.west-wind.com/admin/UpdateExe.wc"
 
 *** for ISAPI use this url
 * HTTP_UPLOADURL    =         "http://localhost/Wwthreads/wc.wc?wwmaint~FileUpload"
@@ -65,7 +65,7 @@ IF llCopyToServer
        loHttp.cUsername = lcUsernameHttp
        loHttp.cPassword = lcPasswordHttp
    ENDIF
-   loHttp.nHttpPostMode = 2
+   loHttp.nHttpPostMode = 2  
    loHttp.AddPostKey("File",FULLPATH(EXE_FILE + ".exe"),.T.)
    lcHtml = loHttp.HttpGet(HTTP_UPLOADURL)
    IF (loHttp.nError != 0) OR ATC("File has been uploaded",lcHtml) = 0

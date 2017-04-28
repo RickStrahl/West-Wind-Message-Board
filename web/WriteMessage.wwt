@@ -231,9 +231,9 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="control-label" for="CodeLanguage">Code Language</label>
+                    <label class="control-label" for="CodeLanguage">Choose a Language</label>
                     <select id="CodeLanguage" name="CodeLanguage" size="1" class="form-control">
-                        <option value="text">-- No Code Formatting --</option>
+                        <option value="txt">-- No Code Formatting --</option>
                         <optgroup label="Common">
                             <option value="csharp">C#</option>
                             <option value="foxpro">FoxPro</option>
@@ -318,7 +318,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btnPasteCode" type="button" data-dismiss="modal" class="btn btn-primary">
+                <button id="btnPasteCode" type="button"  class="btn btn-primary">
                     <i class="fa fa-code"></i>
                     Paste Code
                 </button>

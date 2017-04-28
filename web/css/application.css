@@ -3,12 +3,15 @@
 }
 h1, h2, h3, h4,h5,h6,.page-header-text {
     font-family: Trebuchet, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: bold;
+    font-weight: bold;    
+}
+.message-list-body>h1, .message-list-body>h2, .message-list-body>h3, .message-list-item>h4, .message-list-item>h5, .message-list-item>h6 {
+    margin-top: 1.3em;
 }
 h3 {
     font-size: 1.3em;
     color: #2B547E;
-    font-weight: bold;
+    font-weight: bold;    
 }
 h4 {
     font-size: 1.2em;
