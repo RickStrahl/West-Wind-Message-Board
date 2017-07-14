@@ -551,7 +551,11 @@ LOCAL Request as wwRequest, Response as wwResponse, Server as wwServer, ;
 
 IF !this.Authenticate("ANY","",.T.) OR EMPTY(this.cAuthenticatedUserId)
    Response.Redirect("~/Login.wwt?returnurl=WriteMessage.wwt")
+   return
 ENDIF
+
+PRIVATE poMarkdown
+poMarkdown = THIS.GetMarkdownParser()	
 
 IF VARTYPE(pnMsgMode) # "N"
 	pnMsgMode = VAL(Request.Params("MsgMode"))
@@ -644,8 +648,6 @@ ELSE
 ENDIF
 
 
-PRIVATE poMarkdown
-poMarkdown = THIS.GetMarkdownParser()	
 
 IF pnMsgMode = 2
 	loMsgBus = CREATEOBJECT("wwt_Message")
@@ -667,6 +669,7 @@ ENDFUNC
 ***    Return:
 ************************************************************************
 FUNCTION ReplyMessage()
+PRIVATE pcMsgId, pnMsgMode
 pcMsgId = Request.QueryString("id")
 pnMsgMode = 2
 RETURN THIS.WriteMessage(pcMsgId)
@@ -1075,23 +1078,24 @@ ENDFUNC
 ***    Return:
 ************************************************************************
 PROTECTED FUNCTION GetMarkdownParser()
-LOCAL poMarkdown
+LOCAL loMarkdown
 
 PUBLIC __wwThreadsMarkdownParser
 IF VARTYPE(__wwThreadsMarkdownParser) = "O"
-   poMarkdown = __wwThreadsMarkdownParser
+   loMarkdown = __wwThreadsMarkdownParser
 ELSE
-	poMarkDown =  CreateObject("MarkdownParserExtended")
+	loMarkdown =  CreateObject("MarkdownParserExtended")
 	
-	poMarkdown.cCodeBlockStartHtml = [<pre class="no-container"><code class="###language###">]
-	poMarkdown.cCodeBlockEndHtml = [</code></pre>]
-	poMarkdown.cLinkTarget = "wwt"
+	loMarkdown.cCodeBlockStartHtml = [<pre class="no-container"><code class="###language###">]
+	loMarkdown.cCodeBlockEndHtml = [</code></pre>]
+	loMarkdown.cLinkTarget = "wwt"
 	
-	*poMarkdown.cCodeBlockStartHtml = [<pre lang="###language###">]  + CHR(13) + CHR(10) 
-	*poMarkdown.cCodeBlockEndHtml = [</pre>]
+	__wwThreadsMarkdownParser = loMarkdown
+	*loMarkdown.cCodeBlockStartHtml = [<pre lang="###language###">]  + CHR(13) + CHR(10) 
+	*loMarkdown.cCodeBlockEndHtml = [</pre>]
 ENDIF
 
-RETURN poMarkdown
+RETURN loMarkdown
 ENDFUNC
 *   GetMarkdownParser
 

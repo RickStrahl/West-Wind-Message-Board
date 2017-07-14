@@ -148,13 +148,9 @@ ENDFUNC
 ************************************************************************
 PROTECTED FUNCTION OnLoad
 
-*** This URL is executed when clicking on the Automation Server
-*** Form's Exit button. It forces operation through a browser!
-THIS.cCOMReleaseUrl=THIS.oConfig.cComReleaseUrl
-
 *** Any settings you want to make to the server
 IF THIS.lShowServerForm
-  THIS.oServerForm.Caption =This.cServerId + " - Web Connection " + WWVERSION
+  THIS.oServerForm.Caption =This.cServerId + " - wwThreads Support Message Board " + WWVERSION
 ENDIF
 
 *** Add persistent SQL Server Connection
