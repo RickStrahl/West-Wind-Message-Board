@@ -28,7 +28,7 @@ $(document).ready(function () {
         var lang = $("#CodeLanguage").val();
 
         if (lang === "txt" &&
-            confirm("No code language selected. Do you want to format yuor code with a specific code language?")) {
+            confirm("No code syntax selected. Do you want to format your code with a specific syntax?")) {
             $("#CodeLanguage").focus();
             return;
         }

@@ -90,7 +90,7 @@
     <div class="pull-right expand-forum" style="font-size: 0.8em; color: goldenrod; padding: 4px">
         <i class="fa fa-expand"></i>
     </div>
-    <span style="padding-right: 7px;">-</span> <%= EncodeHtml(forum) %>
+    <span style="padding-right: 7px;">-</span> <%: forum %>
 </div>
 <div class="forum-list-container">
     <% llOpenForum = .T.
@@ -110,15 +110,14 @@
 
         <div class="message-header">
 
-            <a href="Thread<%= ThreadId %>.wwt"><%= EncodeHtml(TRIM(Subject))  %></a>
+            <a href="Thread<%= ThreadId %>.wwt"><%: TRIM(Subject)  %></a>
         </div>
         <div class="message-detail">
             <div>
-                <b><%= FromName %></b>
+                <b><%: FromName %></b>
                 &nbsp;  &bull;  &nbsp;
                 <i class="fa  fa-clock-o" style="color:steelblue" title="Last update on"></i>
                 <%= HumanizedDate(TimeStamp) %>
-
             </div>
         </div>
     </div>
