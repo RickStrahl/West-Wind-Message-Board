@@ -550,6 +550,9 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
 }
 
 /* Forum List Styles */
+.message-list-container{
+    min-width: 280px;
+}
     a.hover-dark {
         padding: 2px 6px;
         text-decoration: none;
@@ -591,10 +594,12 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     .forum-list-container {        
         
     }
+
+   
     .message-item {        
         padding: 3px 10px 6px 8px;
         border-bottom: 1px solid #eee;
-        margin: 0 5px
+        margin: 0 5px;        
     }
      .message-item:hover {
                 background: khaki;

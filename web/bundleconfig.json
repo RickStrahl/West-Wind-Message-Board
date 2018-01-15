@@ -1,32 +1,20 @@
 [
   {
-    "outputFileName": "css/application.css",
+    "outputFileName": "css/application.min.css",
     "inputFiles": [
       "css/application.css"
     ]
   },
   {
-    "outputFileName": "css/westwind.css",
+    "outputFileName": "css/westwind.min.css",
     "inputFiles": [
       "css/westwind.css"
     ]
   },
   {
-    "outputFileName": "bower_components/toastr/toastr.css",
-    "inputFiles": [
-      "bower_components/toastr/toastr.css"
-    ]
-  },
-  {
-    "outputFileName": "scripts/wwthreads.js",
+    "outputFileName": "scripts/wwthreads.min.js",
     "inputFiles": [
       "scripts/wwthreads.js"
-    ]
-  },
-  {
-    "outputFileName": "scripts/ww.jquery.js",
-    "inputFiles": [
-      "scripts/ww.jquery.js"
     ]
   }
 ]
