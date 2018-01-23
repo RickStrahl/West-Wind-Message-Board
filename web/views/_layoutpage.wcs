@@ -142,7 +142,7 @@
                 <footer>
                     <div class="pull-right" style="text-align: right">
                         
-                        <a href="http://www.west-wind.com/">
+                        <a href="https://west-wind.com/">
                             <img src="~/images/WestwindText.png" />
                         </a>
                         <div class="small" style="margin-top: -3px;">&copy; 1996-<%= Year(DateTime()) %> </div>                         
@@ -165,13 +165,7 @@
     <script src="~/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
 
-    <script src="~/scripts/wwthreads.js?v1.1"></script>
-    <!--<% #if .F. %>
-    <script src="~/scripts/Ace/ace.js"></script>
-    <script src="~/scripts/wwthreads_editorSettings.js"></script>
-    <script src="~/scripts/AceConfig.js?v1.1"></script>
-    <% #endif %>-->
-    
+    <script src="~/scripts/wwthreads.js?v1.1.1"></script>
     <link href="~/scripts/highlightjs/styles/twilight.css" rel="stylesheet" />
     <script src="~/scripts/highlightjs/highlight.pack.js"></script>
     

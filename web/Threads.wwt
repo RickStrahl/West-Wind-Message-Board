@@ -11,7 +11,7 @@
 	 <% if empty(pcThreadId) %>
         <div style="display:flex">
             <iframe style="flex-direction: row; flex: 1 1 auto; width: 100%; min-height: 500px;margin:0; border: none;" 
-                    src="//west-wind.com/wconnect/westwindnews.wst">
+                    src="https://west-wind.com/wconnect/westwindnews.wst">
             </iframe>
         </div>   
     <% endif %>
