@@ -18,7 +18,6 @@ web/**/*.prg
 wwrequestlog.*
 wwsession.*
 temp
-bower_components
 npm_components
 
 #TwoFox - Christof Wollenhaupt's TwoFox SCC extractor (GenXml,GenCode)
