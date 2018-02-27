@@ -253,7 +253,7 @@ ENDIF
    
 loUserBus = CREATEOBJECT("wwt_user")
 IF !loUserBus.LoadFromEmail(lcEmail)
-   pcErrorMessage = "Invalid email address."
+   pcErrorMessage = "We've sent password recovery information to your email address: " + lcEmail
    RETURN
 ENDIF
 
@@ -262,8 +262,8 @@ loUserBUs.Save()
 
 loIP = CREATEOBJECT([WWC_WWSMTP])
 loIP.nMailMode = 0 
-loIP.lUseSsl = .T.
 
+loIP.lUseSsl = Server.oConfig.lAdminMailUseSsl
 loIP.cMailServer = Server.oConfig.cAdminMailServer
 loIp.cUsername = Server.oConfig.cAdminMailUserName
 loIP.cPassword = Server.oConfig.cAdminMailPassword
@@ -279,9 +279,11 @@ loIP.cMessage =  ;
   	"You can sign in and change your password in your profile. " +CRLF + CRLF +;
   	THIS.ResolveServerUrl("~/login.wwt")
  
-loIP.SendMailAsync() 
-
-pcErrorMessage = "Password recovery email has been sent."
+if(!loIP.SendMail())
+   pcErrorMessage = "Failed to send confirmation email: " + loIP.cErrorMsg
+ELSE
+   pcErrorMessage = "We've sent password recovery information to your email address: " + lcEmail
+ENDIF
    
 ENDFUNC
 *   EmailPassword
@@ -470,7 +472,17 @@ ENDIF
 poUser = loUserBus.oData
 
 IF (Request.IsPostBack())
+   lcOldPassword = poUser.Password
    poError.Errors = Request.UnbindFormVars(loUserBus.oData)
+
+   *** Only set password if it's not empty
+   IF !EMPTY(loUserBus.oData.Password)
+      loUserBus.oData.Password = poUser.Password
+      lcConfirm = Request.Form("PasswordConfirm")
+      IF NOT (TRIM(poUser.Password) == lcConfirm)
+         poError.Errors.AddError("Passwords entered don't match","Password")
+      ENDIF
+   ENDIF
 
    IF !loUserBus.Validate()
        poError.Errors.AddErrors( loUserBus.oValidationErrors )
@@ -492,6 +504,7 @@ IF (Request.IsPostBack())
    ENDIF               
 ENDIF
 
+poUser.Password = ""
 Response.ExpandScript("~/Profile.wwt")
 ENDFUNC
 *   Profile

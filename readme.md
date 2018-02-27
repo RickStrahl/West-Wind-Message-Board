@@ -18,5 +18,3 @@ This sample application includes self-configuration code that allows you to quic
 For more detail on how to set up and configuration the sample please check out this topic in the documentation:
 
 * [Configuring the West Wind Message Board](https://west-wind.com/webconnection/docs/_0190ic5zn.htm)
-
-### 

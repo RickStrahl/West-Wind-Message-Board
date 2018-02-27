@@ -30,7 +30,7 @@ window.wwthreads = null;
                 var data = localStorage.getItem("wwt_userdata");
                 if (data) {
                     try {
-                        data = JSON.parseWithDate(data);
+                        data = JSON.parse(data);
                         $.extend(wwthreads.userData, data);
                     }
                     catch (ex) { localStorage.removeItem("wwt_userdata") };

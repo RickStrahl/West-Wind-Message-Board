@@ -25,28 +25,6 @@
         }
     </style>  
 </head>
-
-
-<%
-  this.Physical = Request.ServerVariables["PATH_TRANSLATED"];
-  if (string.IsNullOrEmpty(this.Physical))
-       return;
-  
-  this.Physical = System.IO.Path.GetDirectoryName(this.Physical);    
-
-  // allow items with exe prefix 
-  this.Show = Request.Form["exeprefix"];
-
-  if (string.IsNullOrEmpty(this.Show))
-  {
-    string exefile = GetProfileString("wwcgi", "exefile");
-    if (System.IO.File.Exists(exefile))
-        this.Show = System.IO.Path.GetFileNameWithoutExtension(exefile);
-  }
-
-  if (string.IsNullOrEmpty(this.Show))
-     this.Show = "wwt";
-%>
 <body>
 <div class="flex-master">
    
@@ -88,20 +66,43 @@
             Web Connection Server Maintenance
         </div>
 
-        <%  string user = Request.ServerVariables["AUTH_USER"]; %>
-
-
-        <%if (string.IsNullOrEmpty(user))
-          { %>
+        <%  
+          string user = Request.ServerVariables["AUTH_USER"];
+          string remoteIp = Request.ServerVariables["REMOTE_ADDR"];
+          string localIp = Request.ServerVariables["LOCAL_ADDR"];           
+          if (string.IsNullOrEmpty(user))
+          { 
+        %>
         <div class="alert alert-warning">
             <i class="fa fa-exclamation-triangle" style="font-size: 1.1em; color: firebrick;">
             </i>
             <b>Security Warning:</b> You are accessing this request unauthenticated!
             <div style="border-top: solid 1px silver; padding-top: 5px; margin-top: 5px; ">
-                You should enable authentication and remove anonymous access to this page or folder.
+                <p>
+                    You should enable authentication and remove anonymous access to this page or folder.
+                    <small><a href="https://west-wind.com/webconnection/docs/_00716R7OG.HTM">more info...</a></small>
+                </p>
+                <% if(localIp != remoteIp)  { %>
+                <p style="color:red; font-weight: bold">
+                    You are not allowed to access this page without authentication from a remote address.
+                    Aborting page display...
+                </p>
+                <% } else { %>
+                <p style="color:red; font-weight: bold">
+                    NOTE: You are allowed to access this page, because you are accessing it from the
+                    local machine, but it won't work from a remote machine.
+                </p>   
+                <% } %>
             </div>
         </div>
-        <% } %>
+        <% 
+
+            if(localIp != remoteIp)
+            {
+                Response.End();
+            }            
+        } 
+        %>
 
 
         <div class="row" >
@@ -253,45 +254,6 @@
                 </ul>
             </div> <!-- end col 2 --> 
         </div>
-
-        <div class="well well-sm">
-            <form action='' method='POST'>
-                Exe file starts with: 
-            <input type='text' id='exeprefix' name='exeprefix' value='<%= this.Show %>' class="input-sm" />
-                <button type='submit' class="btn btn-default btn-sm">
-                    <i class="fa fa-refresh"></i>
-                    Refresh
-                </button>
-            </form>
-        </div>
-
-
-        <table class="table table-condensed table-responsive table-striped" >
-            <tr>
-                <th>Process Id</th>
-                <th>Process Name</th>
-                <th>Working Set</th>
-                <th>Action</th>
-            </tr>
-            <%      
-                System.Diagnostics.Process[] processes = this.GetProcesses();
-                foreach (System.Diagnostics.Process process in processes)
-                {
-            %>
-            <tr>
-                <td><%= process.Id%></td>
-                <td><%= process.ProcessName%></td>
-                <td><%= (process.WorkingSet / 1000000.00).ToString("n1") %> mb</td>
-                <td><a href="admin.aspx?ProcessId=<%= process.Id %>" class="hoverbutton">
-                    <i class="fa fa-remove" style="color: firebrick;"></i> 
-                    Kill
-                </td>
-            </tr>
-            <%
-    }
-            %>            
-        </table>
-
     </div> <!-- end #MainView -->
     
 
@@ -302,8 +264,6 @@
         <small>&copy; Westwind Technologies, 1995-<%= DateTime.Now.Year %></small>
     </footer>
    
-</div>
-
 </div>
 
 
@@ -318,77 +278,3 @@
 
 </body>
 </html>
-
-    
-<script runat="server">
-        [System.Runtime.InteropServices.DllImport("kernel32")]
-        private static extern int GetPrivateProfileString(string section,
-                 string key,string def, StringBuilder retVal,
-                 int size,string filePath);
-
-        private string GetProfileString(string section, string key)
-        {
-            string filename = Server.MapPath("~/") + "wc.ini";
-            if (!System.IO.File.Exists(filename))
-            {
-                filename = Server.MapPath("~/bin/") + "wc.ini";
-                if (!System.IO.File.Exists(filename))
-                    return string.Empty;
-            }
-            
-            return GetProfileString(filename,section,key);
-        }
-        private string GetProfileString(string fileName, string section, string key)
-        {
-            StringBuilder sb = new StringBuilder(255);
-            int result = GetPrivateProfileString(section, key, string.Empty, sb, 255, fileName);
-
-            return sb.ToString();                           
-        }
-        System.Diagnostics.Process[] GetProcesses()
-        {
-            // get all processes
-            System.Diagnostics.Process[] processes = null;
-            try
-            {
-                processes = System.Diagnostics.Process.GetProcesses();
-            }
-            catch
-            {
-                return null;
-            }
-
-           if (processes == null)
-            return null;
-            
-            string ProcessId = Request.QueryString["ProcessID"];
-            if (ProcessId == null)
-                ProcessId = string.Empty;
-            
-            int procId = 0;
-            int.TryParse(ProcessId, out procId);
-
-            System.Collections.Generic.List<System.Diagnostics.Process> processList = new System.Collections.Generic.List<System.Diagnostics.Process>();
-            foreach (System.Diagnostics.Process process in processes)
-            {
-                if (procId > 0 && process.Id == procId)
-                {
-                    process.Kill();
-                    continue;
-                }
-                else
-                {
-                    string procName = process.ProcessName.ToLower();
-                    if (procName == "inetinfo" || procName == "w3wp" || procName.StartsWith(this.Show) || procName.StartsWith("vfp"))
-                    {
-                        processList.Add(process);
-                    }
-                }
-            }
-            
-            return processList.ToArray();
-        }
-        // The prefix of items to show (typically an exe filename)
-        private string Show = string.Empty;
-        private string Physical = null;
-</script>
