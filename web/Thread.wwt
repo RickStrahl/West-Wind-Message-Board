@@ -1,6 +1,6 @@
 <!-- SourceFile="~/../Deploy/wwThreadProcess.prg" -->
 <%
-    pcPageTitle = subject + " - West Wind Message Board"
+    pcPageTitle = STRCONV(subject,9) + " - West Wind Message Board"
     pcThreadId = Threadid
 %>
 <% Layout="~/views/_layoutpage.wcs" %>
@@ -15,7 +15,7 @@
 <!-- begin message content -->
 <div class="main-content">
     <div class="forum-header page-header-text">
-        <%= forum %>
+        <%= STRCONV(forum,9) %>
     </div>
 
     <div id="SortContainer" class="pull-right" style="margin-right: 5px;">
@@ -27,7 +27,7 @@
     </div>
 
     <div class="thread-title page-header-text" style="margin-bottom: 0;">
-        <%= EncodeHtml(TRIM(Subject)) %>
+        <%= STRCONV(EncodeHtml(TRIM(Subject)),9) %>
     </div>
 
     <%
@@ -45,15 +45,15 @@
                     <a href="http://gravatar.com" target="wwthreadsexternal">
                         <img class="gravatar" src="<%= GravatarLink(TRIM(FromEmail),120) %>"
                              alt="Gravatar is a globally recognized avatar based on your email address." />
-                    </a>                    
+                    </a>
 
-                    <b style="font-size: 1.2em;"><%= EncodeHtml(Subject) %></b><br />
+                    <b style="font-size: 1.2em;"><%= STRCONV(EncodeHtml(Subject),9) %></b><br />
 
                     <i class="fa fa-user fa-fw"></i>&nbsp;
-                    <%= EncodeHtml(FromName) %><br />
+                    <%= STRCONV(EncodeHtml(FromName),9) %><br />
 
                     <i class="fa fa-reply fa-fw"></i>&nbsp;
-                    <%= EncodeHtml(Process.GetRecipient(To)) %><br />
+                    <%= STRCONV(EncodeHtml(Process.GetRecipient(To)),9) %><br />
 
                     <div class="pull-right hidable-xs small">
 
@@ -93,7 +93,7 @@
 
 
             <div class="message-list-body">
-                <%=  iif(format=2,poMarkdown.Parse(Message),DisplayMemo(Message) ) %>
+                <%=  iif(format=2,poMarkdown.Parse(Message,.T.),DisplayMemo(Message) ) %>
             </div>
             
              <% if lnI = 1 OR lnI = 3 or lnI=6 %>               

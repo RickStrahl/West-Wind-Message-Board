@@ -1,0 +1,26 @@
+{
+    "dir": "ltr",
+    "lang": "en",
+    "name": "West Wind Message Board",
+    "scope": "/",
+    "display": "standalone",
+    "start_url": "https://support.west-wind.com/",
+    "short_name": "WestwindSupport",
+    "theme_color": "black",
+    "description": "Support Web site for West Wind tools and products and general Web and Enterprise development discussions for Visual FoxPro and .NET developers.",
+    "orientation": "any",
+    "background_color": "transparent",
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "/touch-icon.png",
+            "type": "image/png",
+            "sizes": "256x256"
+        },
+        {
+            "src": "/favicon.ico",
+            "sizes": "48x48 32x32 24x24 16x16"
+        }
+    ]
+}

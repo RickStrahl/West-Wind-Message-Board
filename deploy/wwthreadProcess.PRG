@@ -427,6 +427,12 @@ poMarkdown = THIS.GetMarkdownParser()
 
 Response.GzipCompression = .T.
 
+*** Don't auto-encode - we manually encode everything
+*** so that emojii's and other extendeds work in the
+*** markdown text
+Response.Encoding = ""
+Response.ContentType = "text/html; charset=utf-8"
+
 Response.ExpandScript("~/thread.wwt")
 ENDFUNC
 *   Thread
@@ -1099,8 +1105,8 @@ IF VARTYPE(__wwThreadsMarkdownParser) = "O"
 ELSE
 	loMarkdown =  CreateObject("MarkdownParserExtended")
 	
-	loMarkdown.cCodeBlockStartHtml = [<pre class="no-container"><code class="###language###">]
-	loMarkdown.cCodeBlockEndHtml = [</code></pre>]
+*!*		loMarkdown.cCodeBlockStartHtml = [<pre class="no-container"><code class="###language###">]
+*!*		loMarkdown.cCodeBlockEndHtml = [</code></pre>]
 	loMarkdown.cLinkTarget = "wwt"
 	
 	__wwThreadsMarkdownParser = loMarkdown

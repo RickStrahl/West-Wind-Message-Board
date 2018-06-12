@@ -96,7 +96,7 @@
             </a>
         </div>
         <div class="edit-toolbar-sub">
-            This editor uses <a href="https://helpbuilder.west-wind.com/Docs/_4il175mgd.htm" target="wwthreadsexternal" tabindex="-1">Markdown text format</a>. Please format any code snippets using the <i class="fa fa-code"></i>  icon.
+            This editor uses <a href="https://helpbuilder.west-wind.com/Docs/_4il175mgd.htm" target="wwthreadsexternal" tabindex="-1">Markdown text format</a>. Please format any <b>code snippets</b> using the <i class="fa fa-code" style="background: #ccc" ></i>  icon.
         </div>
 
         <!--<pre lang="markdown" id="Editor">
@@ -119,6 +119,16 @@
             </span>
         </div>
         <% endif %>
+
+
+        <blockquote style="margin: 10px 0;max-width:  830px">
+<markdown>
+#####  <i class="fa fa-info-circle" style="color: steelblue;"></i> Please format your code
+If your post contains any code snippets, you can use the <b><i class="fa fa-code" style="background: #eee;padding: 3px"></i></b> tool button
+to select your code and apply a code language syntax. It makes it **much easier** for everyone to read your code.
+</markdown>
+
+        </blockquote>
 
         <button type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary btn-lg" accesskey="S">
             <i class="fa fa-check" style="color: lightgreen"></i>

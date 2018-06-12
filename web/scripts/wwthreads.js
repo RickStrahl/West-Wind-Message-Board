@@ -253,9 +253,9 @@ function loadTopicAjax(href) {
             if (window.history.pushState && !hrefPassed)
                 window.history.pushState({ title: '', URL: href }, "", href);
 
-            $(".main-content").scrollTop(0);
+            $(".main-content").scrollTop(0);            
 
-            if (window.outerWidth < 769)
+            if (window.innerWidth < 769)
                 $(".sidebar-left").width(0);
 
             // fire google ads  

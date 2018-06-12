@@ -1593,6 +1593,7 @@ http://en.wikipedia.org/wiki/MIT_License
                         $(document).on('touchend.' + opt.instanceId, stopDragging);
                     }
                     $(document).on('selectstart.' + opt.instanceId, noop); // disable selection
+                    $("iframe").css("pointer-events", "none");
                 }
     
                 function doDrag(e) {
@@ -1629,7 +1630,8 @@ http://en.wikipedia.org/wiki/MIT_License
                         $(document).off('touchmove.' + opt.instanceId);
                         $(document).off('touchend.' + opt.instanceId);
                     }
-                    $(document).off('selectstart.' + opt.instanceId, noop);                
+                    $(document).off('selectstart.' + opt.instanceId, noop);     
+                    $("iframe").css("pointer-events", "auto");
     
                     // reset changed values
                     $el.css("transition", startTransition);

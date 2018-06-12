@@ -6,6 +6,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />    
+    
+    <link rel="manifest" href="manifest.json"></link>    
 
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -20,9 +22,6 @@
     <link href="~/css/application.css" rel="stylesheet" />
         
     <%= RenderSection("headers") %> 
-    <style>
-        
-    </style> 
 </head>
 <body>
     <div class="flex-master">
@@ -163,12 +162,11 @@
     <link href="~/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet"  />
     <script src="~/bower_components/moment/min/moment.min.js"></script>
     <script src="~/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-
-
-    <script src="~/scripts/wwthreads.js?v1.1.1"></script>
-    <link href="~/scripts/highlightjs/styles/twilight.css" rel="stylesheet" />
-    <script src="~/scripts/highlightjs/highlight.pack.js"></script>
     
+    <script src="~/scripts/wwthreads.js?v1.1.2"></script>
+
+    <link href="~/scripts/highlightjs/styles/vs2015.css" rel="stylesheet" />
+    <script src="~/scripts/highlightjs/highlight.pack.js"></script>    
     <script>
         hljs.initHighlightingOnLoad();
     </script>
@@ -198,5 +196,6 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
+    <script src="scripts/manup.min.js"></script>
 </body>
 </html>

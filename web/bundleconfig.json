@@ -16,5 +16,11 @@
     "inputFiles": [
       "scripts/wwthreads.js"
     ]
+  },
+  {
+    "outputFileName": "scripts/ww.jquery.min.js",
+    "inputFiles": [
+      "scripts/ww.jquery.js"
+    ]
   }
 ]

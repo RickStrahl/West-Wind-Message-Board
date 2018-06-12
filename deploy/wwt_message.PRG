@@ -206,8 +206,8 @@ loIP.cMailServer = lcMailServer
 loIp.cUsername = lcMailUsername
 loIP.cPassword = lcMailPassword
    
-loIP.cSenderName = TRIM(THIS.oData.FromName)
-loIP.cSenderEmail = TRIM(THIS.oData.FromEmail)
+loIP.cSenderName = "West Wind Message Board"
+loIP.cSenderEmail = TRIM(Server.oConfig.cAdminEmail)
 loIp.cReplyTo = "noreply@west-wind.com"
 loIP.cRecipient = TRIM(this.oData.To)
 

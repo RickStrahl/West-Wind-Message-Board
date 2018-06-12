@@ -65,7 +65,7 @@ $(document).ready(function () {
     setupImageUpload();
 
     // Preview Editor Hookup
-    var markdownFunc = debounce(markdown, 1000,false);
+    var markdownFunc = debounce(markdown, 500,false);
     $msg.keyup(function() {
         markdownFunc();
     });    
