@@ -654,6 +654,9 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     .forum-list-container {        
         
     }
+    #ThreadListing {    
+        padding-bottom: 30px;
+    }
 
    
     .message-item {        
@@ -734,14 +737,16 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         background: #eee;
         margin: 15px 10px;
     }
-    @media(max-width: 768px) {
+    @media(max-width: 767px) {
+        body {
+            font-size: 0.925em;
+        }
         .sidebar-left {
             width: 0;
         }
         .message-list-body {
             padding: 10px 2%;
-        }
-       
+        }       
     }
     @media(min-width: 1400px){
         .main-content{
