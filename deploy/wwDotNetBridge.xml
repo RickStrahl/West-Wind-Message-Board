@@ -1,0 +1,3264 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>wwDotNetBridge</name>
+    </assembly>
+    <members>
+        <member name="T:Westwind.WebConnection.wwDotNetBridge">
+            <summary>
+            The wwDotNetBridge class provides a host of COM support functions for Visual FoxPro.
+            It allows you to host the .NET runtime without relying on COM interop to load types,
+            rather it acts as a proxy for instantiation and other tasks. 
+            
+            This library can be used itself to load .NET and types, or you can use it as a helper
+            with COM interop in which case you have to instantiate it as a COM object and call
+            its methods directly rather than using the FoxPro helper class.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.wwDotNetBridge.ErrorMessage">
+            <summary>
+            Returns error information if the call fails
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.LoadAssembly(System.String)">
+            <summary>
+            Loads an assembly into the AppDomain by its fully qualified assembly name
+            </summary>
+            <param name="AssemblyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.LoadAssemblyFrom(System.String)">
+            <summary>
+            Loads an assembly into the AppDomain by a fully qualified assembly path
+            </summary>
+            <param name="AssemblyFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstance(System.String)">
+            <summary>
+            Creates a type reference from a given type name if the
+            assembly is already loaded.
+            </summary>
+            <param name="TypeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstance_OneParm(System.String,System.Object)">
+            <summary>
+            Creates a type reference from a given type name if the
+            assembly is already loaded.
+            </summary>        
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstance_TwoParms(System.String,System.Object,System.Object)">
+            <summary>
+            Creates a type reference from a given type name if the
+            assembly is already loaded.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstance_ThreeParms(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            Creates a type reference from a given type name if the
+            assembly is already loaded.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstance_Internal(System.String,System.Object[])">
+            <summary>
+            Creates an instance of a class  based on its type name. Assumes that the type's
+            assembly is already loaded.
+            
+            Note this will be a little slower than the versions that work with assembly
+            name specified because this code has to search for the type first rather
+            than directly activating it.
+            </summary>
+            <param name="TypeName"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstance_Internal(System.String,System.String,System.Object[])">
+            <summary>
+            Routine that loads an assembly by its 'application assembly name' - unsigned
+            assemblies must be visible via the .NET path (current path or BIN dir) and
+            GAC assemblies must be referenced by their full assembly name.
+            </summary>
+            <param name="AssemblyName"></param>
+            <param name="TypeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstanceOnType_OneParm(System.Object,System.String,System.String,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="instance"></param>
+            <param name="property"></param>
+            <param name="TypeName"></param>
+            <param name="parm1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstanceOnType_TwoParms(System.Object,System.String,System.String,System.Object,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="instance"></param>
+            <param name="property"></param>
+            <param name="TypeName"></param>
+            <param name="parm1"></param>
+            <param name="parm2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstanceOnType_ThreeParms(System.Object,System.String,System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="instance"></param>
+            <param name="property"></param>
+            <param name="TypeName"></param>
+            <param name="parm1"></param>
+            <param name="parm2"></param>
+            <param name="parm3"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstanceOnType_FourParms(System.Object,System.String,System.String,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="instance"></param>
+            <param name="property"></param>
+            <param name="TypeName"></param>
+            <param name="parm1"></param>
+            <param name="parm2"></param>
+            <param name="parm3"></param>
+            <param name="parm4"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstanceOnType_FiveParms(System.Object,System.String,System.String,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="instance"></param>
+            <param name="property"></param>
+            <param name="TypeName"></param>
+            <param name="parm1"></param>
+            <param name="parm2"></param>
+            <param name="parm3"></param>
+            <param name="parm4"></param>
+            <param name="parm5"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateAssemblyInstanceFromFile(System.String,System.String)">
+            <summary>
+            Creates an instance from a file reference with a parameterless constructor
+            </summary>
+            <param name="AssemblyFileName"></param>
+            <param name="TypeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateAssemblyInstanceFromFile_OneParm(System.String,System.String,System.Object)">
+            <summary>
+            Creates an instance from a file reference with a 1 parameter constructor
+            </summary>
+            <param name="AssemblyFileName"></param>
+            <param name="TypeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateAssemblyInstanceFromFile_TwoParms(System.String,System.String,System.Object,System.Object)">
+            <summary>
+            Creates an instance from a file reference with a two parameter constructor
+            </summary>
+            <param name="AssemblyFileName"></param>
+            <param name="TypeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateInstanceFromFile_Internal(System.String,System.String,System.Object[])">
+            <summary>
+            Routine that loads a class from an assembly file name specified.
+            </summary>
+            <param name="AssemblyFileName"></param>
+            <param name="TypeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateAssemblyInstance(System.String,System.String)">
+            <summary>
+            Creates a new instance from a file file based assembly refence. Requires full
+            filename including extension and path.
+            </summary>
+            <param name="AssemblyFileName"></param>
+            <param name="TypeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateAssemblyInstance_OneParm(System.String,System.String,System.Object)">
+            <summary>
+            Creates a new instance from a file file based assembly refence. Requires full
+            filename including extension and path.
+            </summary>
+            <param name="AssemblyFileName"></param>
+            <param name="TypeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateAssemblyInstance_TwoParms(System.String,System.String,System.Object,System.Object)">
+            <summary>
+            Creates a new instance from a file file based assembly refence. Requires full
+            filename including extension and path.
+            </summary>
+            <param name="AssemblyFileName"></param>
+            <param name="TypeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.GetTypeFromName(System.String)">
+            <summary>
+            Helper routine that looks up a type name and tries to retrieve the
+            full type reference in the actively executing assemblies.
+            </summary>
+            <param name="typeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.InvokeStaticMethod_Internal(System.String,System.String,System.Object[])">
+            <summary>
+            Invokes a static method
+            </summary>
+            <param name="TypeName"></param>
+            <param name="Method"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.GetStaticProperty(System.String,System.String)">
+            <summary>
+            Retrieves a value from  a static property by specifying a type full name and property
+            </summary>
+            <param name="TypeName">Full type name (namespace.class)</param>
+            <param name="Property">Property to get value from</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.InvokeMethod(System.Object,System.String)">
+            <summary>
+            Invokes a method with no parameters
+            </summary>
+            <param name="Instance"></param>
+            <param name="Method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.InvokeMethodWithParameterArray(System.Object,System.String,System.Object[])">
+            <summary>
+            Invokes a method with an explicit array of parameters
+            Allows for any number of parameters to be passed.
+            </summary>
+            <param name="instance"></param>
+            <param name="method"></param>
+            <param name="parms"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.InvokeMethod_OneParm(System.Object,System.String,System.Object)">
+            <summary>
+            Invokes a method with one parameter
+            </summary> 
+            <param name="Instance"></param>
+            <param name="Method"></param>
+            <param name="Parm1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.InvokeMethod_TwoParms(System.Object,System.String,System.Object,System.Object)">
+            <summary>
+            Invokes a method with two parameters
+            </summary>
+            <param name="Instance"></param>
+            <param name="Method"></param>
+            <param name="Parm1"></param>
+            <param name="Parm2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.GetPropertyEx(System.Object,System.String)">
+            <summary>
+            Returns a property value by allowing . syntax to drill
+            into nested objects. Use this method to step over objects 
+            that FoxPro can't directly access (like structs, generics etc.)
+            </summary>
+            <param name="Instance"></param>
+            <param name="Property"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.SetProperty(System.Object,System.String,System.Object)">
+            <summary>
+            Sets a property of a .NET object with a value
+            </summary>
+            <param name="Instance"></param>
+            <param name="Property"></param>
+            <param name="Value"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.SetPropertyEx(System.Object,System.String,System.Object)">
+            <summary>
+            Sets a property of a .NET object with a value using extended syntax.
+            
+            This method supports '.' syntax so you can use "Property.ChildProperty"
+            to walk the object hierarchy in the string property parameter. 
+            
+            This method also supports accessing of Array/Collection indexers (Item[1])
+            </summary>
+            <param name="Instance"></param>
+            <param name="Property"></param>
+            <param name="Value"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.GetEnumString(System.String,System.Object)">
+            <summary>
+            Returns the name of an enum field given an enum value
+            passed. Pass in the name of the enum type
+            </summary>
+            <param name="EnumTypeName"></param>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.InvokeStaticMethodAsync(System.Object,System.String,System.String,System.Object[])">
+            <summary>
+            Invokes a method on asynchronously and fires OnCompleted and OnError
+            events on a passed in callback object.
+            </summary>
+            <param name="callBack">
+            A callback object that has to have two methods:
+            OnCompleted(lvResult, lcMethod)
+            OnError(lcErrorMsg,loException, lcMethod)        
+            </param>
+            <param name="instance"></param>
+            <param name="method"></param>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.InvokeMethodAsync(System.Object,System.Object,System.String,System.Object[])">
+            <summary>
+            Invokes a method on a new thread and fires OnCompleted and OnError
+            events on a passed in callback object.
+            </summary>
+            <param name="callBack">
+            A callback object that has to have two methods:
+            OnCompleted(lvResult, lcMethod)
+            OnError(lcErrorMsg,loException, lcMethod)        
+            </param>
+            <param name="instance"></param>
+            <param name="method"></param>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge._InvokeMethodAsync(System.Object)">
+            <summary>
+            Internal handler method that actually makes the async call on a thread
+            </summary>
+            <param name="parmList"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateArrayInstanceInternal(System.Object,System.String,System.Int32)">
+            <summary>
+            Creates an instance of an array on a given base object instance by name.
+            Array is created with 'empty' elements - ie. objects are null and value
+            types are set to their default() values.
+            </summary>
+            <param name="baseType"></param>
+            <param name="arrayProperty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateArrayOnInstance(System.Object,System.String,System.Int32)">
+            <summary>
+            Creates an array instance of a given type and size. Note the
+            elements of this array are null/default and need to be set explicitly
+            </summary>
+            <param name="baseType">Object instance on which to create the array</param>
+            <param name="arrayProperty">String property/field name of the array to create</param>
+            <param name="size">Size of the array to createArray</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateArrayOnInstanceWithObject(System.Object,System.String,System.Object)">
+            <summary>
+            Creates a new array instance on a type of exactly 1 array item which is
+            assigned the item parameter passed in. 
+            </summary>
+            <param name="baseType"></param>
+            <param name="arrayProperty"></param>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateArray(System.String)">
+            <summary>
+            Creates an instance of an array
+            </summary>
+            <param name="arrayTypeString"></param>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.CreateArrayFromInstance(System.Object)">
+            <summary>
+            Creates an array from a specific instance of a COM object
+            </summary>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.AddArrayItem(System.Object,System.String,System.Object)">
+            <summary>
+            Used to add an item to an array by indirection to work around VFP's
+            inability to easily add array elements.
+            </summary>
+            <param name="baseObject">The object that has the Array property</param>
+            <param name="arrayObject">The array property name as a string</param>
+            <param name="item">The item to set it to. Should not be null.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.GetIndexedProperty(System.Object,System.Int32)">
+            <summary>
+            Returns an indexed property Value
+            </summary>
+            <param name="baseList">List object</param>
+            <param name="index">Index into the list</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.GetArrayItem(System.Object,System.String,System.Int32)">
+            <summary>
+            Returns an individual Array Item by its index
+            </summary>
+            <param name="baseObject"></param>
+            <param name="arrayName"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.SetArrayItem(System.Object,System.String,System.Int32,System.Object)">
+            <summary>
+            Sets an array element to a given value. Assumes the array is big
+            enough and the array item exists.
+            </summary>
+            <param name="baseObject">base object reference</param>
+            <param name="arrayName">Name of the array as a string</param>
+            <param name="index">The index of the item to set</param>
+            <param name="value">The value to set the array item to</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.RemoveArrayItem(System.Object,System.String,System.Int32)">
+            <summary>
+            Removes an item from a .NET array with indirection to work around VFP's
+            inability to manipulate .NET array elements.
+            </summary>
+            <param name="baseObject">The arrays parent object</param>
+            <param name="arrayObject">The array's name as a string</param>
+            <param name="Index">The index to of the item to delete. NOTE: 1 based!</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.DataSetToXmlString(System.Data.DataSet,System.Boolean)">
+            <summary>
+            Returns an XML string from a .NET DataSet
+            </summary>
+            <param name="ds"></param>
+            <param name="includeSchema"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.XmlStringToDataSet(System.String)">
+            <summary>
+            Converts an Xml String created from a FoxPro Xml Adapter or CursorToXml
+            into a DataSet if possible.
+            </summary>
+            <param name="xml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.FixupReturnValue(System.Object)">
+            <summary>
+            Fixes up a return value to return to FoxPro 
+            based on its type. Fixes up some values to
+            be type safe for FoxPro and others are returned
+            as wrappers (ComArray, ComGuid)
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.ConvertObjectToByteArray(System.Object)">
+            <summary>
+            Converts an object to a byte array
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.FixupAssemblyName(System.String)">
+            <summary>
+            Helper routine that automatically assigns default names to certain
+            'common' system assemblies so that we don't have to provide a full path
+            
+            NOTE: 
+            All names are for .NET 2.0 Runtime at the moment
+            </summary>
+            <param name="AssemblyName"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.GetDotnetVersion">
+            <summary> 
+            Returns the .NET framework version installed on the machine
+            as a string  of 4.x.y version
+            </summary>
+            <remarks>Minimum version supported is 4.0</remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.ToJson(System.Object,System.Boolean)">
+            <summary>
+            Returns a JSON string from a .NET object. Note: doesn't
+            work with FoxPro COM objects - only Interop .NET objects
+            </summary>
+            <param name="value"></param>
+            <param name="formatted"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.FromJson(System.String,System.Type)">
+            <summary>
+            Deserializes a JSON object
+            </summary>
+            <param name="json"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.ToXml(System.Object)">
+            <summary>
+            Returns an XML object from a .NET object. Note doesn't
+            work with FoxPro COM object - only Interop .NET objects
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwDotNetBridge.FromXml(System.String,System.Type)">
+            <summary>
+            Deserializes an object from an XML string that was 
+            generated in format the same as generated from ToXml()
+            </summary>
+            <param name="xml"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Westwind.WebConnection.EventSubscriber">
+            <summary>
+            FoxPro interop access to .NET events. Handles all events of a source object for subsequent retrieval by a FoxPro client.
+            </summary>
+            <remarks>For a FoxPro program to be notified of events, it should use `wwDotNetBridge.InvokeMethodAsync` to call <see cref="M:Westwind.WebConnection.EventSubscriber.WaitForEvent"/>. When <see cref="M:Westwind.WebConnection.EventSubscriber.WaitForEvent"/> asynchronously completes, the FoxPro program should handle the event it returns and then call <see cref="M:Westwind.WebConnection.EventSubscriber.WaitForEvent"/> again to wait for the next event. The FoxPro class `EventSubscription`, which is returned by `SubscribeToEvents`, encapsulates this async wait loop.</remarks>
+        </member>
+        <member name="M:Westwind.WebConnection.EventSubscriber.WaitForEvent">
+            <summary>
+            Waits until an event is raised, or returns immediately if a queued event is available.
+            </summary>
+            <returns>The next event, or null if this subscriber has been disposed.</returns>
+        </member>
+        <member name="P:Westwind.WebConnection.SftpFile.FileAttribute">
+            <summary>
+            16 - file, 128 - Directory. Match WinInet convention
+            </summary>
+        </member>
+        <member name="T:Westwind.WebConnection.SftpFtpClient">
+            <summary>
+            Depends on SSH.NET for the SFTP functionality
+            Note this does not support FTPS only SFTP
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.SftpFtpClient.PrivateKeyFile">
+            <summary>
+            Keyfile instead of password
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.SftpFtpClient.Connect(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Call this method before any other operations
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SftpFtpClient.Close">
+            <summary>
+            Make sure to call this method to shut down the connection
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.SftpFtpClient.DownloadFile(System.String,System.String)">
+            <summary>
+            High level do everything download function.
+            Make sure you call Connect() before you call
+            this function.
+            </summary>
+            <param name="remoteFilename"></param>
+            <param name="localFilename"></param>
+            <param name="host"></param>
+            <param name="port"></param>
+            <param name="username"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SftpFtpClient.UploadFile(System.String,System.String)">
+            <summary>
+            Upload a file from the local machine to the server
+            </summary>
+            <param name="localFilename"></param>
+            <param name="remoteFilename"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SftpFtpClient.ListFiles(System.String)">
+            <summary>
+            Get a directory listing of files 
+            
+            returns object list (Name, FullName, Length, LastWriteTime)
+            
+            Make sure to call Connect() before calling this method
+            </summary>
+            <param name="filespec"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SftpFtpClient.DeleteFile(System.String)">
+            <summary>
+            Deletes a file
+            </summary>
+            <param name="remoteFilename"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SftpFtpClient.RenameFile(System.String,System.String)">
+            <summary>
+            Renames a file on the server. Specify old and new path
+            </summary>
+            <param name="source"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SftpFtpClient.ChangeDirectory(System.String)">
+            <summary>
+            Changes the remote path 
+            </summary>
+            <param name="remotePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SftpFtpClient.CreateDirectory(System.String)">
+            <summary>
+            Creates a new directory on the server
+            </summary>
+            <param name="remotePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SftpFtpClient.RemoveDirectory(System.String)">
+            <summary>
+            Deletes a directory on the server
+            </summary>
+            <param name="remotePath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Westwind.WebConnection.SimpleHttpServer">
+             <summary>
+             A simple self-contained static file Web Server that can be
+             launched in a folder with a port and serve static files
+             from that folder. Very basic features but easy to integrate.
+             </summary>
+             <example>
+             StartHttpServerOnThread(@"c:\temp\http",8080);
+             ...
+             StopHttpServerOnThread();
+             </example>
+             <remarks>
+             Based heavily on this Gist:
+             https://gist.github.com/aksakalli/9191056
+             
+             Additions to make it easier to host server inside of an
+             external, non-.NET application.
+            </remarks>
+        </member>
+        <member name="M:Westwind.WebConnection.SimpleHttpServer.StartHttpServerOnThread(System.String,System.Int32,System.Object)">
+            <summary>
+            This method can be used externally to start a singleton instance of 
+            the Web Server and keep it running without tracking a reference.                
+            
+            If a server instance is already running it's shut down.
+            </summary>
+            <param name="path"></param>
+            <param name="port"></param>        
+            <param name="requestHandler">
+            Optional parameter of an object that has a Process method that gets passed a context 
+            and returns true if the request is handled or false if default processing should occur
+            </param>
+        </member>
+        <member name="M:Westwind.WebConnection.SimpleHttpServer.StopHttpServerOnThread">
+            <summary>
+            Call this method to stop the Singleton instance of the server.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.SimpleHttpServer.StartHttpServerThread(System.Object)">
+            <summary>
+            Internal method that instantiates the server instance
+            </summary>
+            <param name="parms"></param>
+        </member>
+        <member name="F:Westwind.WebConnection.SimpleHttpServer._mimeTypeMappings">
+            <summary>
+            Mime Type conversion table
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.SimpleHttpServer.RequestHandler">
+            <summary>
+            Instance of an object whose Process() method is called on each request.
+            Return true if the reuqest is handled, fase if it's not.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.SimpleHttpServer.#ctor(System.String,System.Int32)">
+            <summary>
+            Construct server with given port.
+            </summary>
+            <param name="path">Directory path to serve.</param>
+            <param name="port">Port of the server.</param>
+        </member>
+        <member name="M:Westwind.WebConnection.SimpleHttpServer.#ctor(System.String)">
+            <summary>
+            Construct server with an available port.
+            </summary>
+            <param name="path">Directory path to serve.</param>
+        </member>
+        <member name="M:Westwind.WebConnection.SimpleHttpServer.Stop">
+            <summary>
+            Stop server and dispose all functions.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.SimpleHttpServer.Listen">
+            <summary>
+            Internal Handler
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.SimpleHttpServer.Process(System.Net.HttpListenerContext)">
+            <summary>
+            Process an individual request. Handles only static file based requests
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:Westwind.WebConnection.ServerStartParameters">
+            <summary>
+            Parameters thatr are passed to the thread method
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.ServerStartParameters.RequestHandler">
+            <summary>
+             Any object that implements a Process method
+             method should return true (request is handled) 
+            or false (to fall through and handle as files)
+            </summary>
+        </member>
+        <member name="T:Westwind.WebConnection.EncryptionUtils">
+            <summary>
+            Class that provides a number of encryption utilities
+            </summary>
+        </member>
+        <member name="F:Westwind.WebConnection.EncryptionUtils.EncryptionKey">
+            <summary>
+            Replace this value with some unique key of your own
+            Best set this in your App start up in a Static constructor
+            </summary>
+        </member>
+        <member name="F:Westwind.WebConnection.EncryptionUtils.UseBinHex">
+            <summary>
+            Determines whether data is returned as BinHex or Base64 (default)
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.EncryptBytes(System.Byte[],System.String)">
+            <summary>
+            Encodes a stream of bytes using DES encryption with a pass key. Lowest level method that 
+            handles all work.
+            </summary>
+            <param name="inputBytes"></param>
+            <param name="encryptionKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.EncryptBytes(System.String,System.String)">
+            <summary>
+            Encrypts a string into bytes using DES encryption with a Passkey. 
+            </summary>
+            <param name="inputString"></param>
+            <param name="encryptionKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.EncryptString(System.String,System.String)">
+            <summary>
+            Encrypts a string using Triple DES encryption with a two way encryption key.String is returned as Base64 encoded value
+            rather than binary.
+            </summary>
+            <param name="inputString"></param>
+            <param name="encryptionKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.DecryptBytes(System.Byte[],System.String)">
+            <summary>
+            Decrypts a Byte array from DES with an Encryption Key.
+            </summary>
+            <param name="decryptBuffer"></param>
+            <param name="encryptionKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.DecryptString(System.String,System.String)">
+            <summary>
+            Decrypts a string using DES encryption and a pass key that was used for 
+            encryption.
+            <seealso>Class wwEncrypt</seealso>
+            </summary>
+            <param name="decryptString"></param>
+            <param name="encryptionKey"></param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.ComputeHash(System.String,System.String,System.String)">
+            <summary>
+            Generates a hash for the given plain text value and returns a
+            base64-encoded result. Before the hash is computed, a random salt
+            is generated and appended to the plain text. This salt is stored at
+            the end of the hash value, so it can be used later for hash
+            verification.
+            </summary>
+            <param name="plainText">
+            Plaintext value to be hashed. 
+            </param>
+            <param name="hashAlgorithm">
+            Name of the hash algorithm. Allowed values are: "MD5", "SHA1",
+            "SHA256", "SHA384", and "SHA512", and "HMACSHA1","HMACSHA256",
+            "HMACSHA512","HMACMD5" (if any other value is specified MD5 
+            hashing algorithm will be used). This value is case-insensitive.
+            </param>
+            <param name="salt">
+            Optional salt string to apply to the text before hashing. If not passed the
+            raw encoding is used.
+            For HMAC this will be the salt passed to the HMAC parser.
+            </param>
+            <returns>
+            Hash value formatted as a base64-encoded string.
+            </returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.ComputeHash(System.String,System.String,System.Byte[])">
+            <summary>
+            Generates a hash for the given plain text value and returns a
+            base64-encoded result. Before the hash is computed, a random salt
+            is generated and appended to the plain text. This salt is stored at
+            the end of the hash value, so it can be used later for hash
+            verification.
+            </summary>
+            <param name="plainText">
+            Plaintext value to be hashed. 
+            </param>
+            <param name="hashAlgorithm">
+            Name of the hash algorithm. Allowed values are: "MD5", "SHA1",
+            "SHA256", "SHA384", and "SHA512", and "HMACSHA1","HMACSHA256",
+            "HMACSHA512","HMACMD5" (if any other value is specified MD5 
+            hashing algorithm will be used). This value is case-insensitive.
+            </param>
+            <param name="saltBytes">
+            Optinoal salt bytes to apply to the hash. If not passed the
+            raw encoding is used.
+            </param>
+            <returns>
+            Hash value formatted as a base64-encoded string.
+            </returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.GZipMemory(System.Byte[])">
+            <summary>
+            GZip encodes a memory buffer to a compressed memory buffer
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.GZipMemory(System.String)">
+            <summary>
+            Encodes a string to a gzip compressed memory buffer
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.GZipMemory(System.String,System.Boolean)">
+            <summary>
+            Encodes a file to a gzip memory buffer
+            </summary>
+            <param name="Filename"></param>
+            <param name="IsFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.GZipFile(System.String,System.String)">
+            <summary>
+            Encodes one file to another file that is gzip compressed.
+            File is overwritten if it exists and not locked.
+            </summary>
+            <param name="Filename"></param>
+            <param name="OutputFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.GetChecksumFromFile(System.String,System.String)">
+            <summary>
+            Creates an SHA256 or MD5 checksum of a file
+            </summary>
+            <param name="file"></param>
+            <param name="mode">SHA256,MD5</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.GetChecksumFromBytes(System.Byte[],System.String)">
+            <summary>
+            Create a SHA256 or MD5 checksum from a bunch of bytes
+            </summary>
+            <param name="fileData"></param>
+            <param name="mode">SHA256,MD5</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.BinaryToBinHex(System.Byte[])">
+            <summary>
+            Converts a byte array into a BinHex string.
+            Example: 01552233 
+            where the numbers are packed
+            byte values.
+            </summary>
+            <param name="data">Raw data to send</param>
+            <returns>string or null if input is null</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.EncryptionUtils.BinHexToBinary(System.String)">
+            <summary>
+            Turns a BinHex string that contains raw byte values
+            into a byte array
+            </summary>
+            <param name="hex">BinHex string (just two byte hex digits strung together)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.FoxProHelpers.GetChecksumFromFile(System.String,System.String)">
+            <summary>
+            Creates an SHA256 checksum of a file
+            </summary>
+            <param name="file"></param>
+            <param name="mode">SHA256,MD5</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.FoxProHelpers.GetUtcTime(System.DateTime)">
+            <summary>
+            Converts a local date time value to UTC
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.FoxProHelpers.FromUtcTime(System.DateTime)">
+            <summary>
+            Converts a UTC date to local time
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Westwind.WebConnection.ImageUtils">
+            <summary>
+            Summary description for wwImaging.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.GetTransparentImageBytes(System.String,System.Decimal)">
+            <summary>
+            
+            </summary>
+            <param name="filename"></param>
+            <param name="opacity"></param>        
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.GetTransparentImageBytes(System.Byte[],System.Decimal)">
+            <summary>
+            
+            </summary>
+            <param name="filename"></param>
+            <param name="opacity"></param>        
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.ResizeImage(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Creates a resized bitmap from an existing image on disk. Resizes the image by 
+            creating an aspect ratio safe image. Image is sized to the larger size of width
+            height and then smaller size is adjusted by aspect ratio.
+            
+            Image is returned as Bitmap - call Dispose() on the returned Bitmap object
+            </summary>
+            <param name="filename"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <returns>Bitmap or null</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.ResizeImage(System.String,System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Resizes an image and saves the image to a file
+            </summary>
+            <param name="filename"></param>
+            <param name="outputFilename"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="mode"></param>
+            <param name="jpegCompressionMode">        
+            </param>
+            <param name="interPolationMode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.ResizeImage(System.Drawing.Bitmap,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Resizes an image from a bitmap.
+            
+            Note it will size to the larger of the sides 
+            
+            </summary>
+            <param name="bmp"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.ConvertImageFile(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Converts an image file from one file format to another
+            </summary>
+            <param name="filename"></param>
+            <param name="outputFile"></param>
+            <param name="jpegQuality"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.CopyBitmap(System.Drawing.Bitmap,System.Int32,System.Int32,System.Drawing.Drawing2D.InterpolationMode,System.Int32)">
+            <summary>
+            Creates a new bitmap by drawing the input bitmap onto the
+            canvas of the new bitmap resizing it to the new, exact 
+            size specified.
+            </summary>
+            <param name="bmpIn"></param>
+            <param name="newWidth"></param>
+            <param name="newHeight"></param>
+            <param name="mode"></param>
+            <param name="dpi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.SaveJpeg(System.Drawing.Bitmap,System.String,System.Int32)">
+            <summary>
+            Saves a jpeg BitMap  to disk with a jpeg quality setting.
+            Does not dispose the bitmap.
+            </summary>
+            <param name="bmp">Bitmap to save</param>
+            <param name="outputFileName">file to write it to</param>
+            <param name="jpegQuality"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.RotateImage(System.String,System.String,System.Drawing.RotateFlipType,System.Int32)">
+            <summary>
+            Rotates an image and writes out the rotated image to a file.
+            </summary>
+            <param name="filename">The original image to roatate</param>
+            <param name="outputFilename">The output file of the rotated image file. If not passed the original file is overwritten</param>
+            <param name="type">Type of rotation to perform</param>
+            <param name="jpegCompressionMode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.StripJpgExifData(System.String,System.Int32)">
+            <summary>
+            Opens the image and writes it back out, stripping any Exif data
+            </summary>
+            <param name="imageFile">Image to remove exif data from</param>
+            <param name="imageQuality">image quality 0-100 (100 no compression)</param>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.NormalizeJpgImageRotation(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            If the image contains image rotation Exif data, apply the image rotation and
+            remove the Exif data. Optionally also allows for image resizing in the same
+            operation.
+            </summary>
+            <param name="imageFile">Image file to work on</param>
+            <param name="imageQuality">Jpg</param>
+            <param name="width"></param>
+            <param name="height"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.SaveImageFromClipboard(System.String,System.Int32)">
+            <summary>
+            Saves the image from the clipboard to file
+            </summary>
+            <param name="filename"></param>
+            <param name="jpegCompression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.GetBitmapFromClipboard">
+            <summary>
+            Returns a bitmap object from the clipboard.
+            
+            Make sure you dispose of Bitmap returned when done with it.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Westwind.WebConnection.ImageUtils.Encoders">
+            <summary>
+            A quick lookup for getting image encoders
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.ImageUtils.GetImageFormatFromFilename(System.String)">
+            <summary>
+            Tries to return an image format 
+            </summary>
+            <param name="filename"></param>
+            <returns>Image format or ImageFormat.Emf if no match was found</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SerializationUtils.SerializeObject(System.Object,System.String,System.Boolean)">
+            <summary>
+            Serializes an object instance to a file.
+            </summary>
+            <param name="instance">the object instance to serialize</param>
+            <param name="fileName"></param>
+            <param name="binarySerialization">determines whether XML serialization or binary serialization is used</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SerializationUtils.SerializeObject(System.Object,System.Xml.XmlTextWriter,System.Boolean)">
+            <summary>
+            Overload that supports passing in an XML TextWriter. 
+            </summary>
+            <remarks>
+            Note the Writer is not closed when serialization is complete 
+            so the caller needs to handle closing.
+            </remarks>
+            <param name="instance">object to serialize</param>
+            <param name="writer">XmlTextWriter instance to write output to</param>       
+            <param name="throwExceptions">Determines whether false is returned on failure or an exception is thrown</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SerializationUtils.SerializeObject(System.Object,System.String@)">
+            <summary>
+            Serializes an object into an XML string variable for easy 'manual' serialization
+            </summary>
+            <param name="instance">object to serialize</param>
+            <param name="xmlResultString">resulting XML string passed as an out parameter</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SerializationUtils.SerializeObject(System.Object,System.String@,System.Boolean)">
+            <summary>
+            Serializes an object into a string variable for easy 'manual' serialization
+            </summary>
+            <param name="instance"></param>
+            <param name="xmlResultString">Out parm that holds resulting XML string</param>
+            <param name="throwExceptions">If true causes exceptions rather than returning false</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SerializationUtils.SerializeObject(System.Object,System.Byte[]@,System.Boolean)">
+            <summary>
+            Serializes an object instance to a file.
+            </summary>
+            <param name="instance">the object instance to serialize</param>
+            <param name="Filename"></param>
+            <param name="BinarySerialization">determines whether XML serialization or binary serialization is used</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SerializationUtils.SerializeObjectToString(System.Object,System.Boolean)">
+            <summary>
+            Serializes an object to an XML string. Unlike the other SerializeObject overloads
+            this methods *returns a string* rather than a bool result!
+            </summary>
+            <param name="instance"></param>
+            <param name="throwExceptions">Determines if a failure throws or returns null</param>
+            <returns>
+            null on error otherwise the Xml String.         
+            </returns>
+            <remarks>
+            If null is passed in null is also returned so you might want
+            to check for null before calling this method.
+            </remarks>
+        </member>
+        <member name="M:Westwind.WebConnection.SerializationUtils.DeSerializeObject(System.String,System.Type,System.Boolean)">
+            <summary>
+            Deserializes an object from file and returns a reference.
+            </summary>
+            <param name="fileName">name of the file to serialize to</param>
+            <param name="objectType">The Type of the object. Use typeof(yourobject class)</param>
+            <param name="binarySerialization">determines whether we use Xml or Binary serialization</param>
+            <returns>Instance of the deserialized object or null. Must be cast to your object type</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SerializationUtils.DeSerializeObject(System.String,System.Type,System.Boolean,System.Boolean)">
+            <summary>
+            Deserializes an object from file and returns a reference.
+            </summary>
+            <param name="fileName">name of the file to serialize to</param>
+            <param name="objectType">The Type of the object. Use typeof(yourobject class)</param>
+            <param name="binarySerialization">determines whether we use Xml or Binary serialization</param>
+            <param name="throwExceptions">determines whether failure will throw rather than return null on failure</param>
+            <returns>Instance of the deserialized object or null. Must be cast to your object type</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SerializationUtils.DeSerializeObject(System.Xml.XmlReader,System.Type)">
+            <summary>
+            Deserialize an object from an XmlReader object.
+            </summary>
+            <param name="reader"></param>
+            <param name="objectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SerializationUtils.DeSerializeObject(System.Byte[],System.Type,System.Boolean)">
+            <summary>
+            Deseializes a binary serialized object from  a byte array
+            </summary>
+            <param name="buffer"></param>
+            <param name="objectType"></param>
+            <param name="throwExceptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.SerializationUtils.ObjectToString(System.Object,System.String,Westwind.WebConnection.ObjectToStringTypes)">
+            <summary>
+            Returns a string of all the field value pairs of a given object.
+            Works only on non-statics.
+            </summary>
+            <param name="instanc"></param>
+            <param name="separator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Westwind.WebConnection.ThreadRunner">
+            <summary>
+            Class that calls COM objects on a separate thread
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.TypePassingTests.PassEnumArray(System.Windows.Forms.MessageBoxButtons[])">
+            <summary>
+            </summary>
+            <example>
+            LOCAL loArray as Westwind.WebConnection.ComArray
+            loArray = loBridge.Createarray("System.Windows.Forms.MessageBoxButtons")
+            loComValue = loBridge.CreateComValue()
+            loComValue.SetEnum("System.Windows.Forms.MessageBoxButtons.OK")
+            loArray.AddItem( loComValue) 
+            ? loBridge.InvokeMethod(loTest,"PassEnumArray",loArray)
+            </example>
+            <param name="buttons"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.TypePassingTests.Pass24Parameters(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Pass in 15 parameters and return the value of the last
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Westwind.WebConnection.FileUtils">
+            <summary>
+            wwUtils class which contains a set of common utility classes for 
+            Formatting strings
+            Reflection Helpers
+            Object Serialization
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.FileUtils.CopyStream(System.IO.Stream,System.IO.Stream,System.Int32)">
+            <summary>
+            Copies the content of the one stream to another.
+            Streams must be open and stay open.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.FileUtils.GetFileEncoding(System.String)">
+            <summary>
+            Detects the byte order mark of a file and returns
+            an appropriate encoding for the file.
+            </summary>
+            <param name="srcFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.FileUtils.OpenStreamReaderWithEncoding(System.String)">
+            <summary>
+            Opens a stream reader with the appropriate text encoding applied.
+            </summary>
+            <param name="srcFile"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.FileUtils.JustPath(System.String)">
+            <summary>
+            Returns the full path of a full physical filename
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.FileUtils.GetFullPath(System.String)">
+            <summary>
+            Returns a fully qualified path from a partial or relative
+            path.
+            </summary>
+            <param name="Path"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.FileUtils.GetRelativePath(System.String,System.String)">
+            <summary>
+            Returns a relative path string from a full path.
+            </summary>
+            <param name="FullPath">The path to convert. Can be either a file or a directory</param>
+            <param name="BasePath">The base path to truncate to and replace</param>
+            <returns>
+            Lower case string of the relative path. If path is a directory it's returned without a backslash at the end.
+            
+            Examples of returned values:
+             .\test.txt, ..\test.txt, ..\..\..\test.txt, ., ..
+            </returns>
+        </member>
+        <member name="M:Westwind.WebConnection.FileUtils.DeleteFiles(System.String,System.Int32)">
+            <summary>
+            Deletes files based on a file spec and a given timeout.
+            This routine is useful for cleaning up temp files in 
+            Web applications.
+            </summary>
+            <param name="filespec">A DOS filespec that includes path and/or wildcards to select files</param>
+            <param name="seconds">The timeout - if files are older than this timeout they are deleted</param>
+        </member>
+        <member name="T:Westwind.WebConnection.HttpClient">
+            <summary>
+            An HTTP wrapper class that abstracts away the common needs for adding post keys
+            and firing update events as data is received. This class is real easy to use
+            with many operations requiring single method calls.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.PostMode">
+            <summary>
+            Determines how data is POSTed when when using AddPostKey() and other methods
+            of posting data to the server. Support UrlEncoded, Multi-Part, XML and Raw modes.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.Username">
+            <summary>
+             User name used for Authentication. 
+             To use the currently logged in user when accessing an NTLM resource you can use "AUTOLOGIN".
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.Password">
+            <summary>
+            Password for Authentication.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.ProxyAddress">
+            <summary>
+            Address of the Proxy Server to be used.
+            Use optional DEFAULTPROXY value to specify that you want to IE's Proxy Settings
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.ProxyBypass">
+            <summary>
+            Semicolon separated Address list of the servers the proxy is not used for.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.ProxyUsername">
+            <summary>
+            Username for a password validating Proxy. Only used if the proxy info is set.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.ProxyPassword">
+            <summary>
+            Password for a password validating Proxy. Only used if the proxy info is set.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.Timeout">
+            <summary>
+            Timeout for the Web request in seconds. Times out on connection, read and send operations.
+            Default is 30 seconds.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.Cancelled">
+            <summary>
+            Returns whether the last request was cancelled through one of the
+            events.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.ContentType">
+            <summary>
+            Use this option to set a custom content type. 
+            If possible use PostMode to specify a predefined
+            content type as it will ensure that Post data is
+            appropriately formatted.
+            
+            If setting the content type manually POST data
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.UseGZip">
+            <summary>
+            Determines whether requests attempt to use GZip when retrieving content
+            from the server.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.ErrorMessage">
+            <summary>
+            Error Message if the Error Flag is set or an error value is returned from a method.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.Error">
+            <summary>
+            Error flag if an error occurred.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.ThrowExceptions">
+            <summary>
+            Determines whether errors cause exceptions to be thrown. By default errors 
+            are handled in the class and the Error property is set for error conditions.
+            (not implemented at this time).
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.HandleCookies">
+            <summary>
+            If set to a non-zero value will automatically track cookies.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.Cookies">
+            <summary>
+            Holds the internal Cookie collection before or after a request. This 
+            collection is used only if HandleCookies is set to .t. which also causes it
+             to capture cookies and repost them on the next request.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.WebResponse">
+            <summary>
+            WebResponse object that is accessible after the request is complete and 
+            allows you to retrieve additional information about the completed request.
+            
+            The Response Stream is already closed after the GetUrl methods complete 
+            (except GetUrlResponse()) but you can access the Response object members 
+            and collections to retrieve more detailed information about the current 
+            request that completed.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.WebRequest">
+            <summary>
+            WebRequest object that can be manipulated and set up for the request if you
+             called .
+            
+            Note: This object must be recreated and reset for each request, since a 
+            request's life time is tied to a single request. This object is not used if
+             you specify a URL on any of the GetUrl methods since this causes a default
+             WebRequest to be created.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.BufferSize">
+            <summary>
+            The buffersize used for the Send and Receive operations
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.UserAgent">
+            <summary>
+            Lets you specify the User Agent  browser string that is sent to the server.
+             This allows you to simulate a specific browser if necessary.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.wwHTTP">
+            <summary>
+            The wwHttp Default Constructor
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.CreateWebRequestObject(System.String)">
+            <summary>
+            Creates a new WebRequest instance that can be set prior to calling the 
+            various Get methods. You can then manipulate the WebRequest property, to 
+            custom configure the request.
+            
+            Instead of passing a URL you  can then pass null.
+            
+            Note - You need a new Web Request for each and every request so you need to
+             set this object for every call if you manually customize it.
+            </summary>
+            <param name="String UrlUrl">
+            The Url to access with this WebRequest
+            </param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.ResetPostData">
+            <summary>
+            Resets the Post buffer by clearing out all existing content
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.AddPostKey(System.String,System.Byte[])">
+            <summary>
+            Adds POST form variables to the request buffer.
+            PostMode determines how parms are handled.
+            </summary>
+            <param name="Key">Key value or raw buffer depending on post type</param>
+            <param name="Value">Value to store. Used only in key/value pair modes</param>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.AddPostKey(System.String,System.String)">
+            <summary>
+            Adds POST form variables to the request buffer.
+            PostMode determines how parms are handled.
+            </summary>
+            <param name="Key">Key value or raw buffer depending on post type</param>
+            <param name="Value">Value to store. Used only in key/value pair modes</param>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.AddPostKey(System.String)">
+            <summary>
+            Adds a fully self contained POST buffer to the request.
+            Works for XML or previously encoded content.
+            </summary>
+            <param name="FullPostBuffer">String based full POST buffer</param>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.AddPostKey(System.Byte[])">
+            <summary>
+            Adds a fully self contained POST buffer to the request.
+            Works for XML or previously encoded content.
+            </summary>
+            <param name="PostBuffer">Byte array of a full POST buffer</param>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.AddPostFile(System.String,System.String)">
+            <summary>
+            Allows posting a file to the Web Server. Make sure that you 
+            set PostMode
+            </summary>
+            <param name="Key"></param>
+            <param name="FileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.GetUrlStream(System.String)">
+            <summary>
+            Return a the result from an HTTP Url into a StreamReader.
+            Client code should call Close() on the returned object when done reading.
+            </summary>
+            <param name="Url">Url to retrieve.</param>
+            <param name="WebRequest">An HttpWebRequest object that can be passed in with properties preset.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.GetUrlResponse(System.String)">
+            <summary>
+            Return an HttpWebResponse object for a request. You can use the Response to
+            read the result as needed. This is a low level method. Most of the other 'Get'
+            methods call this method and process the results further.
+            </summary>
+            <remarks>Important: The Response object's Close() method must be called when you are done with the object.</remarks>
+            <param name="Url">Url to retrieve.</param>
+            <returns>An HttpWebResponse Object</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.StreamPostBuffer(System.IO.Stream)">
+            <summary>
+            Sends the Postbuffer to the server
+            </summary>
+            <param name="PostData"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.GetUrl(System.String)">
+            <summary>
+            Retrieves the content of a Url into a string.
+            </summary>
+            <remarks>Fires the ReceiveData event</remarks>
+            <param name="Url">Url to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.GetUrl(System.String,System.Int64)">
+            <summary>
+            Retrieves the content of a Url into a string.
+            </summary>
+            <remarks>Fires the ReceiveData event</remarks>
+            <param name="Url">Url to retrieve</param>
+            <param name="BufferSize">Optional ReadBuffer Size</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.GetUrlPartial(System.String,System.Int32)">
+            <summary>
+            Returns a partial response from the URL by specifying only 
+            given number of bytes to retrieve. This can reduce network
+            traffic and keep string formatting down if you are only 
+            interested a small port at the top of the page. Also 
+            returns full headers.
+            </summary>
+            <param name="Url"></param>
+            <param name="Size"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.GetUrlBytes(System.String,System.Int64)">
+            <summary>
+            Retrieves URL into an Byte Array.
+            </summary>
+            <remarks>Fires the ReceiveData Event</remarks>
+            <param name="Url">Url to read</param>
+            <param name="BufferSize">Size of the buffer for each read. 0 = 8192</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.GetUrlFile(System.String,System.Int64,System.String)">
+            <summary>
+            Writes the output from the URL request to a file firing events.
+            </summary>
+            <param name="Url">Url to fire</param>
+            <param name="BufferSize">Buffersize - how often to fire events</param>
+            <param name="OutputFile">File to write response to</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="P:Westwind.WebConnection.HttpClient.IgnoreCertificateErrors">
+            <summary>
+            Sets the certificate policy.
+            
+            Note this is a global setting and affects the entire application.
+            It's recommended you set this for the application and not on 
+            a per request basis.
+            </summary>
+            <param name="Ignore"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.HttpClient.CheckCertificateCallback(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            Handles the Certificate check
+            </summary>
+            <param name="sender"></param>
+            <param name="cert"></param>
+            <param name="chain"></param>
+            <param name="errors"></param>
+            <returns></returns>
+        </member>
+        <member name="E:Westwind.WebConnection.HttpClient.ReceiveData">
+            <summary>
+            Fires progress events when receiving data from the server
+            </summary>
+        </member>
+        <member name="E:Westwind.WebConnection.HttpClient.SendData">
+            <summary>
+            Fires progress events when using GetUrlEvents() to retrieve a URL.
+            </summary>
+        </member>
+        <member name="T:Westwind.WebConnection.HttpClient.ReceiveDataEventArgs">
+            <summary>
+            Event arguments passed to the ReceiveData event handler on each block of data sent
+            </summary>
+        </member>
+        <member name="F:Westwind.WebConnection.HttpClient.ReceiveDataEventArgs.CurrentByteCount">
+            <summary>
+            Size of the cumulative bytes read in this request
+            </summary>
+        </member>
+        <member name="F:Westwind.WebConnection.HttpClient.ReceiveDataEventArgs.TotalBytes">
+            <summary>
+            The number of total bytes of this request
+            </summary>
+        </member>
+        <member name="F:Westwind.WebConnection.HttpClient.ReceiveDataEventArgs.NumberOfReads">
+            <summary>
+            The number of reads that have occurred - how often has this event been called.
+            </summary>
+        </member>
+        <member name="F:Westwind.WebConnection.HttpClient.ReceiveDataEventArgs.CurrentChunk">
+            <summary>
+            The current chunk of data being read
+            </summary>
+        </member>
+        <member name="F:Westwind.WebConnection.HttpClient.ReceiveDataEventArgs.Done">
+            <summary>
+            Flag set if the request is currently done.
+            </summary>
+        </member>
+        <member name="F:Westwind.WebConnection.HttpClient.ReceiveDataEventArgs.Cancel">
+            <summary>
+            Flag to specify that you want the current request to cancel. This is a write-only flag
+            </summary>
+        </member>
+        <member name="T:Westwind.WebConnection.HttpPostMode">
+            <summary>
+            Enumeration of the various HTTP POST modes supported by wwHttp
+            </summary>
+        </member>
+        <member name="T:Westwind.WebConnection.AcceptAllCertificatePolicy">
+            <summary>
+            Internal object used to allow setting WebRequest.CertificatePolicy to 
+            not fail on Cert errors
+            </summary>
+        </member>
+        <member name="T:Westwind.WebConnection.ReflectionUtils">
+            <summary>
+            Collection of Reflection and type conversion related utility functions
+            </summary>
+        </member>
+        <member name="F:Westwind.WebConnection.ReflectionUtils.MemberAccess">
+            <summary>
+            Binding Flags constant to be reused for all Reflection access methods.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetProperty(System.Object,System.String)">
+            <summary>
+            Retrieve a property value from an object dynamically. This is a simple version
+            that uses Reflection calls directly. It doesn't support indexers.
+            </summary>
+            <param name="instance">Object to make the call on</param>
+            <param name="property">Property to retrieve</param>
+            <returns>Object - cast to proper type</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetField(System.Object,System.String)">
+            <summary>
+            Retrieve a field dynamically from an object. This is a simple implementation that's
+            straight Reflection and doesn't support indexers.
+            </summary>
+            <param name="Object">Object to retreve Field from</param>
+            <param name="Property">name of the field to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetPropertyInternal(System.Object,System.String)">
+            <summary>
+            Parses Properties and Fields including Array and Collection references.
+            Used internally for the 'Ex' Reflection methods.
+            </summary>
+            <param name="Parent"></param>
+            <param name="Property"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.SetPropertyInternal(System.Object,System.String,System.Object)">
+            <summary>
+            Parses Properties and Fields including Array and Collection references.
+            </summary>
+            <param name="Parent"></param>
+            <param name="Property"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetPropertyEx(System.Object,System.String)">
+            <summary>
+            Returns a property or field value using a base object and sub members including . syntax.
+            For example, you can access: oCustomer.oData.Company with (this,"oCustomer.oData.Company")
+            This method also supports indexers in the Property value such as:
+            Customer.DataSet.Tables["Customers"].Rows[0]
+            </summary>
+            <param name="Parent">Parent object to 'start' parsing from. Typically this will be the Page.</param>
+            <param name="Property">The property to retrieve. Example: 'Customer.Entity.Company'</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetPropertyInfoEx(System.Object,System.String)">
+            <summary>
+            Returns a PropertyInfo object for a given dynamically accessed property
+            
+            Property selection can be specified using . syntax ("Address.Street" or "DataTable[0].Rows[1]") hence the 'Ex' name for this function.
+            </summary>
+            <param name="Parent"></param>
+            <param name="Property"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetPropertyInfoInternal(System.Object,System.String)">
+            <summary>
+            Returns a PropertyInfo structure from an extended Property reference
+            </summary>
+            <param name="Parent"></param>
+            <param name="Property"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.SetProperty(System.Object,System.String,System.Object)">
+            <summary>
+            Sets the property on an object. This is a simple method that uses straight Reflection 
+            and doesn't support indexers.
+            </summary>
+            <param name="obj">Object to set property on</param>
+            <param name="property">Name of the property to set</param>
+            <param name="value">value to set it to</param>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.SetField(System.Object,System.String,System.Object)">
+            <summary>
+            Sets the field on an object. This is a simple method that uses straight Reflection 
+            and doesn't support indexers.
+            </summary>
+            <param name="obj">Object to set property on</param>
+            <param name="property">Name of the field to set</param>
+            <param name="value">value to set it to</param>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.SetPropertyEx(System.Object,System.String,System.Object)">
+            <summary>
+            Sets a value on an object. Supports . syntax for named properties
+            (ie. Customer.Entity.Company) as well as indexers.
+            </summary>
+            <param name="Object ParentParent">
+            Object to set the property on.
+            </param>
+            <param name="String PropertyProperty">
+            Property to set. Can be an object hierarchy with . syntax and can 
+            include indexers. Examples: Customer.Entity.Company, 
+            Customer.DataSet.Tables["Customers"].Rows[0]
+            </param>
+            <param name="Object ValueValue">
+            Value to set the property to
+            </param>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.CallMethod(System.Object,System.String,System.Type[],System.Object[])">
+            <summary>
+            Calls a method on an object dynamically. This version requires explicit
+            specification of the parameter type signatures.
+            </summary>
+            <param name="instance">Instance of object to call method on</param>
+            <param name="method">The method to call as a stringToTypedValue</param>
+            <param name="parameterTypes">Specify each of the types for each parameter passed. 
+            You can also pass null, but you may get errors for ambiguous methods signatures
+            when null parameters are passed</param>
+            <param name="parms">any variable number of parameters.</param>        
+            <returns>object</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.CallMethod(System.Object,System.String,System.Object[])">
+            <summary>
+            Calls a method on an object dynamically. 
+            
+            This version doesn't require specific parameter signatures to be passed. 
+            Instead parameter types are inferred based on types passed. Note that if 
+            you pass a null parameter, type inferrance cannot occur and if overloads
+            exist the call may fail. if so use the more detailed overload of this method.
+            </summary> 
+            <param name="instance">Instance of object to call method on</param>
+            <param name="method">The method to call as a stringToTypedValue</param>
+            <param name="parameterTypes">Specify each of the types for each parameter passed. 
+            You can also pass null, but you may get errors for ambiguous methods signatures
+            when null parameters are passed</param>
+            <param name="parms">any variable number of parameters.</param>        
+            <returns>object</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.CallStaticMethod(System.String,System.String,System.Object[])">
+            <summary>
+            Invokes a static method
+            </summary>
+            <param name="typeName"></param>
+            <param name="method"></param>
+            <param name="parms"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.CallMethodEx(System.Object,System.String,System.Object[])">
+            <summary>
+            Calls a method on an object with extended . syntax (object: this Method: Entity.CalculateOrderTotal)
+            </summary>
+            <param name="parent"></param>
+            <param name="method"></param>
+            <param name="params"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.CreateInstanceFromType(System.Type,System.Object[])">
+            <summary>
+            Creates an instance from a type by calling the parameterless constructor.
+            
+            Note this will not work with COM objects - continue to use the Activator.CreateInstance
+            for COM objects.
+            <seealso>Class wwUtils</seealso>
+            </summary>
+            <param name="typeToCreate">
+            The type from which to create an instance.
+            </param>
+            <returns>object</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.CreateInstanceFromString(System.String,System.Object[])">
+            <summary>
+            Creates an instance of a type based on a string. Assumes that the type's
+            </summary>
+            <param name="typeName"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetTypeFromName(System.String)">
+            <summary>
+            Helper routine that looks up a type name and tries to retrieve the
+            full type reference in the actively executing assemblies.
+            </summary>
+            <param name="typeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.CreateComInstance(System.String)">
+            <summary>
+            Creates a COM instance from a ProgID. Loads either
+            Exe or DLL servers.
+            </summary>
+            <param name="progId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.TypedValueToString(System.Object,System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Converts a type to string if possible. This method supports an optional culture generically on any value.
+            It calls the ToString() method on common types and uses a type converter on all other objects
+            if available
+            </summary>
+            <param name="rawValue">The Value or Object to convert to a string</param>
+            <param name="culture">Culture for numeric and DateTime values</param>
+            <param name="unsupportedReturn">Return string for unsupported types</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.StringToTypedValue(System.String,System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            Turns a string into a typed value generically.
+            Explicitly assigns common types and falls back
+            on using type converters for unhandled types.         
+            
+            Common uses: 
+            * UI -&gt; to data conversions
+            * Parsers
+            <seealso>Class ReflectionUtils</seealso>
+            </summary>
+            <param name="sourceString">
+            The string to convert from
+            </param>
+            <param name="targetType">
+            The type to convert to
+            </param>
+            <param name="culture">
+            Culture used for numeric and datetime values.
+            </param>
+            <returns>object. Throws exception if it cannot be converted.</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.StringToTypedValue``1(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Generic version allow for automatic type conversion without the explicit type
+            parameter
+            </summary>
+            <typeparam name="T">Type to be converted to</typeparam>
+            <param name="sourceString">input string value to be converted</param>
+            <param name="culture">Culture applied to conversion</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetEnumList(System.Type,System.Boolean)">
+            <summary>
+            Returns a List of KeyValuePair object
+            </summary>
+            <param name="enumeration"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetStaticProperty(System.String,System.String)">
+            <summary>
+            Retrieves a value from  a static property by specifying a type full name and property
+            </summary>
+            <param name="typeName">Full type name (namespace.class)</param>
+            <param name="property">Property to get value from</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetStaticProperty(System.Type,System.String)">
+            <summary>
+            Returns a static property from a given type
+            </summary>
+            <param name="type">Type instance for the static property</param>
+            <param name="property">Property name as a string</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetPropertyCom(System.Object,System.String)">
+            <summary>
+            Retrieve a dynamic 'non-typelib' property
+            </summary>
+            <param name="instance">Object to make the call on</param>
+            <param name="property">Property to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.GetPropertyExCom(System.Object,System.String)">
+            <summary>
+            Returns a property or field value using a base object and sub members including . syntax.
+            For example, you can access: oCustomer.oData.Company with (this,"oCustomer.oData.Company")
+            </summary>
+            <param name="parent">Parent object to 'start' parsing from.</param>
+            <param name="property">The property to retrieve. Example: 'oBus.oData.Company'</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.SetPropertyCom(System.Object,System.String,System.Object)">
+            <summary>
+            Sets the property on an object.
+            </summary>
+            <param name="Object">Object to set property on</param>
+            <param name="Property">Name of the property to set</param>
+            <param name="Value">value to set it to</param>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.SetPropertyExCom(System.Object,System.String,System.Object)">
+            <summary>
+            Sets the value of a field or property via Reflection. This method alws 
+            for using '.' syntax to specify objects multiple levels down.
+            
+            ReflectionUtils.SetPropertyEx(this,"Invoice.LineItemsCount",10)
+            
+            which would be equivalent of:
+            
+            Invoice.LineItemsCount = 10;
+            </summary>
+            <param name="Object ParentParent">
+            Object to set the property on.
+            </param>
+            <param name="String PropertyProperty">
+            Property to set. Can be an object hierarchy with . syntax.
+            </param>
+            <param name="Object ValueValue">
+            Value to set the property to
+            </param>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.CallMethodCom(System.Object,System.String,System.Object[])">
+            <summary>
+            Wrapper method to call a 'dynamic' (non-typelib) method
+            on a COM object
+            </summary>
+            <param name="params"></param>
+            1st - Method name, 2nd - 1st parameter, 3rd - 2nd parm etc.
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ReflectionUtils.CallMethodExCom(System.Object,System.String,System.Object[])">
+            <summary>
+            Calls a method on a COM object with '.' syntax (Customer instance and Address.DoSomeThing method)
+            </summary>
+            <param name="parent">the object instance on which to call method</param>
+            <param name="method">The method or . syntax path to the method (Address.Parse)</param>
+            <param name="parms">Any number of parameters</param>
+            <returns></returns>
+        </member>
+        <member name="T:Westwind.WebConnection.StringUtils">
+            <summary>
+            String utility class that provides a host of string related operations
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.TrimStart(System.String,System.String,System.Boolean)">
+            <summary>
+            Trims a sub string from a string
+            </summary>
+            <param name="text"></param>
+            <param name="textToTrim"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.Replicate(System.String,System.Int32)">
+            <summary>
+            Replicates an input string n number of times
+            </summary>
+            <param name="input"></param>
+            <param name="charCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.Replicate(System.Char,System.Int32)">
+            <summary>
+            Replicates a character n number of times and returns a string
+            </summary>
+            <param name="charCount"></param>
+            <param name="character"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.ProperCase(System.String)">
+            <summary>
+            Return a string in proper Case format
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.ToCamelCase(System.String)">
+            <summary>
+            Takes a phrase and turns it into CamelCase text.
+            White Space, punctuation and separators are stripped
+            </summary>
+            <param name="phrase">Text to convert to CamelCase</param>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.FromCamelCase(System.String)">
+            <summary>
+            Tries to create a phrase string from CamelCase text.
+            Will place spaces before capitalized letters.
+            
+            Note that this method may not work for round tripping 
+            ToCamelCase calls, since ToCamelCase strips more characters
+            than just spaces.
+            </summary>
+            <param name="camelCase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.TerminateString(System.String,System.String)">
+            <summary>
+            Terminates a string with the given end string/character, but only if the
+            value specified doesn't already exist and the string is not empty.
+            </summary>
+            <param name="value">String to terminate</param>
+            <param name="terminator">String to terminate the value string with</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.TrimTo(System.String,System.Int32)">
+            <summary>
+            Trims a string to a specific number of max characters
+            </summary>
+            <param name="value"></param>
+            <param name="charCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.ExtractString(System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Extracts a string from between a pair of delimiters. Only the first 
+            instance is found.
+            </summary>
+            <param name="source">Input String to work on</param>
+            <param name="StartDelim">Beginning delimiter</param>
+            <param name="endDelim">ending delimiter</param>
+            <param name="CaseInsensitive">Determines whether the search for delimiters is case sensitive</param>
+            <returns>Extracted string or ""</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.ReplaceStringInstance(System.String,System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+            String replace function that supports replacing a specific instance with 
+            case insensitivity
+            </summary>
+            <param name="origString">Original input string</param>
+            <param name="findString">The string that is to be replaced</param>
+            <param name="replaceWith">The replacement string</param>
+            <param name="instance">Instance of the FindString that is to be found. 1 based. If Instance = -1 all are replaced</param>
+            <param name="caseInsensitive">Case insensitivity flag</param>
+            <returns>updated string or original string if no matches</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.ReplaceString(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Replaces a substring within a string with another substring with optional case sensitivity turned off.
+            </summary>
+            <param name="origString">String to do replacements on</param>
+            <param name="findString">The string to find</param>
+            <param name="replaceString">The string to replace found string wiht</param>
+            <param name="caseInsensitive">If true case insensitive search is performed</param>
+            <returns>updated string or original string if no matches</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.TextAbstract(System.String,System.Int32)">
+            <summary>
+            Returns an abstract of the provided text by returning up to Length characters
+            of a text string. If the text is truncated a ... is appended.
+            </summary>
+            <param name="text">Text to abstract</param>
+            <param name="length">Number of characters to abstract to</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.Inlist(System.String,System.String[])">
+            <summary>
+            Determines if a string is contained in a list of other strings
+            </summary>
+            <param name="s"></param>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.GetLines(System.String,System.Int32)">
+            <summary>
+            Parses a string into an array of lines broken
+            by \r\n or \n
+            </summary>
+            <param name="s">String to check for lines</param>
+            <param name="maxLines">Optional - max number of lines to return</param>
+            <returns>array of strings, or null if the string passed was a null</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.CountLines(System.String)">
+            <summary>
+            Returns a line count for a string
+            </summary>
+            <param name="s">string to count lines for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.ParseInt(System.String,System.Int32,System.IFormatProvider)">
+            <summary>
+            Parses an string into an integer. If the value can't be parsed
+            a default value is returned instead
+            </summary>
+            <param name="input">Input numeric string to be parsed</param>
+            <param name="defaultValue">Optional default value if parsing fails</param>
+            <param name="formatProvider">Optional NumberFormat provider. Defaults to current culture's number format</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.ParseDecimal(System.String,System.Decimal,System.IFormatProvider)">
+            <summary>
+            Parses an string into an decimal. If the value can't be parsed
+            a default value is returned instead
+            </summary>
+            <param name="input"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.StripNonNumber(System.String)">
+            <summary>
+            Strips all non digit values from a string and only
+            returns the numeric string.
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.TokenizeString(System.String@,System.String,System.String,System.String)">
+            <summary>
+            Tokenizes a string based on a start and end string. Replaces the values with a token
+            value (#@#1#@# for example).
+            
+            You can use Detokenize to get the original values back
+            </summary>
+            <param name="text"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <param name="replaceDelimiter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.DetokenizeString(System.String,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Detokenizes a string tokenized with TokenizeString. Requires the collection created
+            by detokenization
+            </summary>
+            <param name="text"></param>
+            <param name="tokens"></param>
+            <param name="replaceDelimiter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.NewStringId">
+            <summary>
+            Creates short string id based on a GUID hashcode.
+            Not guaranteed to be unique across machines, but unlikely
+            to duplicate in medium volume situations.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.RandomString(System.Int32,System.Boolean)">
+            <summary>
+            Creates a new random string of upper, lower case letters and digits.
+            Very useful for generating random data for storage in test data.
+            </summary>
+            <param name="size">The number of characters of the string to generate</param>
+            <param name="includeNumbers"></param>
+            <returns>randomized string</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.UrlEncode(System.String)">
+            <summary>
+            UrlEncodes a string without the requirement for System.Web
+            </summary>
+            <param name="String"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.UrlEncodePathSafe(System.String)">
+            <summary>
+            Encodes a few additional characters for use in paths
+            Encodes: . #
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.UrlDecode(System.String)">
+            <summary>
+            UrlDecodes a string without requiring System.Web
+            </summary>
+            <param name="text">String to decode.</param>
+            <returns>decoded string</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.GetUrlEncodedKey(System.String,System.String)">
+            <summary>
+            Retrieves a value by key from a UrlEncoded string.
+            </summary>
+            <param name="urlEncoded">UrlEncoded String</param>
+            <param name="key">Key to retrieve value for</param>
+            <returns>returns the value or "" if the key is not found or the value is blank</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.SetUrlEncodedKey(System.String,System.String,System.String)">
+            <summary>
+            Allows setting of a value in a UrlEncoded string. If the key doesn't exist
+            a new one is set, if it exists it's replaced with the new value.
+            </summary>
+            <param name="urlEncoded">A UrlEncoded string of key value pairs</param>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.BinHexToBinary(System.String)">
+            <summary>
+            Turns a BinHex string that contains raw byte values
+            into a byte array
+            </summary>
+            <param name="hex">BinHex string (just two byte hex digits strung together)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.BinaryToBinHex(System.Byte[])">
+            <summary>
+            Converts a byte array into a BinHex string.
+            BinHex is two digit hex byte values squished together
+            into a string.
+            </summary>
+            <param name="data">Raw data to send</param>
+            <returns>BinHex string or null if input is null</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.StringToBytes(System.String,System.Text.Encoding)">
+            <summary>
+            Converts a string into bytes for storage in any byte[] types
+            buffer or stream format (like MemoryStream).
+            </summary>
+            <param name="text"></param>
+            <param name="encoding">The character encoding to use. Defaults to Unicode</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.BytesToString(System.Byte[],System.Text.Encoding)">
+            <summary>
+            Converts a byte array to a stringUtils
+            </summary>
+            <param name="buffer">raw string byte data</param>
+            <param name="encoding">Character encoding to use. Defaults to Unicode</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.Base36Encode(System.Int64)">
+            <summary>
+            Encodes an integer into a string by mapping to alpha and digits (36 chars)
+            chars are embedded as lower case
+            
+            Example: 4zx12ss
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.Base36Decode(System.String)">
+            <summary>
+            Decodes a base36 encoded string to an integer
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.NormalizeIndentation(System.String)">
+            <summary>
+            Strips any common white space from all lines of text that have the same
+            common white space text. Effectively removes common code indentation from
+            code blocks for example so you can get a left aligned code snippet.
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.LogString(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            Simple Logging method that allows quickly writing a string to a file
+            </summary>
+            <param name="output"></param>
+            <param name="filename"></param>
+            <param name="encoding">if not specified used UTF-8</param>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.StringToStream(System.String,System.Text.Encoding)">
+            <summary>
+            Creates a Stream from a string. Internally creates
+            a memory stream and returns that.
+            </summary>
+            <param name="text"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.GetProperty(System.String,System.String)">
+            <summary>
+            Retrieves a value from an XML-like string
+            </summary>
+            <param name="propertyString"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.SetProperty(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="propertyString"></param>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.Empty(System.String)">
+            <summary>
+            Determines whether a string is empty (null or zero length)
+            </summary>
+            <param name="text">Input string</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:Westwind.WebConnection.StringUtils.Empty(System.Object)">
+            <summary>
+            Determines wheter a string is empty (null or zero length)
+            </summary>
+            <param name="text">Input string (in object format)</param>
+            <returns>true or false</returns>        
+        </member>
+        <member name="T:Westwind.WebConnection.ComArray">
+            <summary>
+            COM Wrapper for an array that is assigned as variable.
+            This instance allows Visual FoxPro to manipulate the array
+            using the wwDotNetBridge Array functions that are require
+            a parent object.
+            
+            When passed to a method that requires an array the instance
+            member is passed as the actual parameter.
+            
+            Note: You should always use wwDotNetBridge.CreateInstance
+            to create an instance of this array from Fox code otherwise
+            there's no instance set.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.ComArray.Instance">
+            <summary>
+            The actual array instance returned as an object.
+            This instance is set and passed to and from .NET
+            calls made with InvokeMethod and explicit property
+            assignments with Set/GetProperty.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.ComArray.Count">
+            <summary>
+            Returns the length of the .NET array contained in Instance
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.#ctor(System.Object)">
+            <summary>
+            Creates a new COM Array from an existing array instance
+            </summary>
+            <param name="instance"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.CreateEmptyArray(System.String)">
+            <summary>
+            Creates a .NET array instance with 0 items on this ComArray instance
+            </summary>
+            <param name="arrayTypeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.Create(System.String)">
+            <summary>
+            Deprecated: Don't use
+            </summary>
+            <param name="arrayTypeName"></param>
+            <returns></returns>        
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.CreateArray(System.String,System.Int32)">
+            <summary>
+            Creates a new array instance with size number
+            of items pre-set. Elements are unassigned but
+            array is dimensioned.
+            
+            Use SetItem() to assign values to each array element
+            </summary>
+            <param name="arrayTypeName">The type of the array's elements</param>
+            <param name="size">Size of array to create</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.AssignFrom(System.Object,System.String)">
+            <summary>
+            Assigns a .NET array to this COM wrapper. Has to be passed
+            as a base instance (ie. parent instance of the array) and
+            the name of the array because once the array hits VFP code
+            it's already been converted into a VFP array so only internal
+            reflection will allow getting the actual reference into ComArray.
+            </summary>
+            <param name="baseInstance">Instance of the parent object of the array</param>
+            <param name="arrayPropertyName">Name of the array property on the parent instance</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.AssignTo(System.Object,System.String)">
+            <summary>
+            Assigns this ComArray's array instance to the specified property
+            </summary>
+            <param name="baseInstance"></param>
+            <param name="arrayPropertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.CreateItem">
+            <summary>
+            Creates an instance of the array's member type without
+            actually adding it to the array. This is useful to
+            more easily create members without having to specify
+            the full type signature each time.
+            
+            Assumes that the array exists already so that the 
+            item type can be inferred. The type is inferred from
+            the arrays instance using GetElementType().
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.CreateItemExplicit">
+            <summary>
+            Creates an instance of the array's member type without
+            actually adding it to the array. This is useful to
+            more easily create members without having to specify
+            the full type signature each time.
+            
+            This version works of the actual elements in the array
+            instance rather than using the 'official' element type.
+            Looks at the first element in the array and uses its type.
+            
+            Assumes that the array exists already so that the 
+            item type can be inferred.
+            </summary>
+            <param name="forceElementType">If true looks at the first element and uses that as the type to create.
+            Use this option if the actual element type is of type object when the array was automatically generated
+            such as when FromEnumerable() was called.
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.Item(System.Int32)">
+            <summary>
+            Returns an item from the array.
+            </summary>
+            <param name="index">0 based array index to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.SetItem(System.Int32,System.Object)">
+            <summary>
+            Assigns a value to an array element that already exists.
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.AddItem(System.Object)">
+            <summary>
+            Adds an item to the internal array instance.
+            
+            Array should exist before adding items.
+            </summary>
+            <param name="item">an instance of the item to add.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.RemoveItem(System.Int32)">
+            <summary>
+            Removes an item from the array.
+            </summary>
+            <param name="index">0 based index of item to remove</param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.Clear">
+            <summary>
+            Clears out the array contents
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComArray.FromEnumerable(System.Collections.IEnumerable)">
+            <summary>
+            Creates an instance from an enumerable
+            </summary>
+            <param name="items"></param>
+        </member>
+        <member name="T:Westwind.WebConnection.ComGuid">
+            <summary>
+            .NET System.Guid values cannot be passed to VFP as they are non COM 
+            exported value types. So any Guid values passed to and received from .NET 
+            need to be passed around as a ComGuid instance. This class wraps an 
+            internal Guid instance member and allows access to the GuidString property 
+            via string.
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.ComGuid.Guid">
+            <summary>
+            The actual Guid instance that can be read by a .NET handler
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.ComGuid.GuidString">
+            <summary>
+            String representation of the Guid. 
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.ComGuid.New">
+            <summary>
+            Sets the Guid instance to a new Guid Value
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.ComGuid.Empty">
+            <summary>
+            Sets the Guid to Guid.Empty
+            </summary>
+        </member>
+        <member name="T:Westwind.WebConnection.ComValue">
+            <summary>
+            Class that converts to various .NET types when passed
+            a FoxPro value.
+            
+            This object can then be used as an input to try and
+            force parameters to a specific .NET type
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.ComValue.Value">
+            <summary>
+            Internally this value is set by the various
+            SetXXX methods. It's of type object but 
+            set to the appropriate .NET subtype.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.GetTypeName">
+            <summary>
+            Returns the name of the type in the Value structure
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetInt16(System.Object)">
+            <summary>
+            Sets a Short value which is not supported
+            in Visual FoxPro
+            </summary>
+            <param name="val"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetInt64(System.Object)">
+            <summary>
+            Sets an Int64 value which is not supported
+            in Visual FoxPro
+            </summary>
+            <param name="val"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetUInt64(System.Object)">
+            <summary>
+            Sets an UInt64 value which is not supported
+            in Visual FoxPro
+            </summary>
+            <param name="val"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetUInt32(System.Object)">
+            <summary>
+            Sets an UInt64 value which is not supported
+            in Visual FoxPro
+            </summary>
+            <param name="val"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetSingle(System.Object)">
+            <summary>
+            Sets a Single Value on the 
+            </summary>
+            <param name="val"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetFloat(System.Object)">
+            <summary>
+            Set a float value
+            </summary>
+            <param name="val"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetChar(System.Object)">
+            <summary>
+            Sets a character value from a string or integer
+            </summary>
+            <param name="val"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetDecimal(System.Object)">
+            <summary>
+            Sets a Decimal value. This can actually 
+            be done in FoxPro with CAST(val as Currency)
+            </summary>
+            <param name="val"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetLong(System.Object)">
+            <summary>
+            Sets a Long (64 bit) integer value
+            </summary>
+            <param name="val"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetByte(System.Object)">
+            <summary>
+            Returns a byte value which is similar
+            to Int16.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetEnum(System.String)">
+            <summary>
+            Assigns an enum value to the value structure. This 
+            allows to pass enum values to methods and constructors
+            to ensure that method signatures match properly
+            </summary>
+            <param name="enumValue">full type and value name. Example: System.Windows.Forms.MessageBoxOptions.OK</param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetEnumFlag(System.String,System.Int32)">
+            <summary>
+            Assigns an enum value that is based on a numeric (flag) value
+            or a combination of flag values.
+            </summary>
+            <param name="enumType">Enum type name (System.Windows.Forms.MessageBoxOptions)</param>
+            <param name="enumValue">numeric flag value to set enum to</param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetDbNull">
+            <summary>
+            Allows setting of DbNull from FoxPro since DbNull is an inaccessible
+            value type for FoxPro.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetValue(System.Object)">
+            <summary>
+            Method that sets the Value property by fixing up any
+            values based on GetProperty() rules. This means if you pass 
+            an ComArray the raw array will be unpacked and stored for example.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetValueFromProperty(System.Object,System.String)">
+            <summary>
+            Sets the Value property from a property retrieved from .NET
+            Useful to transfer value in .NET that are marshalled incorrectly
+            in FoxPro such as Enum values (that are marshalled as numbers)
+            </summary>
+            <param name="objectRef">An object reference to the base object</param>
+            <param name="property">Name of the property</param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetValueFromStaticProperty(System.String,System.String)">
+            <summary>
+            Sets the value property from a static property retrieved from .NET.
+            Useful to transfer value in .NET that are marshalled incorrectly
+            in FoxPro such as Enum values (that are marshalled as numbers)
+            </summary>
+            <param name="typeName">Full type name as a string - can also be an Enum type</param>
+            <param name="property">The static property name</param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetValueFromInvokeMethod(System.Object,System.String,Westwind.WebConnection.ComArray)">
+            <summary>
+            Sets the Value property from a method call that passes it's positional arguments
+            as an array. This version accepts a ComArray directly so it can be called
+            directly from FoxPro with a ComArray instance
+            </summary>
+            <param name="objectRef">Object instance</param>
+            <param name="method">Method to call</param>
+            <param name="parms">An array of the parameters passed (use ComArray and InvokeMethod)</param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetValueFromInvokeMethod(System.Object,System.String,System.Object[])">
+            <summary>
+            Sets the Value property from a method call that passes it's positional arguments
+            as an array.
+            </summary>
+            <param name="objectRef">Object instance</param>
+            <param name="method">Method to call</param>
+            <param name="parms">An array of the parameters passed (use ComArray and InvokeMethod)</param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetValueFromInvokeStaticMethod(System.String,System.String,Westwind.WebConnection.ComArray)">
+            <summary>
+            Invokes a static method with the passed parameters and sets the Value property
+            from the result value.
+            </summary>
+            <param name="typeName"></param>
+            <param name="method"></param>
+            <param name="parms"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetValueFromSystemConvert(System.String,System.Object)">
+            <summary>
+            Invokes a method on the <see cref="T:System.Convert">System.Convert</see> static class 
+            to perform conversions that are supported by that object
+            </summary>
+            <param name="method">The Convert method name to call as a string</param>
+            <param name="value">The Value to convert</param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetValueFromCreateInstance(System.String,Westwind.WebConnection.ComArray)">
+            <summary>
+            Sets the Value property from a CreateInstance call. Useful for
+            value types that can't be passed back to FoxPro.
+            </summary>
+            <param name="typeName"></param>
+            <param name="parms"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetValueFromCreateInstance_Internal(System.String,System.Object[])">
+            <summary>
+            Sets the Value property from a CreateInstance call. Useful for
+            value types that can't be passed back to FoxPro.
+            </summary>
+            <param name="typeName"></param>
+            <param name="parms"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.SetGuid(System.Object)">
+            <summary>
+            Sets value to a .NET Guid. Creates a GUID from 
+            either ComGuid instance
+            a string, or if null creates a new GUID.                
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.NewGuid">
+            <summary>
+            Create a new Guid on the Value structure
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.GetGuid">
+            <summary>
+            Retrieves a GUID value as a string
+            from the Value structure
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.ComValue.ToString">
+            <summary>
+            Returns the string value of the embedded Value object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Westwind.WebConnection.SerializerValue.Name">
+            <summary>
+            Name of the property (if available - arrays don't have names)
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.SerializerValue.Value">
+            <summary>
+            The value - if it's a plain value it's just the value,
+            or SerializerObject/SerializerArray
+            </summary>
+        </member>
+        <member name="P:Westwind.WebConnection.SerializerValue.Type">
+            <summary>
+            Fox Type - "C" by default
+            </summary>
+        </member>
+        <member name="T:Westwind.WebConnection.wwJsonSerializer">
+            <summary>
+            This class is a wrapper around JSON.NET's dynamic 
+            JSON objects that can be passed over COM into
+            FoxPro. Creates hard types that are usable
+            from within visual FoxPro.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebConnection.wwJsonSerializer.SerializeJsonUtcDate(System.DateTime,System.Boolean)">
+            <summary>
+            serializes a JSON date to a UTC date
+            </summary>
+            <param name="time"></param>
+            <param name="isUtc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebConnection.wwJsonSerializer.FormatJson(System.String)">
+            <summary>
+            Takes a JSON string and prettifies the JSON 
+            into more readable format.
+            </summary>
+            <param name="json"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Westwind.wwSmtp">
+            <summary>
+            SMTP Wrapper around System.Net.Email.SmtpClient. Provided 
+            here mainly to provide compatibility with existing wwSmtp code
+            and to provide a slightly more user friendly front end interface
+            on a single object.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.MailServer">
+            <summary>
+            Mail Server to send message through. Should be a domain name 
+            (mail.yourserver.net) or IP Address (211.123.123.123).
+            
+            You can also provide a port number as part of the string which will 
+            override the ServerPort (yourserver.net:211)
+            <seealso>Class wwSmtp</seealso>
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.ServerPort">
+            <summary>
+            Port on the mail server to send through. Defaults to port 25.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.UseSsl">
+            <summary>
+            Use Tls Security
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.Recipient">
+            <summary>
+            Email address or addresses of the Recipient. Comma delimit multiple addresses. To have formatted names use
+            "Rick Strahl" &lt;rstrahl@west-wind.com&gt;
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.CC">
+            <summary>
+            Carbon Copy Recipients
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.BCC">
+            <summary>
+            Blind Copy Recipients
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.SenderEmail">
+            <summary>
+            Email address of the sender
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.SenderName">
+            <summary>
+            Display name of the sender (optional)
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.ReplyTo">
+            <summary>
+            The ReplyTo address
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.Subject">
+            <summary>
+            Message Subject.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.Message">
+            <summary>
+            The body of the message.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.Username">
+            <summary>
+            Username to connect to the mail server.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.Password">
+            <summary>
+            Password to connect to the mail server.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.Attachments">
+            <summary>
+            Any attachments you'd like to send
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.AttachmentObjects">
+            <summary>
+            Any attachments provided as Attachment objects to allow for 
+            content type and loading from file streams directly.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.ContentType">
+            <summary>
+            The content type of the message. text/plain default or you can set to any other type like text/html
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.CharacterEncoding">
+            <summary>
+            Character Encoding for the message.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.Encoding">
+            <summary>
+            The character Encoding used to write the stream out to disk
+            Defaults to the default Locale used on the server.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.AlternateText">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.AlternateTextContentType">
+            <summary>
+            The content type for the alternate 
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.UserAgent">
+            <summary>
+            The user agent for the x-mailer
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.Priority">
+            <summary>
+            Determines the priority of the message
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.ReturnReceipt">
+            <summary>
+            Determines whether a return receipt is sent
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.AlternateViews">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Westwind.wwSmtp.LogFile">
+            <summary>
+            An optional file name that appends logging information for the TCP/IP messaging
+            to the specified file.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.HandleExceptions">
+            <summary>
+            Determines whether wwSMTP passes back errors as exceptions or
+            whether it sets error properties. Right now only error properties
+            work reliably.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.ErrorMessage">
+            <summary>
+            An Error Message if the result is negative or Error is set to true;
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.Error">
+            <summary>
+            Error Flag set when an error occurs.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.Timeout">
+            <summary>
+            Connection timeouts for the mail server in seconds. If this timeout is exceeded waiting for a connection
+            or for receiving or sending data the request is aborted and fails.
+            </summary>
+        </member>
+        <member name="F:Westwind.wwSmtp.Headers">
+            <summary>
+            SMTP headers for this email request
+            </summary>
+        </member>
+        <member name="E:Westwind.wwSmtp.MessageSendComplete">
+            <summary>
+            Event that's fired after each message sent with SendMessage is sent. 
+            This event differs from SendComplete that it fire
+            after each send operation of each message rather
+            than before closing the connection.
+            </summary>
+        </member>
+        <member name="E:Westwind.wwSmtp.MessageSendError">
+            <summary>
+            Event that's fired after each message is sent using
+            SendMessage. This event differs from SendComplete that it fires
+            after each send operation of each message rather
+            than before closing the connection.
+            </summary>
+        </member>
+        <member name="E:Westwind.wwSmtp.SendComplete">
+            <summary>
+            Event fired when sending of a single message using SendMail
+            is complete and the connection is to be closed. This event
+            occurs only once per connection.
+            </summary>
+        </member>
+        <member name="E:Westwind.wwSmtp.SendError">
+            <summary>
+            Event fired when an error occurs during SendMail processing and before
+            the connection is closed down.
+            </summary>
+        </member>
+        <member name="P:Westwind.wwSmtp.Smtp">
+            <summary>
+            Internal instance of SmtpClient that holds the 'connection'
+            effectively.
+            </summary>
+        </member>
+        <member name="M:Westwind.wwSmtp.AddHeader(System.String,System.String)">
+            <summary>
+            Adds an Smtp header to this email request. Headers are 
+            always cleared after a message has been sent or failed.
+            </summary>
+            <param name="headerName"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Westwind.wwSmtp.AddHeadersFromString(System.String)">
+            <summary>
+            Adds headers from a CR/LF separate string that has key:value header pairs 
+            defined.
+            </summary>
+            <param name="headers"></param>
+        </member>
+        <member name="M:Westwind.wwSmtp.Connect">
+            <summary>
+            Starts a new SMTP session. Note this doesn't actually open a connection
+            but just configures and sets up the SMTP session. The actual connection
+            is opened only when a message is actually sent
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.wwSmtp.Close">
+            <summary>
+            Cleans up and closes the connection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.wwSmtp.SendMail">
+            <summary>
+            Fully self contained mail sending method. Sends an email message by connecting 
+            and disconnecting from the email server.
+            </summary>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:Westwind.wwSmtp.SendMailAsync">
+            <summary>
+            Run mail sending operation on a separate thread and asynchronously
+            Operation does not return any information about completion.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.wwSmtp.SendMessage(System.String,System.String,System.String)">
+            <summary>
+            Sends an individual message. Allows sending several messages
+            on the same SMTP session without having to reconnect each time.
+            
+            This version assigns default properties assigned from the main
+            mail object and allows overriding only of recipients
+            
+            Call after Connect() has been called and call Close() to 
+            close the connection afterwards
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.wwSmtp.GetMessage">
+            <summary>
+            Configures the message interface
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:Westwind.wwSmtp.AssignMailAddresses(System.Net.Mail.MailAddressCollection,System.String)">
+            <summary>
+            Assigns mail addresses from a string or comma delimited string list.
+            Facilitates 
+            </summary> 
+            <param name="recipients"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Westwind.wwSmtp.GetEmailFromFullAddress(System.String)" -->
+        <member name="M:Westwind.wwSmtp.AddAlternateView(System.Net.Mail.AlternateView)">
+            <summary>
+            Adds a new Alternate view to the request. Passed from FoxPro
+            which sets up this object.
+            </summary>
+            <param name="text"></param>
+            <param name="contentType"></param>
+            <param name="contentId"></param>
+        </member>
+        <member name="M:Westwind.wwSmtp.ClearAttachments">
+            <summary>
+            Clears all the cached attachments
+            </summary>
+        </member>
+        <member name="M:Westwind.wwSmtp.AddAttachment(System.Net.Mail.Attachment)">
+            <summary>
+            Adds an attachment object to the message. The object
+            allows more complete configuration of the attachment.
+            </summary>
+            <param name="attachment"></param>
+        </member>
+        <member name="M:Westwind.wwSmtp.AddAttachment(System.String,System.String)">
+            <summary>
+            Adds an attachment to the object by providing a filename
+            and content type.
+            </summary>
+            <param name="filename"></param>
+            <param name="contentType"></param>
+        </member>
+        <member name="M:Westwind.wwSmtp.AddAttachment(System.String)">
+            <summary>
+            Adds an attachment to the object by providing only a filename
+            </summary>
+            <param name="filename"></param>
+        </member>
+        <member name="M:Westwind.wwSmtp.LogString(System.String)">
+            <summary>
+            Logs a message to the specified LogFile
+            </summary>
+            <param name="FormatString"></param>
+            <param name="??"></param>
+        </member>
+        <member name="M:Westwind.wwSmtp.SetError(System.String)">
+            <summary>
+            Internally used to set errors
+            </summary>
+            <param name="errorMessage"></param>
+        </member>
+        <member name="T:Westwind.delSmtpNativeEvent">
+            <summary>
+            Delegate used to handle Completion and failure events
+            </summary>
+            <param name="Smtp"></param>
+        </member>
+        <member name="T:Westwind.IwwSmtpEvents">
+            <summary>
+            Event handler interface that can be implemented in FoxPro to handle events
+            </summary>    
+        </member>
+        <member name="T:Westwind.WebServices.WsdlClassParser">
+            <summary>
+            WSDL Parser class that is responsible for:   
+            Creating a .cs code file
+            Compiling the .cs code file into an Assembly
+            Parsing the WSDL generated class into a class structure consumable by FoxPro
+            (since Reflection objects are not COM friendly)
+            </summary>
+        </member>
+        <member name="F:Westwind.WebServices.WsdlClassParser.ImporterMode">
+            <summary>
+            Importer modes: 0 - WSDL.exe (classic)  2 - SvcUtil (WCF)
+            </summary>
+        </member>
+        <member name="M:Westwind.WebServices.WsdlClassParser.GenerateWsdlProxyClass(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            This function basically reproduces the functionality that WSDL.exe provides and generates
+            a CSharp class that is a proxy to the Web service specified at the provided WSDL URL.
+            </summary>
+            <param name="wsdlUrl"></param>
+            <param name="generatedSourceFilename"></param>
+            <param name="generatedNamespace"></param>
+            <param name="username"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebServices.WsdlClassParser.CompileSource(System.String,System.String)">
+            <summary>
+            Compiles the 
+            </summary>
+            <param name="sourceFile"></param>
+            <param name="targetAssembly"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebServices.WsdlClassParser.ParseWsdlClass(System.String)">
+            <summary>
+            Parses a WSDL Proxy assembly and creates a type information document
+            that can be used to create a proxy class in FoxPro.
+            </summary>
+            <param name="assemblyName"></param>        
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebServices.WsdlClassParser.CurrentDomain_ReflectionOnlyAssemblyResolve(System.Object,System.ResolveEventArgs)">
+            <summary>
+            Reflection only callback function to resolve assembly. Required to make ReflectionOnly
+            work properly.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Westwind.WebServices.WsdlClassParser.DataSetToXmlString(System.Data.DataSet,System.Boolean)">
+            <summary>
+            Returns an XML string from a DataSet
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Westwind.WebServices.WsdlClassParserFactory">
+            <summary>
+            This class is used to instantiate the WsdlClassParser
+            in a separate AppDomain so that assemblies parsed can
+            be full unloaded after parsing.
+            </summary>
+        </member>
+        <member name="M:Westwind.WebServices.WsdlClassParserFactory.CreateWsdlClassParser">
+            <summary>
+            Creates a new instance of the WsdlParser in a new AppDomain
+            </summary>
+            <returns></returns>        
+        </member>
+        <member name="M:Westwind.WebServices.WsdlClassParserFactory.Unload">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:JTLeigh.Tools.CopySourceAsHtml.CopierPreferencesDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.CaughtExceptionCaption">
+            <summary>
+              Looks up a localized string similar to Error.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.CaughtExceptionMessage">
+            <summary>
+              Looks up a localized string similar to CopySourceAsHtml caught the following exception: {0}.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.CopyButtonText">
+            <summary>
+              Looks up a localized string similar to Copy As HTML....
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.CopyButtonTooltip">
+            <summary>
+              Looks up a localized string similar to Copy the selected text as HTML....
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.CopyMenuItemText">
+            <summary>
+              Looks up a localized string similar to Copy.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.CopyNowButtonText">
+            <summary>
+              Looks up a localized string similar to Copy As HTML.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.CopyNowButtonTooltip">
+            <summary>
+              Looks up a localized string similar to Copy the selected text as HTML..
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.InvalidFontListCaption">
+            <summary>
+              Looks up a localized string similar to Error.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.InvalidFontListMessage">
+            <summary>
+              Looks up a localized string similar to The specified font list is invalid.  It must be a comma-separated list of 1 or more font names..
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.InvalidFontSizeCaption">
+            <summary>
+              Looks up a localized string similar to Error.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.InvalidFontSizeMessage">
+            <summary>
+              Looks up a localized string similar to The specified font size is invalid.  It must be 1 or higher..
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.InvalidLineNumberCaption">
+            <summary>
+              Looks up a localized string similar to Error.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.InvalidLineNumberMessage">
+            <summary>
+              Looks up a localized string similar to The specified line number is invalid.  It must be 1 or higher..
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.InvalidTabSizeCaption">
+            <summary>
+              Looks up a localized string similar to Error.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.InvalidTabSizeMessage">
+            <summary>
+              Looks up a localized string similar to The specified tab size is invalid.  It must be 0 or higher..
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.NoRtfDataOnClipboardCaption">
+            <summary>
+              Looks up a localized string similar to Error.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.NoRtfDataOnClipboardMessage">
+            <summary>
+              Looks up a localized string similar to There is no RTF data on the clipboard..
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.UnableToAccessClipboardCaption">
+            <summary>
+              Looks up a localized string similar to Error.
+            </summary>
+        </member>
+        <member name="P:JTLeigh.Tools.CopySourceAsHtml.Properties.Resources.UnableToAccessClipboardMessage">
+            <summary>
+              Looks up a localized string similar to CopySourceAsHtml was unable to access the clipboard.  Another application may have the clipboard locked..
+            </summary>
+        </member>
+    </members>
+</doc>

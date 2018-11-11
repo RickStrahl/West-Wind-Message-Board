@@ -1,16 +1,11 @@
-<!-- SourceFile="~/../Deploy/wwThreadProcess.prg" -->
-<% pcPageTitle = "New Message - West Wind Messageboard" %>
-<% Layout="~/views/_layoutpage.wcs" %>
 <%
+   * VS Addin Comment: SourceFile="~/../Deploy/wwThreadProcess.prg"   
+    pcPageTitle = "New Message - West Wind Messageboard"
     *** pnMsgMode  -   1 - New, 2 - Reply
 %>
+<% Layout="~/views/_layoutpage.wcs" %>
 
-<% #if .f. %>
-<!-- only for intellisense to work better -->
-<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-<link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-<link href="css/application.css" rel="stylesheet" />
-<% #endif  %>
+
 
 <div class="main-content" style="padding: 20px 20px 0 20px;">
     <div class="page-header-text">
@@ -64,7 +59,7 @@
             <a id="btnItalic" class="btn btn-sm btn-link" title="Make the selected text italic (ctrl-i)">
                 <i class="fa fa-italic"></i>
             </a>
-            
+
             <a id="btnQuote" class="btn btn-sm btn-link hidable-xs" title="Quote and indent text. (ctrl-q)">
                 <i class="fa fa-quote-left"></i>
             </a>
@@ -72,7 +67,7 @@
             <a id="btnInlineCode" class="btn btn-sm btn-link hidable-xs" style="text-decoration: none" title="Inline code.">
                 <i>`</i><i class="fa fa-code"></i><i>`</i>
             </a>
-            
+
             <a id="btnList" class="btn btn-sm btn-link hidable-xs" title="Turn lines into list items.">
                 <i class="fa fa-list"></i>
             </a>
@@ -96,7 +91,7 @@
             </a>
         </div>
         <div class="edit-toolbar-sub">
-            This editor uses <a href="https://helpbuilder.west-wind.com/Docs/_4il175mgd.htm" target="wwthreadsexternal" tabindex="-1">Markdown text format</a>. Please format any <b>code snippets</b> using the <i class="fa fa-code" style="background: #ccc" ></i>  icon.
+            This editor uses <a href="https://helpbuilder.west-wind.com/Docs/_4il175mgd.htm" target="wwthreadsexternal" tabindex="-1">Markdown text format</a>. Please format any <b>code snippets</b> using the <i class="fa fa-code" style="background: #ccc"></i>  icon.
         </div>
 
         <!--<pre lang="markdown" id="Editor">
@@ -104,17 +99,17 @@
         <textarea id="Message" name="Message"
                   style="min-height: 350px;padding: 5px; font-family: Consolas, Menlo, monospace; border: none;
                   background: #333; width: 100% ; color: #fafafa "><%= Request.FormOrValue('Message',poMsg.Message) %></textarea>
-        
+
         <div id="message"
              style="display: none; position: absolute; right: 15px; bottom: 5px; padding: 10px; background: darkred; color: white; opacity: 0.90; border-radius: 4px"></div>
         <div id="spellfixes" style="display:none">
         </div>
 
         <% if Process.lAuthenticatedAdmin %>
-        <div class="pull-right">            
+        <div class="pull-right">
             <span class="with-font">
                 <input id="Pinned" name="Pinned" type="checkbox" class="with-font"
-                       <%= Request.FormChecked('Pinned',poMsg.Pinned) %> >
+                <%= Request.FormChecked('Pinned',poMsg.Pinned) %> >
                 <label for="Pinned">Pinned</label>
             </span>
         </div>
@@ -122,12 +117,13 @@
 
 
         <blockquote style="margin: 10px 0;max-width:  830px">
-<markdown>
-#####  <i class="fa fa-info-circle" style="color: steelblue;"></i> Please format your code
-If your post contains any code snippets, you can use the <b><i class="fa fa-code" style="background: #eee;padding: 3px"></i></b> tool button
-to select your code and apply a code language syntax. It makes it **much easier** for everyone to read your code.
-</markdown>
-
+            <markdown>
+                #####  @icon-info-circle Please format your code
+                If your post contains any code snippets, you can use the
+                `<\>
+                    ` tool button to select your code and apply a code
+                    language syntax. It makes it **much easier** for everyone to read your code.
+            </markdown>
         </blockquote>
 
         <button type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary btn-lg" accesskey="S">
@@ -139,32 +135,32 @@ to select your code and apply a code language syntax. It makes it **much easier*
     </form>
 </div>
 
-<div id="Preview" class="message-list-body" style="font-size: 1.1em">            
+<div id="Preview" class="message-list-body" style="font-size: 1.1em">
 </div>
 
     <%
        if pnMsgMode = 2
          SELE TMessages
     %>
-        
 
-        <div class="forum-header page-header-text">
-            <%= forum %>
-        </div>
 
-        <div id="SortContainer" class="pull-right" style="margin-right: 5px;">
-            <i id="MessageOrderDown" class="fa fa-sort-numeric-asc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 1px; cursor: pointer;"
-               title="Display messages oldest messages first"></i>
+<div class="forum-header page-header-text">
+    <%= forum %>
+</div>
 
-            <i id="MessageOrderUp" class="fa fa-sort-numeric-desc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 2px; cursor: pointer;"
-               title="Display messages latest messages first"></i>
-        </div>
+<div id="SortContainer" class="pull-right" style="margin-right: 5px;">
+    <i id="MessageOrderDown" class="fa fa-sort-numeric-asc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 1px; cursor: pointer;"
+       title="Display messages oldest messages first"></i>
 
-        <div class="thread-title page-header-text">
-            <%= EncodeHtml(Subject) %>
-        </div>
+    <i id="MessageOrderUp" class="fa fa-sort-numeric-desc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 2px; cursor: pointer;"
+       title="Display messages latest messages first"></i>
+</div>
 
-        <div id="ThreadMessageList">
+<div class="thread-title page-header-text">
+    <%= EncodeHtml(Subject) %>
+</div>
+
+<div id="ThreadMessageList">
 
     <% SCAN %>
 
@@ -328,7 +324,7 @@ to select your code and apply a code language syntax. It makes it **much easier*
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btnPasteCode" type="button"  class="btn btn-primary">
+                <button id="btnPasteCode" type="button" class="btn btn-primary">
                     <i class="fa fa-code"></i>
                     Paste Code
                 </button>
@@ -381,10 +377,10 @@ to select your code and apply a code language syntax. It makes it **much easier*
                                     filter: alpha(opacity=0);
                                 }
                         </style>
-                        <div class="fileUpload btn btn-primary" >
+                        <div class="fileUpload btn btn-primary">
                             <span>
                                 <i class="fa fa-upload"></i>
-                                Upload Image... <i id="UploadProgress" class="fa fa-spinner fa-spin" style="display:none"></i> 
+                                Upload Image... <i id="UploadProgress" class="fa fa-spinner fa-spin" style="display:none"></i>
                                 <i id="ajaxProgress" class="fa fa-spinner fa-spin" style="display: none"></i>
                             </span>
                             <input type="file" id="ajaxUpload" name="ajaxUpload"
@@ -442,7 +438,7 @@ to select your code and apply a code language syntax. It makes it **much easier*
 
 <!--<script src="~/scripts/Ace/ace.js"></script>
 <script src="~/scripts/wwthreads_editorSettings.js"></script>
-<script src="~/scripts/AceConfig.js?v1.1"></script>-->    
+<script src="~/scripts/AceConfig.js?v1.1"></script>-->
 <!--<script src="~/scripts/wwthreads_editor.js?v1.1"></script>-->
 
 <script src="~/scripts/WriteMessage.js?v1.1"></script>
@@ -450,8 +446,8 @@ to select your code and apply a code language syntax. It makes it **much easier*
     setTimeout(function () {
         toastr.info(
             'Please use the <i class="fa fa-code" style="font-size: 1.2em;font-weight: bold"></i> ' +
-            'button to embed nicely formated, syntax colored code listings.',        
-            'Format your Code', {escapeHtml: false, timeOut: 5000});
+            'button to embed nicely formated, syntax colored code listings.',
+            'Format your Code', { escapeHtml: false, timeOut: 5000 });
     });
 </script>
 
@@ -466,7 +462,7 @@ to select your code and apply a code language syntax. It makes it **much easier*
     setTimeout(function () { $("#Subject").focus(); }, 150);
 </script>
 <% endif %>
-    
+
 
 <script src="~/bower_components/marked/marked.min.js"></script>
 <% endsection %>

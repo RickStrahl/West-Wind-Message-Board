@@ -56,8 +56,8 @@ cAuthenticationMode = "UserSecurity"
 cAuthenticatedUserId = ""
 lAuthenticatedAdmin = .F.
 
-*** oUser data instance
-oUser = .null.
+*** oThreadUser data instance (wwt_User)
+oThreadUser = .null.
 
 *********************************************************************
 * Function wwThreadProcess :: OnProcessInit
@@ -127,6 +127,17 @@ DODEFAULT()
 ENDFUNC
 *   CompleteResponse
 
+
+
+FUNCTION Status()
+
+Response.Write("<pre>")
+Response.Writeln("Path: " + Request.GetPhysicalPath())
+Response.Writeln("Resolve Error" + THIS.ResolvePath("~/Views/_ErrorTemplate.wcs"))
+Response.Write("</pre>")
+
+ENDFUNC
+
 ************************************************************************
 *  OnAuthenticateUser
 ****************************************
@@ -164,6 +175,7 @@ Session.SetSessionVar("_authenticatedUserId",loUserBus.oData.CookieId)
 Session.SetSessionVar("_authenticatedName",TRIM(loUserBus.oData.Name))
 Session.SetSessionVar("_authenticatedAdmin",IIF(loUserBus.oData.Admin != 0,"True",""))
 
+RETURN .T.
 ENDFUNC
 *   OnAuthenticateUser
 
@@ -181,10 +193,10 @@ FUNCTION OnAuthenticated()
 LOCAL loUser as wwt_user, loData
 loUser = CREATEOBJECT("wwt_user")
 IF loUser.LoadFromEmail(this.cAutHENTICATEDUSER)
-   this.oUser = loUser
+   this.oThreadUser = loUser
    loData = loUser.oData
    loData.LastOn = DATETIME()
-   this.oUser.Save()   
+   this.oThreadUser.Save()   
 
    this.cAuthenticatedName = TRIM(loData.Name)
    this.cAuthenticatedUserId = TRIM(loData.CookieId)
@@ -299,7 +311,7 @@ ENDFUNC
 ************************************************************************
 FUNCTION Logout()
 THIS.Authenticate("Logout")
-this.oUser = null
+this.oThreadUser = null
 Response.Redirect("~/")
 ENDFUNC
 *   Logout
@@ -469,7 +481,7 @@ poError = CREATEOBJECT("HtmlErrorDisplayConfig")
 
 loUserBus = CREATEOBJECT("wwt_User")
 
-IF ISNULL(this.oUser)
+IF ISNULL(this.oThreadUser)
    loUserBus.New()
    plNewUser = .T.
 ELSE
@@ -619,7 +631,7 @@ IF pnMsgMode = 2
    poMsg.TimeStamp = DATETIME()
 ENDIF
 
-poUser = this.oUser
+poUser = this.oThreadUser
 IF ISNULL(poUser)
    poError.Message = "You're not logged in or your account info is invalid. Please log in again."
    RETURN Response.ExpandScript("~/WriteMessage.wwt")
@@ -666,12 +678,9 @@ ELSE
 
 ENDIF
 
-
-
 IF pnMsgMode = 2
 	loMsgBus = CREATEOBJECT("wwt_Message")
-	loMsgBus.GetThreadMessages(poMsg.ThreadId)
-	
+	loMsgBus.GetThreadMessages(poMsg.ThreadId)	
 ENDIF
 
 
@@ -759,7 +768,7 @@ ENDFUNC
 FUNCTION ImageUpload()
 LOCAL lcExt, loFile, lcNewFile, lcNewPath
 
-IF ISNULL(THIS.oUser)
+IF ISNULL(THIS.oThreadUser)
    ERROR "You have to be signed in to upload images."
 ENDIF
 
@@ -1104,14 +1113,8 @@ IF VARTYPE(__wwThreadsMarkdownParser) = "O"
    loMarkdown = __wwThreadsMarkdownParser
 ELSE
 	loMarkdown =  CreateObject("MarkdownParserExtended")
-	
-*!*		loMarkdown.cCodeBlockStartHtml = [<pre class="no-container"><code class="###language###">]
-*!*		loMarkdown.cCodeBlockEndHtml = [</code></pre>]
 	loMarkdown.cLinkTarget = "wwt"
-	
 	__wwThreadsMarkdownParser = loMarkdown
-	*loMarkdown.cCodeBlockStartHtml = [<pre lang="###language###">]  + CHR(13) + CHR(10) 
-	*loMarkdown.cCodeBlockEndHtml = [</pre>]
 ENDIF
 
 RETURN loMarkdown

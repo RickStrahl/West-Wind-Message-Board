@@ -92,7 +92,7 @@
             </div>
 
 
-            <div class="message-list-body">
+            <div class="message-list-body">  
                 <%=  iif(format=2,poMarkdown.Parse(Message,.T.),DisplayMemo(Message) ) %>
             </div>
             

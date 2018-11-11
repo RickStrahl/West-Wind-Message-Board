@@ -214,14 +214,6 @@ OTHERWISE
      *** Generic Web Connection Script Template handling
      CASE lcExtension == "WC" OR lcExtension == "WCS" OR lcExtension == "FXP"
         DO wwScriptMaps with THIS
-
-     *** Generic Web Connection Page Framework Handler
-     CASE lcExtension == "WCSX" OR lcExtension == "ASPX"
-        DO wwWebPageHandler WITH THIS
-
-     *** Web Connection SOAP/Web Service Handler
-*!*	     CASE lcExtension == "WWSOAP"
-*!*	        DO wwDefaultWebService with THIS
        
      OTHERWISE
          *** Error - No handler available. Create custom

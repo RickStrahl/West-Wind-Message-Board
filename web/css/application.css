@@ -130,9 +130,9 @@ input[type=checkbox].with-font {
 }
 input[type=radio].with-font ~ label:before,
 input[type=checkbox].with-font ~ label:before {
-    font-family: FontAwesome;
+    font-family: "Font Awesome 5 Free";
     display: inline-block;
-    content: "\f1db";  /* fa-circle-thin */
+    content: "\f111";  /* fa-circle-thin */
     letter-spacing: 10px;
     font-size: 1.2em;
     color: #535353;
@@ -146,10 +146,10 @@ input[type=checkbox].with-font:checked ~ label:before  {
     letter-spacing: 5px;
 }
 input[type=checkbox].with-font ~ label:before {        
-    content: "\f096";  /* fa-square-o */
+    content: "\f0c8";  /* fa-square-o */
 }
 input[type=checkbox].with-font:checked ~ label:before {
-    content: "\f046";     /* fa-check-square-o */   
+    content: "\f14a";     /* fa-check-square-o */   
     color: darkgreen;
 }
 input[type=radio].with-font:focus ~ label:before,

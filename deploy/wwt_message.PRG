@@ -1,5 +1,5 @@
 
-SET CLASSLIB TO wwBusiness ADDITIVE
+SET PROCEDURE TO wwBusinessObject ADDITIVE
 SET PROCEDURE TO wwUtils ADDITIVE
 SET PROCEDURE TO wwCollections ADDITIVE
 SET PROCEDURE TO wwt_message.prg ADDITIVE
@@ -7,7 +7,7 @@ SET PROCEDURE TO wwt_message.prg ADDITIVE
 #include wconnect.h
 
 *************************************************************
-DEFINE CLASS wwt_message AS wwbusiness
+DEFINE CLASS wwt_message AS wwBusinessObject
 *************************************************************
 
 cAlias = "wwthreads"

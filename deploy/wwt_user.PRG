@@ -1,10 +1,10 @@
-SET CLASSLIB TO wwBusiness ADDITIVE
+SET PROCEDURE TO wwBusinessObject ADDITIVE
 SET PROCEDURE TO wwUtils ADDITIVE
 SET PROCEDURE TO wwCollections ADDITIVE
 SET PROCEDURE TO wwt_user.prg ADDITIVE
 
 *************************************************************
-DEFINE CLASS wwt_user AS wwbusiness
+DEFINE CLASS wwt_user AS wwBusinessObject
 *************************************************************
 
 cAlias = "wwusers"
