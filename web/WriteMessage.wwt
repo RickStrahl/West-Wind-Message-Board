@@ -21,8 +21,8 @@
     <%= HtmlErrorDisplay(poError) %>
 
     <form action="" method="post" class="form-horizontal">
-        <div class="form-group ">
-            <label class="control-label col-sm-2 hidable" for="Subject">Subject</label>
+        <div class="form-group row ">
+            <label class="control-label col-sm-2 hidable right" for="Subject">Subject</label>
             <div class="col-sm-10">
                 <input type="text" id="Subject" name="Subject" class="form-control"
                        placeholder="Title for this post - try to be concise"
@@ -30,8 +30,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-sm-2 hidable" for="Forum">Forum</label>
+        <div class="form-group row">
+            <label class="control-label col-sm-2 hidable right" for="Forum">Forum</label>
             <div class="col-sm-10">
                 <%= HtmlDropdown("Forum",Trim(poMsg.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
                 [class="form-control"],"-- Select a Forum --","") %>
@@ -95,7 +95,7 @@
         </div>
 
         <!--<pre lang="markdown" id="Editor">
-        </pre>-->
+    </pre>-->
         <textarea id="Message" name="Message"
                   style="min-height: 350px;padding: 5px; font-family: Consolas, Menlo, monospace; border: none;
                   background: #333; width: 100% ; color: #fafafa "><%= Request.FormOrValue('Message',poMsg.Message) %></textarea>
@@ -106,14 +106,20 @@
         </div>
 
         <% if Process.lAuthenticatedAdmin %>
-        <div class="pull-right">
-            <span class="with-font">
-                <input id="Pinned" name="Pinned" type="checkbox" class="with-font"
-                <%= Request.FormChecked('Pinned',poMsg.Pinned) %> >
-                <label for="Pinned">Pinned</label>
-            </span>
+        <div class="float-right">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                       id="Pinned" name="Pinned"
+                <%= Request.FormChecked('Pinned',poMsg.Pinned) %> />
+                <label class="custom-control-label" for="Pinned">Pinned</label>
+            </div>
+
         </div>
         <% endif %>
+
+
+        
+
 
 
         <blockquote style="margin: 10px 0;max-width:  830px">
@@ -127,7 +133,7 @@
         </blockquote>
 
         <button type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary btn-lg" accesskey="S">
-            <i class="fa fa-check" style="color: lightgreen"></i>
+            <i class="fas fa-check" style="color: lightgreen"></i>
             Post Message
         </button>
 
@@ -148,7 +154,7 @@
     <%= forum %>
 </div>
 
-<div id="SortContainer" class="pull-right" style="margin-right: 5px;">
+<div id="SortContainer" class="float-right" style="margin-right: 5px;">
     <i id="MessageOrderDown" class="fa fa-sort-numeric-asc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 1px; cursor: pointer;"
        title="Display messages oldest messages first"></i>
 
@@ -169,7 +175,7 @@
     <article class="message-list-item" data-id="<%= MsgId %>">
         <div class="message-list-header">
 
-            <div class="pull-right hidable-xs">
+            <div class="float-right hidable-xs">
                 <a href="#<%= MsgId %>"><%= MsgId %></a>
             </div>
 
@@ -202,9 +208,11 @@
 <div class="modal fade" id="HrefDialog" tabindex="-1" role="dialog" aria-labelledby="HrefDialog-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="modal-header">                
                 <h4 class="modal-title" id="HrefDialog-label">Insert Link</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -232,8 +240,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="CodeDialog-label">Insert Code Snippet</h4>
+                <h4 class="modal-title" id="CodeDialog-label">Insert Code Snippet</h4>                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -336,9 +346,11 @@
 <div class="modal fade" id="ImageDialog" tabindex="-1" role="dialog" aria-labelledby="ImageDialog-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="modal-header">                
                 <h4 class="modal-title" id="ImageDialog-label">Insert Image</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">

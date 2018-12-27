@@ -53,7 +53,7 @@
 
                         .dropdown-menu > li > a {
                             width: 100%;
-                            padding: 11px;
+                            padding: 5px 2px ;                            
                         }
 
                             .dropdown-menu > li > a:hover {
@@ -78,7 +78,7 @@
                         <% if Process.lAuthenticatedAdmin %>
                         <li>
                             <a href="~/admin/admin.aspx">
-                                <i class="fa fa-gears"></i>
+                                <i class="far fa-cog"></i>
                                 Admin Page
                             </a>
                         </li>
@@ -109,18 +109,18 @@
                 <i class="fa fa-search"></i>
                 <span class="hidable-xs">Search</span>
             </a>
-            <a id="Refresh-Latest-Button" href="javascript:{}" title="Refresh the message list with messages since last message load.">                   
+            <a id="Refresh-Latest-Button" href="javascript:{}" title="Refresh the message list with messages since last message load.">
                 <i class="fas fa-sync-alt"></i>
-                <span class="hidable-xs">Latest</span>       
+                <span class="hidable-xs">Latest</span>
             </a>
-            <a id="Refresh-Button" 
-                href="javascript:{}" 
-                title="Repeat and refresh results from the last search." >
+            <a id="Refresh-Button"
+               href="javascript:{}"
+               title="Repeat and refresh results from the last search.">
                 <i class="fas fa-repeat"></i>
-                <span class="hidable-xs">Redo</span>                       
+                <span class="hidable-xs">Redo</span>
             </a>
-            
-            
+
+
         </div>
 
         <div class="page-content">
@@ -140,12 +140,12 @@
                 <% IF LOWER(JustStem(Request.GetPhysicalPath())) != "threads" %>
                 <footer>
                     <div class="float-right" style="text-align: right">
-                        
+
                         <a href="https://west-wind.com/">
                             <img src="~/images/WestwindText.png" />
                         </a>
-                        <div class="small" style="margin-top: -3px;">&copy; 1996-<%= Year(DateTime()) %> </div>                         
-                    </div>                  
+                        <div class="small" style="margin-top: -3px;">&copy; 1996-<%= Year(DateTime()) %> </div>
+                    </div>
 
                 </footer>
                 <% endif %>
@@ -154,47 +154,49 @@
         </div>
 
     </div>
-    <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/scripts/ww.jquery.min.js"></script>
-    <script src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="~/bower_components/jquery-resizable/dist/jquery-resizable.js"></script>
+    <script src="~/lib/popper.js/dist/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <link href="~/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet"  />
+    <!--<script src="~/bower_components/jquery-resizable/dist/jquery-resizable.js"></script>-->
+    <!--<link href="~/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet"  />
     <script src="~/bower_components/moment/min/moment.min.js"></script>
-    <script src="~/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-    
+    <script src="~/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>-->
+
     <script src="~/scripts/wwthreads.js?v1.1.2"></script>
 
     <link href="~/scripts/highlightjs/styles/vs2015.css" rel="stylesheet" />
-    <script src="~/scripts/highlightjs/highlight.pack.js"></script>    
+    <script src="~/scripts/highlightjs/highlight.pack.js"></script>
     <script>
         hljs.initHighlightingOnLoad();
     </script>
 
-    <script src="~/bower_components/toastr/toastr.min.js" ></script>
-    <link href="~/bower_components/toastr/toastr.min.css" rel="stylesheet" />
 
-    <script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async ></script>
-    
+    <link href="~/lib/toastr/build/toastr.min.css" rel="stylesheet" />
+    <script src="~/lib/toastr/build/toastr.min.js"></script>
+
+    <script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script>
+
     <script>
         $(".slide-menu-toggle-open,.slide-menu-toggle-close," +
-                ".slide-menu a, #SamplesLink")
+            ".slide-menu a, #SamplesLink")
             .click(function () {
                 $(".slide-menu").toggleClass("active");
             });
     </script>
     <%= RenderSection("scripts") %>
-    
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-9492219-13']);
-      _gaq.push(['_trackPageview']);
 
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-9492219-13']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
     </script>
     <script src="scripts/manup.min.js"></script>
 </body>

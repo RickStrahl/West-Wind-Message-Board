@@ -9,21 +9,19 @@
     -ms-overflow-style: -ms-autohiding-scrollbar !important;
 }
 h1, h2, h3, h4,h5,h6,.page-header-text {
-    font-family: Trebuchet, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: bold;    
+    /*font-family: Trebuchet, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
+    font-weight: 600;    
 }
 .message-list-body>h1, .message-list-body>h2, .message-list-body>h3, .message-list-item>h4, .message-list-item>h5, .message-list-item>h6 {
     margin-top: 1.3em;
 }
 h3 {
     font-size: 1.3em;
-    color: #2B547E;
-    font-weight: bold;    
+    color: #2B547E;    
 }
 h4 {
-    font-size: 1.2em;
-    color: #2B547E;
-    font-weight: bold;
+    font-size: 1.18em;
+    color: #2B547E;    
 }
 h5
 {
@@ -652,7 +650,7 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         margin: 0;
         padding: 6px 3px 6px 7px;        
         font-size: 1.25em;
-        font-weight: bold;
+        font-weight: 600;
         cursor: pointer;      
     }
     .forum-list-container {        
@@ -705,9 +703,9 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     padding: 20px 15px 10px;    
     font-family: 'Segoe UI', "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-    .message-list-body a {
+    /*.message-list-body a {
         font-weight: bold;
-    }
+    }*/
     .message-list-body img {
         display: block;
         max-width: 100%;
@@ -718,12 +716,12 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         padding: 5px 8px;
         box-shadow: 4px 4px 10px #535353;
     }
-    .message-search-box {
-        font-size: 0.5em;
+    .message-search-box {        
         background: #737373;
         padding: 5px ;
         display: none;
     }
+        .message-search-box .form-control { font-size: 0.825rem}
     .message-item.selected {
         background: #e3ebf5;
         border-radius: 2px;
