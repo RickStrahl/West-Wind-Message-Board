@@ -59,16 +59,6 @@ footer {
     font-size: 0.85em;
 }
 
-
-.table tr th {
-    background: #636363; 
-    color: white;   
-}
-    .table tr th a, .table tr th a:visited {
-        text-decoration: none;
-        color: cornsilk;
-    }
-
 pre.no-container {
     border: none;
     padding: 0;
@@ -176,9 +166,10 @@ input[type=checkbox].with-font:focus ~ label
 .fa-lightgreen {
     color: lightgreen;
 }
-/* Common CSS */
 
-.right{ 
+
+/* Common CSS */
+.right {
     text-align: right;
 }
 
@@ -198,9 +189,9 @@ input[type=checkbox].with-font:focus ~ label
     width: 1px; 
 }
 .bootstrap-datetimepicker-widget.dropdown-menu {
-  background: whitesmoke;
+    background: whitesmoke;
+    min-width: 270px;    
 }
-
 
 /* hidden in below tablet and phone (-xs) sizes respectively */
 .hidable, .hidable-xs {   }

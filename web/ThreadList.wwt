@@ -1,43 +1,29 @@
 <%
     pcPageTitle ="Message List - West Wind Message Board"
-    pcThreadId = Threadid 
+    pcThreadId = Threadid
 %>
-<% Layout="~/views/_layoutpage_NoPanes.wcs" %> 
+<% Layout="~/views/_layoutpage_NoPanes.wcs" %>
 
 <% #if .f. %>
 <!-- only for intellisense to work better -->
 <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 <link href="css/application.css" rel="stylesheet" />
-<% #endif  %> 
+<% #endif  %>
 
 <div class="message-list-container">
     <div class="message-search-box">
         <div class="form-group responsive-container" style="padding-right: 5px;">
-
-            <div class="input-group" id="StartDate" style="width: 50%">
-                <input id="StartDate_field" name="StartDate" type="text" 
-                       class="form-control input-sm" value="<%= Request.FormDateOrValue('StartDate',poFilter.StartDate) %>" />
-                <span class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                </span>
-           </div>
-            
-           <div class="input-group" id="EndDate" style="width: 50%">
-                <input id="EndDate_field" name="EndDate" type="text" 
-                       class="form-control input-sm" value="<%= Request.FormDateOrValue('EndDate',poFilter.EndDate) %>" />
-                <span class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                </span>
-           </div>
+            <%= HtmlDateTextBox("StartDate",poFilter.StartDate,[]) %>
+            <%= HtmlDateTextBox("EndDate",poFilter.EndDate,[]) %>            
         </div>
-               
+        
         <div class="form-group">
             <%= HtmlDropdown("Forum",Trim(poFilter.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
             [class="form-control input-sm"],"-- Select a Forum --","") %>
         </div>
-        
-          <div class="form-group ">
+
+        <div class="form-group ">
             <input type="text" id="FromName" name="FromName" class="form-control input-sm"
                    placeholder="User who wrote the message"
                    value="<%= Request.FormOrValue([FromName],poFilter.FromName) %>" />
@@ -49,7 +35,7 @@
                    value="<%= Request.FormOrValue([Search],poFilter.Search) %>" />
         </div>
 
-      
+
         <div class="form-group ">
             <input type="text" id="MsgId" name="MsgId" class="form-control input-sm"
                    placeholder="Message Id"
@@ -71,57 +57,59 @@
     </div>
 
     <div id="ThreadListing">
-        
-    <%= HtmlErrorDisplay(poError) %>
 
-    <%
-    lcForum = "xxx"
-    llOpenForum = .F.
-    SELE TMessages
-    SCAN %>
+        <%= HtmlErrorDisplay(poError) %>
 
-    <% if TMessages.Forum != lcForum %>
-    <% if llOpenForum %>
-</div>
-            <% endif %>
+        <%
+        lcForum = "xxx"
+        llOpenForum = .F.
+        SELE TMessages
+        SCAN %>
 
-
-<div class="forum-list-header">
-    <div class="float-right expand-forum" style="font-size: 0.8em; color: goldenrod; padding: 4px;">
-        <i class="far fa-expand-alt"></i>
+        <% if TMessages.Forum != lcForum %>
+        <% if llOpenForum %>
     </div>
-    <span style="padding-right: 7px;">-</span> <%: forum %>
-</div>
-<div class="forum-list-container" >
-    <% llOpenForum = .T.
-    endif %>
-    <div class="message-item" data-id="<%= Threadid %>">
-        <div class="float-left">
-            <i class="fas fa-thumbtack <%= IIF(MsgCount -1 < 1,[ fa-rotate-90 fa-red],[ fa-green]) %>"  style="font-size: 0.8em"></i>
-            <%if Pinned %>
-            <i class="fa fa-star fa-fw" style="color: goldenrod;font-size: 0.85em; margin-top: -5px"></i>
-            <% endif %>
-            <% if MsgCount - 1 > 0 %>
-            <div style="font-size:8pt; margin-top: 3px;margin-left: -2px">
-                <%= MsgCount - 1 %><i class="fal fa-comments" style="padding-left: 2px;color: steelblue;"></i>
-            </div>
-            <% endif %>
-        </div>
+    <% endif %>
 
-        <div class="message-header">
-            <a href="Thread<%= ThreadId %>.wwt"><%: TRIM(Subject)  %></a>
+
+    <div class="forum-list-header">
+        <div class="float-right expand-forum" style="font-size: 0.8em; color: goldenrod; padding: 4px;">
+            <i class="far fa-expand-alt"></i>
         </div>
-        <div class="message-detail">
-            <div>
-                <b><%: FromName %></b>
-                &nbsp;  &bull;  &nbsp;
-                <i class="fa  fa-clock-o" style="color:steelblue" title="Last update on"></i>
-                <%= HumanizedDate(TimeStamp) %>
-            </div>
-        </div>
+        <span style="padding-right: 7px;">-</span> <%: forum %>
     </div>
-    <%  lcForum = TMessages.Forum
-    ENDSCAN %>
-</div>
+    <div class="forum-list-container">
+        <% llOpenForum = .T.
+        endif %>
+        <div class="message-item" data-id="<%= Threadid %>">
+            <div class="float-left">
+                <i class="fas fa-thumbtack <%= IIF(MsgCount -1 < 1,[ fa-rotate-90 fa-red],[ fa-green]) %>" style="font-size: 0.8em"></i>
+                <%if Pinned %>
+                <i class="fa fa-star fa-fw" style="color: goldenrod;font-size: 0.85em; margin-top: -5px"></i>
+                <% endif %>
+                <% if MsgCount - 1 > 0 %>
+                <div style="font-size:8pt; margin-top: 3px;margin-left: -2px">
+                    <%= MsgCount - 1 %><i class="fal fa-comments" style="padding-left: 2px;color: steelblue;"></i>
+                </div>
+                <% endif %>
+            </div>
+
+            <div class="message-header">
+                <a href="Thread<%= ThreadId %>.wwt"><%: TRIM(Subject)  %></a>
+            </div>
+            <div class="message-detail">
+                <div>
+                    <b><%: FromName %></b>
+                    &nbsp;  &bull;  &nbsp;
+                    <i class="fa  fa-clock-o" style="color:steelblue" title="Last update on"></i>
+                    <%= HumanizedDate(TimeStamp) %>
+                </div>
+            </div>
+        </div>
+        <%  lcForum = TMessages.Forum
+        ENDSCAN %>
+    </div>
 
 </div>
+
+

@@ -448,12 +448,7 @@
 
 <% section="scripts" %>
 
-<!--<script src="~/scripts/Ace/ace.js"></script>
-<script src="~/scripts/wwthreads_editorSettings.js"></script>
-<script src="~/scripts/AceConfig.js?v1.1"></script>-->
-<!--<script src="~/scripts/wwthreads_editor.js?v1.1"></script>-->
-
-<script src="~/scripts/WriteMessage.js?v1.1"></script>
+<script src="~/scripts/WriteMessage.js?v1.12"></script>
 <script>
     setTimeout(function () {
         toastr.info(

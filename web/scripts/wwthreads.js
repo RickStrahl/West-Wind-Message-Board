@@ -210,16 +210,23 @@ window.wwthreads = null;
             var $el = $(this).next();
             $el.show(600);
         });
-        // Date controls - .not() to avoid native control mods
-        $("#StartDate,#EndDate").datetimepicker({
-            format: "MM/DD/YYYY",
-            keyBinds: {
-                "enter": messageSearchQuery,
-                "delete": null  // leave delete ke                
-            }  
-        });
+        //// Date controls - .not() to avoid native control mods
+        //$("#StartDate,#EndDate").datetimepicker({
+        //    format: "MM/DD/YYYY",
+        //    keyBinds: {
+        //    keyBinds: {
+        //        "enter": messageSearchQuery,
+        //        "delete": null  // leave delete ke                
+        //    }  
+        //});
 
-
+        setTimeout(function() {
+                $("#StartDate,#EndDate").datetimepicker({
+                    format: "MM/DD/YYYY", debug: false
+                });
+            },
+            120);
+        
         return false;
     }
 

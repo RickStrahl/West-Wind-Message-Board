@@ -78,7 +78,7 @@ endif
                     <input type="checkbox" class="custom-control-input"
                            id="WebLogin_chkRememberMe" name="WebLogin_chkRememberMe" value="true" />
                     <input type="hidden"
-                           id="WebLogin_chkRememberMe" name="WebLogin_chkRememberMe" value="false" />
+                           name="WebLogin_chkRememberMe" value="false" />
                     <label class="custom-control-label" for="WebLogin_chkRememberMe">Remember me on this device</label>
                 </div>
 
