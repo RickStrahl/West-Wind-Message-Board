@@ -14,10 +14,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <link rel="apple-touch-icon" href="touch-icon.png" />
     
-    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />    
-    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />    
+    <link href="../lib/fontawesome/css/all.min.css" rel="stylesheet" />
     <link href="../css/application.css" rel="stylesheet" />      
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
     <style>
         .row li {
             margin-left: -15px;    
@@ -33,14 +33,14 @@
             <img class="title-bar-icon" src="../images/icon.png" />
             <div class="title-bar no-slide-menu">
                 <a href="../">                    
-                    <div style="float: left; margin: 4px 5px; line-height: 1.0">
+                    <div style="float: left; margin: 4px 45px; line-height: 1.0">
                         <i style="color: #0092d0; font-size: 0.975em; font-weight: bold;">West Wind</i><br />
                         <i style="color: whitesmoke; font-size: 1.7em; font-weight: bold;">Message Board</i>
                     </div>
                 </a>
             </div>
 
-        <nav class="banner-menu-top pull-right">
+        <nav class="banner-menu-top float-right">
             <a href="http://west-wind.com/webconnection/docs/" 
                 target="top"
                 class="hidable">
@@ -258,7 +258,7 @@
     
 
     <footer>
-        <a href="http://www.west-wind.com/" class="pull-right" >
+        <a href="http://www.west-wind.com/" class="float-right" >
             <img src="../images/WestwindText.png" />
         </a>
         <small>&copy; Westwind Technologies, 1995-<%= DateTime.Now.Year %></small>
