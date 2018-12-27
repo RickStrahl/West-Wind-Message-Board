@@ -10,40 +10,44 @@ endif
 if vartype(pcPassword) !="C"
   pcPassword =""
 endif
-if vartype(pcRedirectUrl) !="C"
-  pcRedirectUrl =""
+if vartype(pcReturnUrl) !="C"
+  pcReturnUrl =""
 endif
 if vartype(pcDisplayMessage) != "C"
    pcDisplayMessage = ""
 endif
 %>
 
-<div class="main-content" style="margin: 30px auto;padding: 20px;">
-    <div class="page-header-text">
-        <i class="fa fa-unlock-alt"></i>
-        Message Board Sign in
+<div class="container">
+    <div class="page-header-text margin-top">
+        <i class="fas fa-unlock-alt"></i>
+        Application Sign in
     </div>
-    
+
     <%= HtmlErrorDisplay(pcErrorMessage,"warning") %>
 
     <form action="" method="POST">
 
-        <div id="WebLogin" class="panel panel-primary" style="max-width: 550px; margin: 0 auto;">
-            <div class="panel-heading" style="font-weight: bold">
+        <div id="WebLogin" class="card" style="max-width: 550px; margin: 40px auto;">
+            <div class="card-header font-weight-bold bg-primary text-white">
                 Please sign in
             </div>
+        
             <% if !empty(pcDisplayMessage) %>
-            <div style="background: lightblue; padding: 7px; font-size: 80%">
-                <i class="fa fa-info-circle"></i> 
+            <div style="background: #e1f0ff; padding: 8px 12px; font-size: 0.8em">
+                <i class="fas fa-info-circle"></i> 
                 <%= pcDisplayMessage %>
             </div>
             <% endif %>
-            <div class="panel-body">
+
+            <div class="card-body">
 
                 <div class="form-group">
                     <div class="input-group ">
-                        <div class="input-group-addon">
-                            <i class="fa fa-fw fa-envelope"></i>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="far fa-fw fa-envelope"></i>
+                            </span>
                         </div>
                         <input type="text" name="WebLogin_txtUsername" id="WebLogin_txtUsername"
                                class="form-control" placeholder="Enter your email address"
@@ -55,53 +59,55 @@ endif
                     </div>
                 </div>
 
-                <div class="form-group" id="PasswordGroup">
-                    <div class="input-group ">
-                        <div class="input-group-addon">
-                            <i class="fa fa-fw fa-unlock-alt"></i>
-                        </div>
 
+                <div class="form-group">
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-fw fa-unlock-alt"></i>
+                            </span>
+                        </div>
                         <input type="password"
                                name="WebLogin_txtPassword" id="WebLogin_txtPassword"
-                               class="form-control" id="form-group-input" placeholder="Enter your password">
+                               class="form-control"  placeholder="Enter your password">
                     </div>
                 </div>
 
-                <button type="submit" name="WebLogin_btnLogin" id="WebLogin_btnLogin"
-                        class="btn btn-primary btn-large">
-                    <i class="fa fa-unlock-alt"></i> Sign in
-                </button>
-                <button type="submit" id="WebLogin_btnRecover" name="WebLogin_btnRecover"
-                        class="btn btn-primary btn-large" style="display: none;">
-                    <i class="fa fa-unlock-alt"></i> Recover Password
-                </button>
 
-                <a id="btnForgotPassword" href="#" class="btn btn-link">Forgot your password?</a>
-
-                
+                <div class="custom-control custom-checkbox" style="margin-bottom: 1em;">
+                    <input type="checkbox" class="custom-control-input"
+                           id="WebLogin_chkRememberMe" name="WebLogin_chkRememberMe" value="true" />
+                    <input type="hidden"
+                           id="WebLogin_chkRememberMe" name="WebLogin_chkRememberMe" value="false" />
+                    <label class="custom-control-label" for="WebLogin_chkRememberMe">Remember me on this device</label>
+                </div>
 
 
-                <% if Process.lIsAuthenticated %>
-	                <a href="logout.<%= JUSTEXT( Request.GetPhysicalPath() ) %>"
-	                   class="btn btn-default btn-sm pull-right">
-	                    <i class="fa fa-lock"></i>
-	                    Sign out
-	                </a>
-                <% endif %>
-            </div>
-        </div>
 
-        <input type="hidden" name="RedirectUrl" value="<%= pcRedirectUrl %>" />
+                        <!--<div class="form-group" style="margin-left: 5px;">
+                            <input id="WebLogin_chkRememberMe" name="WebLogin_chkRememberMe" type="checkbox" value="true">
+                            <input name="WebLogin_chkRememberMe" type="hidden" value="false">
+                            <label for="WebLogin_chkRememberMe">Remember me on this device</label>
+                        </div>-->
+
+                        <button type="submit" id="btnSubmit" name="WebLogin_btnLogin" class="btn btn-primary" style="width: 120px" value="SIGN IN">
+                            <i class="fa fa-lock"></i> Sign In
+                        </button>
+
+                        <% if Process.lIsAuthenticated %>
+                        <a href="logout.<%= JUSTEXT( Request.GetPhysicalPath() ) %>"
+                           class="btn btn-default btn-sm float-right">
+                            <i class="fas fa-lock"></i>
+                            Sign out
+                        </a>
+                        <% endif %>
+
+                </div> <!-- card-body -->
+            </div> <!-- card -->
+
+        <input type="hidden" name="ReturnUrl" value="<%= pcReturnUrl %>" />
     </form>
-</div>
-
-<% section="scripts" %>
-<script>
+    <script>
         document.getElementById("WebLogin_txtUsername").focus();
-
-        $("#btnForgotPassword").click(function () {
-            $("#WebLogin_btnRecover").show();
-            $("#WebLogin_btnLogin,#PasswordGroup,#btnForgotPassword").hide();
-        });
-</script>
-<% endsection %>
+    </script>
+</div>
