@@ -313,7 +313,7 @@ function loadTopicAjax(href) {
         }
 
         // always update the ui
-        $("#SortContainer .fa").removeClass("selected");
+        $("#SortContainer .far").removeClass("selected");
 
         if (wwthreads.userData.sortAscending)
             $("#MessageOrderDown").addClass("selected");

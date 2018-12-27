@@ -36,6 +36,10 @@ h6
 img {
 	max-width: 100%;
 }
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
 a, b, strong {
     font-weight: 600;
 }
@@ -335,9 +339,9 @@ input[type=checkbox].with-font:focus ~ label
     display: inline-block;
     margin-right: 4px;
 }
-.menu-toolbar a .fa {
-    color: gold;
-}
+    .menu-toolbar a .fa, .menu-toolbar a .fas {
+        color: gold;
+    }
     .menu-toolbar a:hover .fa {
         color: steelblue;
     }
@@ -658,12 +662,12 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         padding-bottom: 30px;
     }
 
-   
-    .message-item {        
-        padding: 3px 10px 6px 8px;
-        border-bottom: 1px solid #eee;
-        margin: 0 5px;        
-    }
+
+.message-item {
+    padding: 5px 10px 7px 8px;
+    border-bottom: 1px solid #eee;
+    margin: 0 5px;    
+}
      .message-item:hover {
                 background: khaki;
                 border-radius: 3px;
@@ -673,16 +677,14 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
          font-size: 1.1em;
      }
 
-    .message-header {
-        font-weight: bold;
-        margin-top: 5px;        
+    .message-header {        
         font-size: 1.1em;
-        padding-left: 30px;
+        padding-left: 32px;
         display: block
     }
     .message-detail {
         font-size: 0.8em;
-        padding: 3px 30px;
+        padding: 3px 32px;
     }
 
     .message-list-item {
@@ -726,7 +728,7 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         background: #e3ebf5;
         border-radius: 2px;
     }
-    #SortContainer .fa.selected {
+    #SortContainer .far.selected {
         background: goldenrod;
         border-radius: 2px;
     }

@@ -87,29 +87,28 @@
 
 
 <div class="forum-list-header">
-    <div class="pull-right expand-forum" style="font-size: 0.8em; color: goldenrod; padding: 4px">
-        <i class="fa fa-expand"></i>
+    <div class="float-right expand-forum" style="font-size: 0.8em; color: goldenrod; padding: 4px;">
+        <i class="far fa-expand-alt"></i>
     </div>
     <span style="padding-right: 7px;">-</span> <%: forum %>
 </div>
-<div class="forum-list-container">
+<div class="forum-list-container" >
     <% llOpenForum = .T.
     endif %>
     <div class="message-item" data-id="<%= Threadid %>">
-        <div class="pull-left">
-            <i class="fa fa-thumb-tack<%= IIF(MsgCount -1 < 1,[ fa-rotate-90 fa-red],[ fa-green]) %>" ></i>
+        <div class="float-left">
+            <i class="fas fa-thumbtack <%= IIF(MsgCount -1 < 1,[ fa-rotate-90 fa-red],[ fa-green]) %>"  style="font-size: 0.8em"></i>
             <%if Pinned %>
-            <i class="fa fa-star" style="color: goldenrod;font-size: 0.8em"></i>
+            <i class="fa fa-star fa-fw" style="color: goldenrod;font-size: 0.85em; margin-top: -5px"></i>
             <% endif %>
             <% if MsgCount - 1 > 0 %>
             <div style="font-size:8pt; margin-top: 3px;margin-left: -2px">
-                <%= MsgCount - 1 %><i class="fa fa-comments-o" style="padding-left: 2px;color: steelblue;"></i>
+                <%= MsgCount - 1 %><i class="fal fa-comments" style="padding-left: 2px;color: steelblue;"></i>
             </div>
             <% endif %>
         </div>
 
         <div class="message-header">
-
             <a href="Thread<%= ThreadId %>.wwt"><%: TRIM(Subject)  %></a>
         </div>
         <div class="message-detail">

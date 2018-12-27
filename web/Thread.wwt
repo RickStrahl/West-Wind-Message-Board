@@ -7,8 +7,8 @@
 
 <% if .f. %>
 <!-- only for intellisense to work better -->
-<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-<link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="lib/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
 <link href="css/application.css" rel="stylesheet" />
 <% endif  %>
 
@@ -18,11 +18,11 @@
         <%= STRCONV(forum,9) %>
     </div>
 
-    <div id="SortContainer" class="pull-right" style="margin-right: 5px;">
-        <i id="MessageOrderDown" class="fa fa-sort-numeric-asc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 1px; cursor: pointer;"
+    <div id="SortContainer" class="float-right" style="margin-right: 5px;">
+        <i id="MessageOrderDown" class="far fa-sort-numeric-up" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 1px; cursor: pointer;"
            title="Display messages oldest messages first"></i>
 
-        <i id="MessageOrderUp" class="fa fa-sort-numeric-desc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 2px; cursor: pointer;"
+        <i id="MessageOrderUp" class="far fa-sort-numeric-down" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 2px; cursor: pointer;"
            title="Display messages latest messages first"></i>
     </div>
 
@@ -49,13 +49,13 @@
 
                     <b style="font-size: 1.2em;"><%= STRCONV(EncodeHtml(Subject),9) %></b><br />
 
-                    <i class="fa fa-user fa-fw"></i>&nbsp;
+                    <i class="fas fa-user fa-fw"></i>&nbsp;
                     <%= STRCONV(EncodeHtml(FromName),9) %><br />
 
-                    <i class="fa fa-reply fa-fw"></i>&nbsp;
+                    <i class="fas fa-reply fa-fw"></i>&nbsp;
                     <%= STRCONV(EncodeHtml(Process.GetRecipient(To)),9) %><br />
 
-                    <div class="pull-right hidable-xs small">
+                    <div class="float-right hidable-xs small">
 
                         <i class="fa fa-external-link"></i>
                         <a href="#<%= MsgId %>" title="Message id - click to update the URL for a pasteable link.">
@@ -63,7 +63,7 @@
                         </a>
                     </div>
 
-                    <i class="fa fa-clock-o fa-fw"></i>&nbsp;
+                    <i class="far fa-clock fa-fw"></i>&nbsp;
                     <%=ShortDate(TimeStamp,1 )%>  @ <%=ShortTime(TimeStamp)%><br />
                     <div class="clearfix"></div>
                 </div>
@@ -79,12 +79,12 @@
                     Edit
                 </a>
                 <a href="DeleteMessage.wwt?id=<%= MsgId %>" class="hover-dark">
-                    <i class="fa fa-remove"></i>
+                    <i class="fas fa-times"></i>
                     Delete
                 </a>
                 <% endif %>
                 <% if Pinned %>
-                <a class="hover-dark  pull-right">
+                <a class="hover-dark  float-right">
                     <i class="fa fa-star" style="color: goldenrod" title="This thread is pinned."></i>
                 </a>
 

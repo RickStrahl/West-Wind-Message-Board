@@ -17,8 +17,8 @@
     <link rel="icon" href="~/touch-icon.png" />
     <meta name="msapplication-TileImage" content="~/touch-icon.png" />
 
-    <link href="~/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />   
-    <link href="~/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />   
+    <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" />
     <link href="~/css/application.css" rel="stylesheet" />
         
     <%= RenderSection("headers") %> 
@@ -38,10 +38,10 @@
             </div>
 
             <!-- top right nav menu - .hidable for options that hide on small sizes -->
-            <nav class="banner-menu-top pull-right">
+            <nav class="banner-menu-top float-right">
                 <% if !Process.lIsAuthenticated %>
 
-                <a href="Login.wwt?returnurl=<%= Request.GetCurrentUrl() %>" class="pull-right" title="Sign in">
+                <a href="Login.wwt?returnurl=<%= Request.GetCurrentUrl() %>" class="float-right" title="Sign in">
                     <i class="fa fa-unlock-alt"></i>
                     Sign in
                 </a>
@@ -62,7 +62,7 @@
                             }
                 </style>
                 <div class="btn-group">
-                    <a href="#" class="pull-right  dropdown-toggle" title="<%= Process.cAuthenticatedName %>" data-toggle="dropdown">
+                    <a href="#" class="float-right  dropdown-toggle" title="<%= Process.cAuthenticatedName %>" data-toggle="dropdown">
                         <i class="fa fa-lock"></i>
                         <span class="hidable-xs"><%= Process.cAuthenticatedName %></span>
                         <img title="Sign out <%= Process.cAuthenticatedName %>." src="<%= GravatarLink(Process.cAuthenticatedUser,23) %>" />
@@ -109,14 +109,14 @@
                 <i class="fa fa-search"></i>
                 <span class="hidable-xs">Search</span>
             </a>
-            <a id="Refresh-Latest-Button" href="javascript:{}" title="Refresh the message list with messages since last message load.">
-                <i class="fa fa-refresh"></i>         
+            <a id="Refresh-Latest-Button" href="javascript:{}" title="Refresh the message list with messages since last message load.">                   
+                <i class="fas fa-sync-alt"></i>
                 <span class="hidable-xs">Latest</span>       
             </a>
             <a id="Refresh-Button" 
                 href="javascript:{}" 
                 title="Repeat and refresh results from the last search." >
-                <i class="fa fa-repeat"></i>
+                <i class="fas fa-repeat"></i>
                 <span class="hidable-xs">Redo</span>                       
             </a>
             
@@ -139,7 +139,7 @@
 
                 <% IF LOWER(JustStem(Request.GetPhysicalPath())) != "threads" %>
                 <footer>
-                    <div class="pull-right" style="text-align: right">
+                    <div class="float-right" style="text-align: right">
                         
                         <a href="https://west-wind.com/">
                             <img src="~/images/WestwindText.png" />
