@@ -1,5 +1,5 @@
 <%
-   * VS Addin Comment: SourceFile="~/../Deploy/wwThreadProcess.prg"   
+   * VS Addin Comment: SourceFile="~/../Deploy/wwThreadProcess.prg"
     pcPageTitle = "New Message - West Wind Messageboard"
     *** pnMsgMode  -   1 - New, 2 - Reply
 %>
@@ -95,7 +95,7 @@
         </div>
 
         <!--<pre lang="markdown" id="Editor">
-    </pre>-->
+        </pre>-->
         <textarea id="Message" name="Message"
                   style="min-height: 350px;padding: 5px; font-family: Consolas, Menlo, monospace; border: none;
                   background: #333; width: 100% ; color: #fafafa "><%= Request.FormOrValue('Message',poMsg.Message) %></textarea>
@@ -118,7 +118,7 @@
         <% endif %>
 
 
-        
+
 
 
 
@@ -205,213 +205,12 @@
     <% endif %>
 
 
-<div class="modal fade" id="HrefDialog" tabindex="-1" role="dialog" aria-labelledby="HrefDialog-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">                
-                <h4 class="modal-title" id="HrefDialog-label">Insert Link</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="control-label" for="HrefLinkText">Link Text</label>
-                    <input type="text" class="form-control" id="HrefLinkText" placeholder="Link Text">
-                </div>
 
-                <div class="form-group">
-                    <label class="control-label" for="HrefLink">URL</label>
-                    <input type="text" class="form-control" id="HrefLink" placeholder="The URL to embed">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="btnPasteHref" data-dismiss="modal" class="btn btn-primary">
-                    <i class="fa fa-external-link"></i>
-                    Paste Link
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+<% section="bottom-page" %>
 
+<%= RenderPartial("~/WriteMessage_Modals.wwt") %>
 
-<div class="modal fade" id="CodeDialog" tabindex="-1" role="dialog" aria-labelledby="CodeDialog-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="CodeDialog-label">Insert Code Snippet</h4>                
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="control-label" for="CodeLanguage">Choose a Language</label>
-                    <select id="CodeLanguage" name="CodeLanguage" size="1" class="form-control">
-                        <option value="txt">-- No Code Formatting --</option>
-                        <optgroup label="Common">
-                            <option value="csharp">C#</option>
-                            <option value="foxpro">FoxPro</option>
-                            <option value="html">HTML</option>
-                            <option value="javascript">JavaScript</option>
-                            <option value="typescript">TypeScript</option>
-                            <option value="json">JSON</option>
-                            <option value="xml">XML</option>
-                            <option value="css">CSS</option>
-                            <option value="less">Less</option>
-                            <option value="sass">Sass</option>
-                            <option value="c_cpp">C/C++</option>
-                            <option value="sql">SQL</option>
-                            <option value="sqlserver">SQL Server</option>
-                            <option value="python">Python</option>
-                            <option value="ruby">Ruby</option>
-                            <option value="php">PHP</option>
-                            <option value="java">Java</option>
-                            <option value="vbnet">VB.NET</option>
-                        </optgroup>
-                        <optgroup label="Everything Else">
-                            <option value="actionscript">ActionScript</option>
-                            <option value="apache_conf">Apache Conf</option>
-                            <option value="assembly_x86">Assembly x86</option>
-                            <option value="batchfile">BatchFile</option>
-                            <option value="clojure">Clojure</option>
-                            <option value="cobol">Cobol</option>
-                            <option value="coffee">CoffeeScript</option>
-                            <option value="coldfusion">ColdFusion</option>
-                            <option value="css">CSS</option>
-                            <option value="dart">Dart</option>
-                            <option value="dockerfile">Diff</option>
-                            <option value="diff">Docker</option>
-                            <option value="elixir">Elxir</option>
-                            <option value="elm">Elm</option>
-                            <option value="erlang">Erlang</option>
-                            <option value="foxpro">FoxPro</option>
-                            <option value="groovy">Groovy</option>
-                            <option value="gitignore">GitIgnore</option>
-                            <option value="haml">HAML</option>
-                            <option value="handlebars">Handlebars</option>
-                            <option value="haskell">Haskell</option>
-                            <option value="html_ruby">HTML (Ruby)</option>
-                            <option value="ini">INI</option>
-                            <option value="jade">Jade</option>
-                            <option value="java">Java</option>
-                            <option value="javascript">JavaScript</option>
-                            <option value="json">JSON</option>
-                            <option value="jsp">JSP</option>
-                            <option value="jsx">JSX</option>
-                            <option value="latex">LaTeX</option>
-                            <option value="less">LESS</option>
-                            <option value="lisp">Lisp</option>
-                            <option value="lucene">Lucene</option>
-                            <option value="makefile">Makefile</option>
-                            <option value="markdown">Markdown</option>
-                            <option value="mysql">MySQL</option>
-                            <option value="pascal">Pascal</option>
-                            <option value="perl">Perl</option>
-                            <option value="powershell">Powershell</option>
-                            <option value="prolog">Prolog</option>
-                            <option value="python">Python</option>
-                            <option value="razor">Razor</option>
-                            <option value="ruby">Ruby</option>
-                            <option value="sass">SASS</option>
-                            <option value="scala">Scala</option>
-                            <option value="sqlserver">Sql Server</option>
-                            <option value="svg">SVG</option>
-                            <option value="swift">Swift</option>
-                            <option value="typescript">Typescript</option>
-                            <option value="vbnet">VB.NET</option>
-                            <option value="vbscript">VBScript</option>
-                            <option value="xml">XML</option>
-                            <option value="xquery">XQuery</option>
-                            <option value="yaml">YAML</option>
-                        </optgroup>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="CodeSnippet">Code Snippet</label>
-                    <textarea class="form-control" id="CodeSnippet" placeholder="Code Snippet" style="height: 300px; font-family: Menlo, Consolas, monospace"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button id="btnPasteCode" type="button" class="btn btn-primary">
-                    <i class="fa fa-code"></i>
-                    Paste Code
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ImageDialog" tabindex="-1" role="dialog" aria-labelledby="ImageDialog-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">                
-                <h4 class="modal-title" id="ImageDialog-label">Insert Image</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="control-label" for="ImageHref">Image Url <span class="small">(external source ie. Flicker, ImgUr,Dropbox etc.)</span></label>
-                    <input type="text" class="form-control" id="ImageLink" placeholder="Provide a URL of an image on the Web">
-                </div>
-                <button id="btnImageLink" class="btn btn-primary" data-dismiss="modal">
-                    <i class="fa fa-image"></i>
-                    Insert Image Url
-                </button>
-
-                <hr />
-
-                <form id="ajaxForm" name="ajaxForm" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label class="control-label">
-                            Upload and Image from your local device
-                        </label>
-                        <br />
-
-                        <style>
-                            .fileUpload {
-                                position: relative;
-                                overflow: hidden;
-                            }
-                                /* hide the actual file upload control by making it invisible */
-                                .fileUpload input.upload {
-                                    position: absolute;
-                                    top: 0;
-                                    right: 0;
-                                    margin: 0;
-                                    padding: 0;
-                                    font-size: 20px;
-                                    cursor: pointer;
-                                    opacity: 0;
-                                    filter: alpha(opacity=0);
-                                }
-                        </style>
-                        <div class="fileUpload btn btn-primary">
-                            <span>
-                                <i class="fa fa-upload"></i>
-                                Upload Image... <i id="UploadProgress" class="fa fa-spinner fa-spin" style="display:none"></i>
-                                <i id="ajaxProgress" class="fa fa-spinner fa-spin" style="display: none"></i>
-                            </span>
-                            <input type="file" id="ajaxUpload" name="ajaxUpload"
-                                   class="upload" accept="image/*" />
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-default">
-                    <i class="fa fa-remove"></i>
-                    Cancel
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
+<% endsection %>
 
 <!-- remove sections if you're not using them -->
 <% section="headers" %>
