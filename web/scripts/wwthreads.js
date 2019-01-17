@@ -103,6 +103,11 @@ window.wwthreads = null;
         // Search button clicks
         $(document.body).on("click","#Search-Button,#Search-Button-Close",function() {
             $(".message-search-box").toggle();
+
+            setTimeout(function() {
+                    var $el = $("#StartDate_field");
+                    $el.focus();                  
+                }, 50);
         });        
         $(document.body).on("click", "#Search-Button-Submit,#Refresh-Button", messageSearchQuery);
         $(".sidebar-left").on("click", "#Search-Button-Clear", clearSearchQuery);

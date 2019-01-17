@@ -1,6 +1,5 @@
 SET PROCEDURE TO wwBusinessObject ADDITIVE
 SET PROCEDURE TO wwUtils ADDITIVE
-SET PROCEDURE TO wwCollections ADDITIVE
 SET PROCEDURE TO wwt_user.prg ADDITIVE
 
 *************************************************************

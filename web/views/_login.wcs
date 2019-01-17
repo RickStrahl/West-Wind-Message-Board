@@ -32,10 +32,10 @@ endif
             <div class="card-header font-weight-bold bg-primary text-white">
                 Please sign in
             </div>
-        
+
             <% if !empty(pcDisplayMessage) %>
             <div style="background: #e1f0ff; padding: 8px 12px; font-size: 0.8em">
-                <i class="fas fa-info-circle"></i> 
+                <i class="fas fa-info-circle"></i>
                 <%= pcDisplayMessage %>
             </div>
             <% endif %>
@@ -60,7 +60,7 @@ endif
                 </div>
 
 
-                <div class="form-group">
+                <div class="form-group" id="PasswordGroup">
                     <div class="input-group ">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -69,12 +69,12 @@ endif
                         </div>
                         <input type="password"
                                name="WebLogin_txtPassword" id="WebLogin_txtPassword"
-                               class="form-control"  placeholder="Enter your password">
+                               class="form-control" placeholder="Enter your password">
                     </div>
                 </div>
 
 
-                <div class="custom-control custom-checkbox" style="margin-bottom: 1em;">
+                <div class="custom-control custom-checkbox" style="margin-bottom: 1em;" id="RememberMeCheckBox">
                     <input type="checkbox" class="custom-control-input"
                            id="WebLogin_chkRememberMe" name="WebLogin_chkRememberMe" value="true" />
                     <input type="hidden"
@@ -84,30 +84,45 @@ endif
 
 
 
-                        <!--<div class="form-group" style="margin-left: 5px;">
-                            <input id="WebLogin_chkRememberMe" name="WebLogin_chkRememberMe" type="checkbox" value="true">
-                            <input name="WebLogin_chkRememberMe" type="hidden" value="false">
-                            <label for="WebLogin_chkRememberMe">Remember me on this device</label>
-                        </div>-->
+             
 
-                        <button type="submit" id="btnSubmit" name="WebLogin_btnLogin" class="btn btn-primary" style="width: 120px" value="SIGN IN">
-                            <i class="fa fa-lock"></i> Sign In
-                        </button>
+                <button type="submit" id="WebLogin_btnLogin" name="WebLogin_btnLogin" class="btn btn-primary" style="width: 120px" value="SIGN IN">
+                    <i class="fa fa-lock"></i> Sign In
+                </button>
 
-                        <% if Process.lIsAuthenticated %>
-                        <a href="logout.<%= JUSTEXT( Request.GetPhysicalPath() ) %>"
-                           class="btn btn-default btn-sm float-right">
-                            <i class="fas fa-lock"></i>
-                            Sign out
-                        </a>
-                        <% endif %>
+                <button type="submit" id="WebLogin_btnRecover" name="WebLogin_btnRecover"
+                        class="btn btn-primary btn-large" style="display: none;">
+                    <i class="fa fa-unlock-alt"></i> Recover Password
+                </button>
 
-                </div> <!-- card-body -->
-            </div> <!-- card -->
+                <a id="btnForgotPassword" href="#" style="display: block;margin-top: 20px;">Forgot your password?</a>
+
+
+                <% if Process.lIsAuthenticated %>
+                <a href="logout.<%= JUSTEXT( Request.GetPhysicalPath() ) %>"
+                   class="btn btn-default btn-sm float-right">
+                    <i class="fas fa-lock"></i>
+                    Sign out
+                </a>
+                <% endif %>
+
+            </div> <!-- card-body -->
+        </div> <!-- card -->
 
         <input type="hidden" name="ReturnUrl" value="<%= pcReturnUrl %>" />
     </form>
+
+    <% section="scripts" %>
+
     <script>
         document.getElementById("WebLogin_txtUsername").focus();
+
+        $("#btnForgotPassword").click(function () {
+            $("#WebLogin_btnRecover").show();
+            $("#WebLogin_btnLogin,#PasswordGroup,#btnForgotPassword,#RememberMeCheckBox").hide();
+        });
     </script>
+
+    <% endsection %>
+
 </div>

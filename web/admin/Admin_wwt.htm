@@ -17,9 +17,9 @@
     <meta name="msapplication-TileImage" content="touch-icon.png">
 
 
-    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
-    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="../lib/fontawesome/css/all.min.css" rel="stylesheet" />
     <link href="../css/application.css" rel="stylesheet" />
 </head>
 
@@ -44,7 +44,7 @@
             </a>
         </div>
 
-        <nav class="banner-menu-top pull-right">
+        <nav class="banner-menu-top float-right">
             <a id="SamplesLink" class="menu-hidable">
                 <i class="fa fa-list"></i>
                 More
@@ -84,22 +84,22 @@
 
                 <div class="list-group">
                     <a href="reindex.wwt" class="list-group-item">
-                        <i class="fa fa-angle-right  pull-right"></i>
+                        <i class="fa fa-angle-right  float-right"></i>
                         <i class="fa fa-bullhorn"></i> Reindex Files
                     </a>
 
                     <a href="backup.wwt" class="list-group-item">
-                        <i class="fa fa-angle-right  pull-right"></i>
+                        <i class="fa fa-angle-right  float-right"></i>
                         <i class="fa fa-list"></i> Backup files
                     </a>
 
                     <a href="CleanupUnreferencedImages.wwt" class="list-group-item">
-                        <i class="fa fa-angle-right  pull-right"></i>
+                        <i class="fa fa-angle-right  float-right"></i>
                         <i class="fa fa-image"></i> Cleanup Unreferenced Images
                     </a>
 
                     <a href="admin.aspx" class="list-group-item">
-                        <i class="fa fa-angle-right  pull-right"></i>
+                        <i class="fa fa-angle-right  float-right"></i>
                         <i class="fa fa-gear"></i> Message Board Web Connection Administration
                     </a>
                 </div>
@@ -112,7 +112,7 @@
 
 
 <footer>
-    <a href="http://www.west-wind.com/" class="pull-right">
+    <a href="http://www.west-wind.com/" class="float-right">
         <img src="../images/wwtoollogo.png"/>
     </a>
     &copy; Your Company Here, 2016
@@ -153,8 +153,8 @@
     </div>
 </nav>
 
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="lib/jquery/dist/jquery.min.js"></script>
     <script>
         $(".slide-menu-toggle-open,.slide-menu-toggle-close, .slide-menu a, #SamplesLink").click(function () {
             $(".slide-menu").toggleClass("active");

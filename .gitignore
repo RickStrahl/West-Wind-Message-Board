@@ -12,6 +12,7 @@ FXUResults.*
 #NOTE: If you use Web Control Framework
 #       pages with code in web folders remove following line
 web/**/*.prg
+/build/
 
 
 #Web Connection

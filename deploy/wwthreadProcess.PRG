@@ -800,14 +800,18 @@ lcExt = LOWER(JUSTEXT(lcFileName))
 
 STRTOFILE(loFile.Content,lcFileName)	
 
-IF (lcExt = "png")
-  lcCmd = [pngout.exe "] + lcFilename  + ["]
+*!*	IF (lcExt = "png")
+*!*	  lcCmd = [pngout.exe "] + lcFilename  + ["]
+*!*	  RUN /n7 &lcCmd
+*!*	ENDIF
+IF (lcExt = "png" OR lcExt = "jpg" OR lcExt = "JPEG")
+  lcCmd = [pingo.exe auto "] + lcFilename  + ["]
   RUN /n7 &lcCmd
 ENDIF
 
 lcUrl = this.ResolveServerUrl("~/PostImages/"  + TRANSFORM(YEAR(DATETIME())) + "/" + lcNewFile)
 
-lcUrl = STRTRAN(lcUrl,"http://","//",1,1,1)
+lcUrl = STRTRAN(lcUrl,"http://","https://",1,1,1)
 
 Response.ContentType = "application/json"
 Response.Write( JsonString(lcUrl) )
@@ -871,14 +875,15 @@ IF (lcExt = "png")
   llToJpg = .f.
   IF LEN(lcFileData) > 100000
         lcJpgFilename = FORCEEXT(lcFilename,"jpg")
+        lcExt = "jpg"
 		loBridge = GetwwDotnetBridge()
 		TRY
 			*** Make sure image is not too big
 			*infile, outfile, jpeg quality, dpi
-			llResult = loBridge.InvokeStaticMethod("Westwind.Utilities.ImageUtils","ConvertImageFile",lcFilename, lcJpgFilename, 85, 96)
-		CATCH
+			llResult = loBridge.InvokeStaticMethod("Westwind.WebConnection.ImageUtils","ConvertImageFile",lcFilename, lcJpgFilename, 85, 96)
+		CATCH	
 		ENDTRY
-				
+
 		IF FILE(lcJpgFilename)
 			IF FileSize(lcFileName) > FileSize(lcJpgFileName)
 			   ERASE (lcFilename)
@@ -888,19 +893,20 @@ IF (lcExt = "png")
 			ELSE
 			   ERASE (lcJpgFilename)
 			ENDIF
+			lcFilename = lcJpgFilename
 		ENDIF
-  ENDIF
-
-  
-  IF !llToJpg
-	  lcCmd = [pngout.exe "] + lcFilename  + ["]
-	  RUN /N7 &lcCmd
   ENDIF
 ENDIF
 
+IF (lcExt = "png" OR lcExt = "jpg" OR lcExt = "jpeg")
+  lcCmd = [pingo -auto "] + lcFilename  + ["]
+  RUN /N7 &lcCmd  
+ENDIF  
+
+
 lcUrl = this.ResolveServerUrl("~/PostImages/"  + TRANSFORM(YEAR(DATETIME())) + "/" + lcNewFile)
 
-lcUrl = STRTRAN(lcUrl,"http://","//",1,1,1)
+lcUrl = STRTRAN(lcUrl,"http://","https://",1,1,1)
 
 Response.ContentType = "application/json"
 Response.Write( JsonString(lcUrl) )
