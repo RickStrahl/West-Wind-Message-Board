@@ -125,10 +125,14 @@
         <blockquote style="margin: 10px 0;max-width:  830px">
             <markdown>
                 #####  @icon-info-circle Please format your code
+                <small>
+
                 If your post contains any code snippets, you can use the
-                `<\>
-                    ` tool button to select your code and apply a code
-                    language syntax. It makes it **much easier** for everyone to read your code.
+                `<\>` tool button to select your code and apply a code
+                language syntax. Formatted code makes it **much easier** for 
+                everyone to read your code.
+
+                </small>
             </markdown>
         </blockquote>
 

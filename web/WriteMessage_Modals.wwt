@@ -193,11 +193,19 @@
                         </div>
                     </div>
 
+
                 </form>
+
             </div>
+
+
+            <div class="alert alert-info small" style="border-radius: 0">
+                <b>Note:</b> You can also paste images from the clipboard directly into the editor.
+            </div>
+
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">
-                    <i class="fa fa-remove"></i>
+                    <i class="fas fa-times text-danger"></i>
                     Cancel
                 </button>
             </div>
