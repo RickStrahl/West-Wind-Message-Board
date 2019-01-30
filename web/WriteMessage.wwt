@@ -251,6 +251,10 @@
 
 <% section="scripts" %>
 
+<script src="~/lib/marked/marked.min.js"></script>
+<script>
+ 
+</script>
 <script src="~/scripts/WriteMessage.js?v1.12"></script>
 <script>
     setTimeout(function () {
@@ -274,5 +278,5 @@
 <% endif %>
 
 
-<script src="~/lib/marked/marked.min.js"></script>
+
 <% endsection %>

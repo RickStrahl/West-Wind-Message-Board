@@ -30,12 +30,11 @@ loProcess.Dispose()
 RETURN
 
 *************************************************************
-DEFINE CLASS wwThreadProcess AS WWC_PROCESS
+DEFINE CLASS wwThreadProcess AS wwProcess OF wwProcess.prg
 *************************************************************
 
 #IF .F. 
-LOCAL Request as wwRequest, Response as wwResponse, Server as wwServer, ;
-      THIS as wwProcess, Process as wwProcess, Session as wwSession
+LOCAL THIS as wwThreadProcess OF wwThreadProcess
 #ENDIF
 
 
@@ -66,10 +65,10 @@ oThreadUser = .null.
 *** every hit against this process class , implement this method.
 *********************************************************************
 FUNCTION OnProcessInit
-LOCAL lcThreadId
+LOCAL lcThreadId, lcScript
 
-*!* LOCAL lcScriptName, llForceLogin
-THIS.InitSession("wwt",24000 * 30,.T.)
+*** 15 days for session
+THIS.InitSession("wwt",60 * 60 * 24 * 15,.T.)
 
 *** AUthenticate so we get user info - we then use
 *** specific checks for specific requests

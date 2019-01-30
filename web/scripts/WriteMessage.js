@@ -75,10 +75,9 @@ $(document).ready(function () {
     setupImageUpload();
 
     // Preview Editor Hookup
-    var markdownFunc = debounce(markdown, 500,false);
-    $msg.keyup(function() {
-        markdownFunc();
-    });    
+    var markdownFunc = debounce(markdown, 1000);
+    $msg.keyup(function () { markdownFunc() });
+    markdownFunc();
 });
 
 
@@ -243,22 +242,24 @@ function setupImageUpload() {
     }
 }
 
+
+marked.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: false,
+    breaks: false,
+    pedantic: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: false
+});
+
 function markdown(markdownText) {
     if (!markdownText)
         markdownText = $("#Message").val();
-    
-    marked.setOptions({
-        renderer: new marked.Renderer(),
-        gfm: true,
-        tables: false,
-        breaks: false,
-        pedantic: false,
-        sanitize: false,
-        smartLists: true,
-        smartypants: false
-    });
+
     var md = marked(markdownText);
-    md = md.replace(/><code class="lang-/g, ' class="no-container"><code class="lang-"');
+    //md = md.replace(/><code class="lang-/g, ' class="no-container"><code class="lang-"');
 
     $("#Preview").html("<hr/>" + md + "<hr/>");
     wwthreads.highlightCode("#Preview pre[lang]");

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "web", "web\", "{AFB16019-3D35-4A2D-8279-4D722BBC45B2}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "web", "web\", "{72FB67DA-B56A-4D75-9141-8EC3C18724E2}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_26769"
@@ -29,10 +29,13 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AFB16019-3D35-4A2D-8279-4D722BBC45B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFB16019-3D35-4A2D-8279-4D722BBC45B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72FB67DA-B56A-4D75-9141-8EC3C18724E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72FB67DA-B56A-4D75-9141-8EC3C18724E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB868D21-1FB7-4D24-950D-6C1FC65E9531}
 	EndGlobalSection
 EndGlobal
