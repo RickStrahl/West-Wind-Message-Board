@@ -66,9 +66,9 @@ oThreadUser = .null.
 *********************************************************************
 FUNCTION OnProcessInit
 LOCAL lcThreadId, lcScript
-
-*** 15 days for session
-THIS.InitSession("wwt",60 * 60 * 24 * 15,.T.)
+ 
+ *** 30 days for session
+THIS.InitSession("wwt",60 * 60 * 24 * 30,.F.)
 
 *** AUthenticate so we get user info - we then use
 *** specific checks for specific requests
