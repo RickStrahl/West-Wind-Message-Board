@@ -1,6 +1,7 @@
 ﻿html, body {
     height: 100%;
     font-size: 15px;
+    border: 0;
 
     scrollbar-track-color: Whitesmoke;
     scrollbar-arrow-color: silver;
@@ -522,7 +523,7 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     font-size: 1.5em;    
     color:  #0092d0;
     padding-bottom: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 15px;    
     border-bottom: 1px solid #e1e1e1;
 }
 .separator {
@@ -623,16 +624,19 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         color: white;
         margin: 0;
         padding: 5px;
+        padding-right: 0.3em;
         text-align: right;
-        font-size: 1.4em;
+        font-size: 1.35em;
         font-weight: bold;
+        border: 0;
     }
     .thread-title {
         padding: 5px 5px;
+        margin: 0;
         color: firebrick;
-        font-size: 1.5em;
-        font-weight: bold;
-         background: linear-gradient(to bottom, rgba(235,188,33,1) 0%,#fff4db 100%);
+        font-size: 1.25em;
+        font-weight: 700;
+        background: linear-gradient(to bottom, rgba(235,188,33,1) 0%,#fff4db 100%);
     }
     .forum-list-header {
         margin-bottom: 3px !important;
@@ -741,7 +745,7 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     }
     @media(min-width: 1400px){
         .main-content{
-            font-size: 1.12em !important;            
+            font-size: 1.14em !important;            
         }
         .message-list-body {
             padding: 15px 3.5%;
