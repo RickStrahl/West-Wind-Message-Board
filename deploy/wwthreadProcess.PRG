@@ -68,7 +68,7 @@ FUNCTION OnProcessInit
 LOCAL lcThreadId, lcScript
  
  *** 30 days for session
-THIS.InitSession("wwt",60 * 60 * 24 * 30,.F.)
+THIS.InitSession("wwt", 60 * 60 * 24 * 30,.T.)
 
 *** AUthenticate so we get user info - we then use
 *** specific checks for specific requests
@@ -126,16 +126,6 @@ DODEFAULT()
 ENDFUNC
 *   CompleteResponse
 
-
-
-FUNCTION Status()
-
-Response.Write("<pre>")
-Response.Writeln("Path: " + Request.GetPhysicalPath())
-Response.Writeln("Resolve Error" + THIS.ResolvePath("~/Views/_ErrorTemplate.wcs"))
-Response.Write("</pre>")
-
-ENDFUNC
 
 ************************************************************************
 *  OnAuthenticateUser
@@ -699,6 +689,13 @@ FUNCTION ReplyMessage()
 PRIVATE pcMsgId, pnMsgMode
 pcMsgId = Request.QueryString("id")
 pnMsgMode = 2
+
+
+IF !this.Authenticate("ANY","",.T.) OR EMPTY(this.cAuthenticatedUserId)
+   Response.Redirect("~/Login.wwt?returnurl=ReplyMessage.wwt?id=" + pcMsgId)
+   return
+ENDIF
+
 RETURN THIS.WriteMessage(pcMsgId)
 ENDFUNC
 *   ReplyMsg
