@@ -81,8 +81,8 @@ window.wwthreads = null;
         });
 
         // handle back/forward navigation so URL updates
-        window.onpopstate = function (event) {
-            if (history.state.URL)
+        window.onpopstate = function (event) {            
+            if (history.state && history.state.URL)
                 loadTopicAjax(history.state.URL);
         }
 

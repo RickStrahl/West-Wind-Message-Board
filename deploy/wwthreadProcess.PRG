@@ -754,6 +754,52 @@ ENDFUNC
 *   DeleteMessage
 
 ************************************************************************
+*  DeleteMessage
+****************************************
+***  Function: Delete a user from the message board. Deletes the
+***            user **and** all of his associated messages
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION DeleteUser()
+
+IF !this.lAuthenticatedAdmin
+  Response.Redirect("~/")	
+  RETURN
+ENDIF
+
+lcMsgId = Request.QueryString("msgId")
+
+poUser = CREATEOBJECT("wwt_user")
+
+
+LOCAL loMsgBus as wwt_Message
+loMsgBus = CREATEOBJECT("wwt_Message")
+IF loMsgBus.Load(lcMsgId)
+   lcUserId = loMsgBus.oData.UserId   
+   lcThreadId = loMsgBus.oData.ThreadId
+   IF !poUser.Delete(lcUserId)
+      this.ErrorDisplay("Failed to delete user","Couldn't delete this user.")
+      RETURN
+   ENDIF
+ELSE
+   Response.Redirect("~/")
+   RETURN
+ENDIF   
+   
+
+IF !EMPTY(lcThreadId)
+   Response.Redirect("~/Thread" + lcThreadId + ".wwt")
+ELSE
+   this.StandardPage("User " +  poUser.oData.Name + " has been deleted.","The user and all of his messages have been removed.")
+ENDIF
+   
+ENDFUNC
+*   DeleteMessage
+
+
+************************************************************************
 *  ImageUpload
 ****************************************
 ***  Function: AjaxImage Upload

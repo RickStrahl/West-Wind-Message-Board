@@ -47,6 +47,35 @@ RETURN DODEFAULT()
 ENDFUNC
 *   Save
 
+************************************************************************
+*  Delete
+****************************************
+***  Function:
+***    Assume:
+***      Pass:
+***    Return:
+************************************************************************
+FUNCTION Delete(lcUserId)
+PRIVATE pcUserId
+
+IF EMPTY(lcUserId)
+   RETURN .F.
+ENDIF   
+
+IF !DODEFAULT(lcUserId)
+   RETURN .F.
+ENDIF
+
+*** Delete all messages from this user
+pcUserId = lcUserId
+IF this.Execute("delete from wwthreads where UserId == pcUserId") < 1
+   RETURN .F.
+ENDIF
+
+RETURN .T.
+ENDFUNC
+*   Delete
+
 
 ************************************************************************
 *  LoadFromEmail
