@@ -381,7 +381,7 @@ ENDFUNC
 *************************************************************
 FUNCTION CreateTable(lcFileName)
 *************************************************************
-LOCAL lxFields
+LOCAL ARRAY lxFields[1]
 
 IF EMPTY(lcFileName)
    lcFileName = THIS.cDataPath + THIS.cFileName
@@ -389,7 +389,7 @@ ENDIF
 
 IF THIS.nDataMode = 0
 
-*** Generated on: 03/04/2016
+*** Generated on: 05/04/2019
 DIMENSION lxFields[ 18,4]
 
 lxFields[  1,1]='USERID'
@@ -400,11 +400,11 @@ lxFields[  2,1]='THREADID'
 lxFields[  2,2]='C'
 lxFields[  2,3]=  9
 lxFields[  2,4]=  0
-lxFields[  3,1]='MSGID'
+lxFields[  3,1]='PARENTID'
 lxFields[  3,2]='C'
 lxFields[  3,3]=  9
 lxFields[  3,4]=  0
-lxFields[  4,1]='PARENTID'
+lxFields[  4,1]='MSGID'
 lxFields[  4,2]='C'
 lxFields[  4,3]=  9
 lxFields[  4,4]=  0
@@ -413,8 +413,8 @@ lxFields[  5,2]='T'
 lxFields[  5,3]=  8
 lxFields[  5,4]=  0
 lxFields[  6,1]='SUBJECT'
-lxFields[  6,2]='M'
-lxFields[  6,3]=  4
+lxFields[  6,2]='V'
+lxFields[  6,3]=150
 lxFields[  6,4]=  0
 lxFields[  7,1]='ATTACHMT'
 lxFields[  7,2]='M'
@@ -429,11 +429,11 @@ lxFields[  9,2]='M'
 lxFields[  9,3]=  4
 lxFields[  9,4]=  0
 lxFields[ 10,1]='FROMNAME'
-lxFields[ 10,2]='C'
-lxFields[ 10,3]= 35
+lxFields[ 10,2]='V'
+lxFields[ 10,3]= 40
 lxFields[ 10,4]=  0
 lxFields[ 11,1]='FORUMID'
-lxFields[ 11,2]='C'
+lxFields[ 11,2]='V'
 lxFields[ 11,3]=  8
 lxFields[ 11,4]=  0
 lxFields[ 12,1]='FROMEMAIL'
@@ -441,12 +441,12 @@ lxFields[ 12,2]='M'
 lxFields[ 12,3]=  4
 lxFields[ 12,4]=  0
 lxFields[ 13,1]='TO'
-lxFields[ 13,2]='C'
+lxFields[ 13,2]='V'
 lxFields[ 13,3]= 55
 lxFields[ 13,4]=  0
 lxFields[ 14,1]='FORUM'
-lxFields[ 14,2]='C'
-lxFields[ 14,3]= 35
+lxFields[ 14,2]='V'
+lxFields[ 14,3]= 50
 lxFields[ 14,4]=  0
 lxFields[ 15,1]='NOFORMAT'
 lxFields[ 15,2]='L'
@@ -464,6 +464,7 @@ lxFields[ 18,1]='FORMAT'
 lxFields[ 18,2]='I'
 lxFields[ 18,3]=  4
 lxFields[ 18,4]=  0
+
 
 CREATE TABLE (lcFileName) FROM ARRAY lxFields
 
@@ -483,6 +484,13 @@ IF THIS.nDataMode = 0
       THIS.SetError("Unable to open Customer file due to exclusive use.")
       RETURN .F.
    ENDIF
+   
+   replace ALL subject WITH TRIM(subject),;   
+               fromname WITH TRIM(fromname),;
+               forum with TRIM(forum),;
+               to WITH TRIM(to),;
+               fromEmail WITH TRIM(fromEmail)
+   
    
    DELETE TAG ALL
      

@@ -16,10 +16,13 @@ STORE NULL TO Request, Response, Server, Session, Process
 loProcess = CREATEOBJECT("wwThreadProcess", loServer)
 loProcess.lShowRequestData = loServer.lShowRequestData
 
+SERVER = loServer
+PROCESS = loProcess
+
 IF VARTYPE(loProcess)#"O"
    *** All we can do is return...
    RETURN .F.
-ENDIF
+ENDIF 
 
 *** Call the Process Method that handles the request
 loProcess.Process()
@@ -400,7 +403,14 @@ ENDFUNC
 *   Threads
 
 
+************************************************************************
+*  Test
+****************************************
+FUNCTION Test
 
+THIS.StandardPage("Test Page","Making a <b>smallish</b> code change is easy.")
+
+ENDFUNC
 
 ************************************************************************
 *  Thread

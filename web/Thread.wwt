@@ -30,9 +30,6 @@
         <%= STRCONV(EncodeHtml(TRIM(Subject)),9) %>
     </div>
 
-
-
-
     <%
     lnI = 0
     SCAN
@@ -40,10 +37,9 @@
     %>
 
     <div id="ThreadMessageList">
-        <article class="message-list-item" data-id="<%= msgId %>" data-sort="<%= lnI %>">
-            <a name="<%= MsgId %>"></a>
+        <article id="<%= MsgId %>" class="message-list-item" data-id="<%= msgId %>" data-sort="<%= lnI %>">
             <div class="message-list-header">
-
+                
                 <div style="font-size: 0.825em">
                     <a href="http://gravatar.com" target="wwthreadsexternal">
                         <img class="gravatar" src="<%= GravatarLink(TRIM(FromEmail),120) %>"
@@ -120,10 +116,6 @@
             <% endif %>
         </article>
 
-
-
-
-
     </div>
     <% ENDSCAN %>
 
@@ -138,6 +130,7 @@
 
 
 <script>
+    // show the thread highlighted in the list
     setTimeout(function () {
         var $el = $(".message-item[data-id=<%= pcThreadId %>]");
         if ($el.length < 1)
@@ -145,6 +138,8 @@
         $el.addClass("selected");
         $el[0].scrollIntoView();
     }, 500);
+
+    // if specific MsgId was specified scroll to it
     setTimeout(function () {
         var msgId = "<%= pcMsgId %>"
         if (msgId) {
@@ -162,10 +157,6 @@
         }
 
         return false;        
-
     <% endif %>
-});
-
-
 </script>
 <% endsection %>

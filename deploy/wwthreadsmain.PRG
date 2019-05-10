@@ -13,47 +13,63 @@
 LPARAMETER lcAction, lvParm1, lvParm2
 
 *** This is the file based start up code that gets
-*** the server form up and running
+*** the  server form up and running
 #INCLUDE WCONNECT.H
+
+* WAIT WINDOW "RICK3" Timeout 1
 
 *** PUBLIC flag allows server to never quit
 *** - unless EXIT button code is executed
-RELEASE goWCServer
+RELEASE goWCServer 
 
 SET TALK OFF
 SET NOTIFY OFF
 
-   *** Load the Web Connection class libraries
-   IF FILE("WCONNECT.APP")
-	   DO ("WCONNECT.APP")
-   ELSE
-   	   DO WCONNECT
-   ENDIF
 
-   *** Optionally add Server Config execution
-   IF VARTYPE(lcAction) = "C" AND StartsWith(LOWER(lcAction),"config")
-   	    do Wwthreads_ServerConfig.prg with lvParm1
-        RETURN 
-   ENDIF
+*** Load the Web Connection class libraries
+IF FILE("WCONNECT.APP")
+   DO ("WCONNECT.APP")
+ELSE
+      DO WCONNECT
+ENDIF
 
-   *** Load the server - wc3DemoServer class below
-   goWCServer = CREATE("WwthreadsServer")
+*** Optionally add Server Config execution
+IF VARTYPE(lcAction) = "C" AND StartsWith(LOWER(lcAction),"config")
+         do Wwthreads_ServerConfig.prg with lvParm1
+      RETURN 
+ENDIF
 
-   IF !goWCServer.lDebugMode   
-     SET DEBUG OFF
-     SET STATUS BAR OFF
-     SET DEVELOP OFF
-     SET SYSMENU OFF
-   ENDIF
+*** Load the server - wc3DemoServer class below
+goWCServer = CREATE("WwthreadsServer")
 
-   IF TYPE("goWCServer")#"O"
-      =MessageBox("Unable to load Web Connection Server",48,;
-                  "Web Connection Error")
-      RETURN
-   ENDIF
+*** Live Reload Server if program files are changed on disk (File Watcher)  
+IF goWCServer.oConfig.lLiveReloadServer AND Application.StartMode = 0
+   DO LiveReloadServer
+ENDIF
 
-   *** Make the server live - Show puts the server online and in polling mode
-   READ EVENTS
+IF !goWCServer.lDebugMode   
+   SET DEBUG OFF
+   SET STATUS BAR OFF
+   SET DEVELOP OFF
+   SET SYSMENU OFF
+ELSE
+   SET DEBUG ON
+   SET DEVELOP ON
+ENDIF
+
+IF TYPE("goWCServer")#"O"
+   =MessageBox("Unable to load Web Connection Server",48,;
+               "Web Connection Error")
+   RETURN
+ENDIF
+
+*** Make the server live - Show puts the server online and in polling mode
+READ EVENTS
+
+
+*** Check if server wants to auto-restart
+LOCAL llAutoRestart
+llAutoRestart = goWcServer.lAutoRestart
 
 ON ERROR
 RELEASE goWCServer
@@ -62,20 +78,38 @@ SET SYSMENU ON
 SET DEBUG ON
 SET DEVELOP ON
 SET STATUS BAR ON
-SET TALK ON
-
-RELEASE ALL
+SET TALK ON 
+ 
+RELEASE ALL EXCEPT llAutoRestart
 CLOSE DATA
 
-*** USE THIS FOR DEBUGGING OBJECT HANGING - fires all outstanding DESTROY()
-*** and you should see which objects are hanging
-*SET STEP ON 
-CLEAR ALL
-*** END
+
+
+IF llAutoRestart
+   IF VARTYPE("__WWC_FILEWATCHER") = "O"
+      __WWC_FILEWATCHER.Destroy()
+      __WWC_FILEWATCHER = null
+   ENDIF 
+   CLEAR ALL   
+
+    *** Try to restart this applications
+   KEYBOARD [CLEAR PROGRAM{ENTER}] + ;
+            [DO wwThreadsMain.prg{ENTER}]                
+   
+   *** If BrowserSync is running this will refresh the active page
+   STRTOFILE(TRANSFORM(DateTime()),"..\Web\__CodeUpdated.html")            
+ELSE
+   *** USE THIS FOR DEBUGGING OBJECT HANGING - fires all outstanding DESTROY()
+   *** and you should see which objects are hanging
+   *SET STEP ON  
+   CLEAR ALL      
+ENDIF
 
 IF Application.StartMode < 2
-   ACTIVATE WINDOW COMMAND
+      ACTIVATE WINDOW COMMAND
 ENDIF
+
+
 
 RETURN
 
@@ -192,10 +226,6 @@ lcParameter=UPPER(THIS.oRequest.Querystring(1))
 
 *** Set up project types and call external processing programs:
 DO CASE
-
-     CASE lcParameter == "WWTHREADPROCESS"
-         DO wwThreadProcess with THIS
-
       *** SUB APPLETS ADDED ABOVE - DO NOT MOVE THIS LINE ***
 
      CASE lcParameter == "WWMAINT"
@@ -207,6 +237,7 @@ OTHERWISE
      DO CASE
 
      CASE lcExtension == "WWT"
+
         DO wwThreadProcess with THIS
 
      *** ADD SCRIPTMAP EXTENSIONS ABOVE - DO NOT MOVE THIS LINE ***
