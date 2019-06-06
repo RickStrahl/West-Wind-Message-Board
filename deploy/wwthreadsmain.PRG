@@ -43,7 +43,7 @@ ENDIF
 goWCServer = CREATE("WwthreadsServer")
 
 *** Live Reload Server if program files are changed on disk (File Watcher)  
-IF goWCServer.oConfig.lLiveReloadServer AND Application.StartMode = 0
+IF goWCServer.oConfig.lLiveReloadEnabled AND Application.StartMode = 0
    DO LiveReloadServer
 ENDIF
 

@@ -79,7 +79,7 @@ pre {
     font-size: 0.875em !important;
     font-weight: normal;
     line-height: 1.45;
-    background: black;
+    background:#1f1f1f;
     color: #eee;
     margin: 7px 0 !important;
     padding: 10px;
@@ -745,7 +745,7 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     }
     @media(min-width: 1400px){
         .main-content{
-            font-size: 1.14em !important;            
+            font-size: 1.12em !important;            
         }
         .message-list-body {
             padding: 15px 3.5%;
