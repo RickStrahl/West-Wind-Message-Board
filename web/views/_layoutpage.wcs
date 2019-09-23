@@ -172,8 +172,11 @@
 
     <link href="~/lib/highlightjs/styles/vs2015.css" rel="stylesheet" />
     <script src="~/lib/highlightjs/highlight.pack.js"></script>
+    <script src="lib/highlightjs-badge.min.js"></script>
     <script>
         hljs.initHighlightingOnLoad();
+        setTimeout(highlightJsBadge,1);
+        
     </script>
 
 
@@ -189,6 +192,7 @@
                 $(".slide-menu").toggleClass("active");
             });
     </script>
+
     <%= RenderSection("scripts") %>
 
     <script type="text/javascript">
@@ -202,6 +206,7 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
     </script>
+    <!-- Web Manifest for PWA -->
     <script src="scripts/manup.min.js"></script>
     
 </body>

@@ -29,7 +29,7 @@
     <div class="thread-title page-header-text" style="margin-bottom: 0;">
         <%= STRCONV(EncodeHtml(TRIM(Subject)),9) %>
     </div>
-
+ 
     <%
     lnI = 0
     SCAN
@@ -128,7 +128,6 @@
 <% section="scripts" %>
 
 
-
 <script>
     // show the thread highlighted in the list
     setTimeout(function () {
@@ -149,14 +148,15 @@
 
     <% if Process.lAuthenticatedAdmin %>
 
-        $("body").on("click","#DeleteUser", function () {
-            
-        if (confirm("Are you sure you want to delete this user and all of their messages?")) {
-            var href = $(this).data("href");
-            window.location.href = href;
-        }
-
-        return false;        
+        $("body").on("click","#DeleteUser", function () {                
+            if (confirm("Are you sure you want to delete this user and all of their messages?")) {
+                var href = $(this).data("href");
+                window.location.href = href;
+            }
+            return false;
+        });
+      
     <% endif %>
 </script>
+
 <% endsection %>

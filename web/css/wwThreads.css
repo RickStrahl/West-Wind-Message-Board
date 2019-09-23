@@ -1,6 +1,6 @@
 ﻿html, body {
     height: 100%;
-    font-size: 15px;
+    font-size: 15px;    
     border: 0;
 
     scrollbar-track-color: Whitesmoke;
@@ -75,30 +75,32 @@ code {
 }
 
 pre {
-    font-family: consolas,monospace;
-    font-size: 0.875em !important;
+    font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;    
     font-weight: normal;
-    line-height: 1.45;
-    background:#1f1f1f;
-    color: #eee;
+    font-size: 1.05em;    
+    line-height: 1.55;
     margin: 7px 0 !important;
-    padding: 10px;
+    padding: 0;
     border: 1px solid silver;
     border-radius: 4px;
-    
     overflow-x: auto;
     white-space: pre;
     word-break: normal;
     word-wrap: normal;
-}
-
-    pre code {
-        white-space: pre;
-        background: transparent;
-        color: #f5f5f5 !important;
-        font-weight: normal;
-        padding: 0;
+    background: #333;
+    color: #eee;
+    
+  }
+  
+    pre > code {
+      white-space: pre;
+      padding: 0.8em !important;
+      display: block;
+      color: #f5f5f5 !important;
+      background: transparent;
+      font-weight: normal;
     }
+  
 blockquote {
     background: #ecf5ff;
     font-size: 1em;    
@@ -391,8 +393,8 @@ input[type=checkbox].with-font:focus ~ label
 .main-content {
     flex: 1 1 auto; /* grow & shrink horizontally */
     width: 100%;
-    font-size: 1.075em;
-    line-height: 1.5;
+    font-size: 1.1em;
+    line-height: 1.6;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -485,9 +487,6 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
 
 
 
-.hljs {
-	font-size: 1em !important;
-}
 
 /* West Wind Main Page Layout */
 

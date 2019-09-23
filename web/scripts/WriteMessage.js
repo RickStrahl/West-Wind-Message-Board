@@ -75,9 +75,10 @@ $(document).ready(function () {
     setupImageUpload();
 
     // Preview Editor Hookup
-    var markdownFunc = debounce(markdown, 1000);
-    $msg.keyup(function () { markdownFunc() });
-    markdownFunc();
+    var markdownFunc = debounce(markdown, 1500);
+    $msg.keyup(markdownFunc); 
+
+    setTimeout(markdownFunc(),10);
 });
 
 
@@ -255,7 +256,7 @@ marked.setOptions({
 });
 
 function markdown(markdownText) {
-    if (!markdownText)
+    if (typeof markdownText !== "string")
         markdownText = $("#Message").val();
 
     var md = marked(markdownText);

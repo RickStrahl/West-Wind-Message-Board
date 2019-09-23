@@ -5,10 +5,15 @@ window.wwthreads = null;
     // exportable interface
     wwthreads = {
         initializeLayout: initializeLayout,
-        highlightCode: function () {             
-                $('pre code').each(function (i, block) {
+        highlightCode: function (sel) {             
+                if(!sel)
+                   sel = "pre code";
+                   
+                $(sel).each(function (i, block) {
                     hljs.highlightBlock(block);                             
-                });           
+                });  
+                
+                highlightJsBadge();
         },
         loadMessages: loadMessageListAjax,
 

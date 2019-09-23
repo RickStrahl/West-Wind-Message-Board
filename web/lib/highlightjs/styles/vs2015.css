@@ -9,8 +9,8 @@
   padding: 0.5em;
   background: #1E1E1E;
   color: #DCDCDC;
-  font-weight: normal;  
-  font-size: 1.15em !important;  
+  font-weight: normal; 
+  font-size: 1em;   
 }
 
 .hljs-keyword,
