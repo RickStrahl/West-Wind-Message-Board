@@ -78,7 +78,7 @@
                         </li>
                         <% if Process.lAuthenticatedAdmin %>
                         <li>
-                            <a href="~/admin/admin.aspx">
+                            <a href="~/admin/admin.html">
                                 <i class="far fa-cog"></i>
                                 Admin Page
                             </a>
@@ -161,8 +161,8 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/scripts/ww.jquery.min.js"></script>
-    <script src="~/lib/popper.js/dist/popper.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- <script src="~/lib/popper.js/dist/popper.min.js"></script> -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="~/lib/moment/min/moment.min.js"></script>
     <link href="~/lib/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />

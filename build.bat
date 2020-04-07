@@ -37,6 +37,7 @@ REM Copy data and Web Folders
 REM Comment if you don't want to package those
 robocopy %tgt%\data data /MIR
 robocopy %tgt%\web web /MIR
+robocopy %tgt%\WebConnectionWebServer WebConnectionWebServer /MIR
 
 REM Deployed apps shouldn't have prg/fxp files
 REM Let them re-compile on the server

@@ -755,7 +755,16 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         }
     }
 
-
+    .rss-feed-item {
+        margin-top: 0.5em;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+    
+    .rss-feed-item-header {
+        font-weight: 600;
+    }
+    
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;

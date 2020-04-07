@@ -440,7 +440,7 @@ Response.GzipCompression = .T.
 
 *** Don't auto-encode - we manually encode everything
 *** so that emojii's and other extendeds work in the
-*** markdown text
+*** markdown text - edge case scenario for this page
 Response.Encoding = ""
 Response.ContentType = "text/html; charset=utf-8"
 
@@ -775,6 +775,8 @@ ENDFUNC
 FUNCTION DeleteUser()
 
 IF !this.lAuthenticatedAdmin
+   this.StandardPage("You have to be an admin user to delete users.","User and messages have not been deleted")
+
   Response.Redirect("~/")	
   RETURN
 ENDIF
@@ -782,7 +784,6 @@ ENDIF
 lcMsgId = Request.QueryString("msgId")
 
 poUser = CREATEOBJECT("wwt_user")
-
 
 LOCAL loMsgBus as wwt_Message
 loMsgBus = CREATEOBJECT("wwt_Message")

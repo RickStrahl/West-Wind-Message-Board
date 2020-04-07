@@ -1,37 +1,42 @@
 {
-  "_from": "toastr",
-  "_id": "toastr@2.1.4",
-  "_inBundle": false,
-  "_integrity": "sha1-i0O+ZPudDEFIcURvLbjoyk6V8YE=",
-  "_location": "/toastr",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "toastr",
-    "name": "toastr",
-    "escapedName": "toastr",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
+  "name": "toastr",
+  "filename": "build/toastr.min.js",
+  "main": "toastr.js",
+  "style": "build/toastr.min.css",
+  "version": "2.1.4",
+  "description": "ToastrJS is a JavaScript library for Gnome / Growl type non-blocking notifications. jQuery is required. The goal is to create a simple core library that can be customized and extended.",
+  "homepage": "http://www.toastrjs.com",
+  "keywords": [
+    "Toastr",
+    "ToastrJS",
+    "toastr.js"
   ],
-  "_resolved": "https://registry.npmjs.org/toastr/-/toastr-2.1.4.tgz",
-  "_shasum": "8b43be64fb9d0c414871446f2db8e8ca4e95f181",
-  "_spec": "toastr",
-  "_where": "C:\\WebConnection\\web\\wconnect",
-  "bugs": {
-    "url": "http://stackoverflow.com/questions/tagged/toastr"
+  "maintainers": [
+    {
+      "name": "John Papa",
+      "web": "http://www.johnpapa.net",
+      "twitter": "@john_papa"
+    },
+    {
+      "name": "Tim Ferrell",
+      "web": "https://twitter.com/ferrell_tim",
+      "twitter": "@ferrell_tim"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/CodeSeven/toastr.git"
   },
-  "bundleDependencies": false,
+  "bugs": "http://stackoverflow.com/questions/tagged/toastr",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
   "dependencies": {
     "jquery": ">=1.12.0"
   },
-  "deprecated": false,
-  "description": "ToastrJS is a JavaScript library for Gnome / Growl type non-blocking notifications. jQuery is required. The goal is to create a simple core library that can be customized and extended.",
   "devDependencies": {
     "gulp": "^3.8.10",
     "gulp-bytediff": "^0.2.0",
@@ -57,38 +62,7 @@
     "plato": "^1.2.2",
     "qunitjs": "~1.14.0"
   },
-  "filename": "build/toastr.min.js",
-  "homepage": "http://www.toastrjs.com",
-  "keywords": [
-    "Toastr",
-    "ToastrJS",
-    "toastr.js"
-  ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/mit-license.php"
-    }
-  ],
-  "main": "toastr.js",
-  "maintainers": [
-    {
-      "name": "John Papa",
-      "url": "http://www.johnpapa.net"
-    },
-    {
-      "name": "Tim Ferrell",
-      "url": "https://twitter.com/ferrell_tim"
-    }
-  ],
-  "name": "toastr",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/CodeSeven/toastr.git"
-  },
   "scripts": {
     "test": "gulp test"
-  },
-  "style": "build/toastr.min.css",
-  "version": "2.1.4"
+  }
 }
