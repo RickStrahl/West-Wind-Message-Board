@@ -42,7 +42,7 @@
                 
                 <div style="font-size: 0.825em">
                     <a href="http://gravatar.com" target="wwthreadsexternal">
-                        <img class="gravatar" src="<%= GravatarLink(TRIM(FromEmail),120) %>"
+                        <img class="gravatar" src="<%= GravatarLink(TRIM(FromEmail),150) %>"
                              alt="Gravatar is a globally recognized avatar based on your email address." />
                     </a>
 

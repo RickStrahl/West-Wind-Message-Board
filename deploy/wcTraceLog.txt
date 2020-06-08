@@ -1066,3 +1066,159 @@ Handled by: Wwthreadsserver.OnError()<br>
 
 Handled by: Wwthreadsserver.OnError()<br>
 </pre>
+04/08/2020 10:08:00 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:08:01 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:08:04 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:08:06 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:08:07 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:09:13 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:09:22 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:09:24 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:09:27 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:48:34 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:48:35 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:48:35 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>
+04/08/2020 10:48:35 PM - Processing Error - 
+
+<pre>
+     Error: 1098
+   Message: Script file doesn't exist: _ErrorTemplate.wcs
+   Details: 
+      Code: ERROR this.cErrorMsg
+   Program: convertandcompilescript
+   Line No: 816
+
+Handled by: Wwthreadsserver.OnError()<br>
+</pre>

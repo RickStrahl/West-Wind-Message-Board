@@ -14,7 +14,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <link rel="apple-touch-icon" href="touch-icon.png" />
     
-    <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />    
+    <link href="../lib/bootstrap/dist/css/bootstrap.bundle.min.css" rel="stylesheet" />    
     <link href="../lib/fontawesome/css/all.min.css" rel="stylesheet" />
     <link href="../css/application.css" rel="stylesheet" />      
     <script src="../lib/jquery/dist/jquery.min.js"></script>

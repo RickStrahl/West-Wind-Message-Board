@@ -10,7 +10,7 @@ The main goal for this server is to provide a local development experience that 
 The server is a .NET Core 3.x application so in order to work you'll need:
 
 * .NET Core Runtime 3.x
-* A configuration file `WebConnectionWebServer.xml` in the Web Root
+* A configuration file `WebConnectionWebServerSettings.xml` in the Web Root
 * For IIS: A custom `web.config` configuration
 
 ### Requires .NET Core 3.1 Runtime or SDK
@@ -99,8 +99,8 @@ The application is a **Console Application** that runs in PowerShell or Windows 
 The `WebConnectionWebServer` uses a new and separate configuration file in addition to some short configuration settings inside of `web.config` to enable the .NET Core Module.
 
 
-#### WebConnectionServerSettings.xml
-The Web Connection specific features are configured in  `WebConnectionServerSettings.xml`. Note that this is different from the old .NET Module which used settings in `web.config`. The new settings map very closely to the settings that the classic .NET module uses although the format of the XML is a little different.
+#### WebConnectionWebServerSettings.xml
+The Web Connection specific features are configured in  `WebConnectionServerWebSettings.xml`. Note that this is different from the old .NET Module which used settings in `web.config`. The new settings map very closely to the settings that the classic .NET module uses although the format of the XML is a little different.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>

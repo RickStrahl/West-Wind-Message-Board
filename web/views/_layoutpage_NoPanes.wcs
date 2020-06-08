@@ -19,8 +19,8 @@
     <link rel="icon" href="~/touch-icon.png" />
     <meta name="msapplication-TileImage" content="~/touch-icon.png" />
 
-    <link href="~/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />   
-    <link href="~/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.bundle.min.css" rel="stylesheet" />
+    <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" />
     <link href="~/css/application.css" rel="stylesheet" />
     <%= RenderSection("headers") %>
     <style>
@@ -130,33 +130,39 @@
         </div>
 
     </div>
-    <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="~/scripts/ww.jquery.min.js"></script>
-    <script src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="~/bower_components/jquery-resizable/dist/jquery-resizable.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/scripts/ww.jquery.min.js"></script>    
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <link href="~/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet"  />
-    <script src="~/bower_components/moment/min/moment.min.js"></script>
-    <script src="~/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/lib/moment/min/moment.min.js"></script>
+    <link href="~/lib/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <script src="~/lib/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
 
+    <script src="~/scripts/wwthreads.js?v1.1.4"></script>
 
-    <script src="~/scripts/wwthreads.min.js"></script>
-    <script src="~/scripts/Ace/ace.js"></script>
-    <script src="~/scripts/wwthreads_editorSettings.js"></script>
-    <script src="~/scripts/AceConfig.js"></script>
-    <script src="~/bower_components/toastr/toastr.min.js" async></script>
-    <link href="~/bower_components/toastr/toastr.min.css" rel="stylesheet" async />
-
+    <link href="~/lib/highlightjs/styles/vs2015.css" rel="stylesheet" />
+    <script src="~/lib/highlightjs/highlight.pack.js"></script>
+    <script src="lib/highlightjs-badge.min.js"></script>
     <script>
-
+        hljs.initHighlightingOnLoad();
+        setTimeout(highlightJsBadge,1);
+        
     </script>
+
+
+    <link href="~/lib/toastr/build/toastr.min.css" rel="stylesheet" />
+    <script src="~/lib/toastr/build/toastr.min.js"></script>
+
+    <script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script>
+
     <script>
         $(".slide-menu-toggle-open,.slide-menu-toggle-close," +
-                ".slide-menu a, #SamplesLink")
+            ".slide-menu a, #SamplesLink")
             .click(function () {
                 $(".slide-menu").toggleClass("active");
             });
     </script>
+
     <%= RenderSection("scripts") %>
 
     <script>

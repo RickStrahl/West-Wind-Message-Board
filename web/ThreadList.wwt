@@ -67,9 +67,9 @@
         SCAN %>
 
         <% if TMessages.Forum != lcForum %>
-        <% if llOpenForum %>
-    </div>
-    <% endif %>
+            <% if llOpenForum %>
+            </div>
+            <% endif %>
 
 
     <div class="forum-list-header">
@@ -79,8 +79,11 @@
         <span style="padding-right: 7px;">-</span> <%: forum %>
     </div>
     <div class="forum-list-container">
-        <% llOpenForum = .T.
-        endif %>
+        <% 
+        
+            llOpenForum = .T.
+        endif         
+        %>
         <div class="message-item" data-id="<%= Threadid %>">
             <div class="float-left">
                 <i class="fas fa-thumbtack <%= IIF(MsgCount -1 < 1,[ fa-rotate-90 fa-red],[ fa-green]) %>" style="font-size: 0.8em"></i>
