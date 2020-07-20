@@ -42,20 +42,23 @@ ENDIF
 *** Load the server - wc3DemoServer class below
 goWCServer = CREATE("WwthreadsServer")
 
-*** Live Reload Server if program files are changed on disk (File Watcher)  
-IF goWCServer.oConfig.lLiveReloadEnabled AND Application.StartMode = 0
-   DO LiveReloadServer
-ENDIF
-
 IF !goWCServer.lDebugMode   
    SET DEBUG OFF
    SET STATUS BAR OFF
-   SET DEVELOP OFF
    SET SYSMENU OFF
+   SET DEVELOP OFF
 ELSE
    SET DEBUG ON
    SET DEVELOP ON
 ENDIF
+
+*** Live Reload Server if program files are changed on disk (File Watcher)  
+IF goWCServer.oConfig.lLiveReloadEnabled AND Application.StartMode = 0
+   SET DEVELOP ON
+   DO LiveReloadServer
+ENDIF
+
+
 
 IF TYPE("goWCServer")#"O"
    =MessageBox("Unable to load Web Connection Server",48,;

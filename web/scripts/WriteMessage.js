@@ -72,6 +72,43 @@ $(document).ready(function () {
         $('#ImageLink').focus();
     });
 
+    
+    
+    // Save/restore message in local storage until submitted
+    if (window.localStorage) {
+        // HACK: This is required for some reason
+        //       otherwise client side selected value is not updating in client script
+        $(document).on("change","#Forum",function(e) {
+            $("#Forum")[0].selectedIndex = e.target.selectedIndex;
+        });
+        $("#Message,#Subject,#Forum").blur(function() {                        
+            var save = {
+                message: $("#Message").val() ,
+                subject: $("#Subject").val(),
+                forum: $("#Forum").val()                                
+            };                        
+            localStorage.setItem("savedMessage",JSON.stringify(save));
+        });
+        $("#form1").submit(function() {
+            localStorage.removeItem("savedMessage");
+        });    
+        var json = localStorage.getItem("savedMessage");
+        if (json){
+            setTimeout(function() {
+                var save = JSON.parse(json); 
+                if (save.message && confirm("You have previously unsaved message text.\nDo you want to restore this text into the message?")) {                                     
+                    $("#Message").val(save.message);
+                    $("#Subject").val(save.subject);            
+                    //$("#Forum").val(save.forum); //listSelectItem(save.forum);  // not working
+                }                
+                else
+                    localStorage.removeItem("savedMessage");
+            },800);
+        }
+    }
+
+
+
     setupImageUpload();
 
     // Preview Editor Hookup

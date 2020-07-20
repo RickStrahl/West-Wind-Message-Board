@@ -36,6 +36,12 @@ npm_components
 #FoxUnit
 FXUResults.*
 
+
+#Environments
+.vs
+.vscode
+.idea
+
 # Build results
 [Dd]ebug/
 [Rr]elease/
@@ -127,3 +133,5 @@ UpgradeLog*.XML
 /deploy/data/wwusers.cdx
 deploy/Wwthreads.PJX
 deploy/Wwthreads.PJT
+web/__CodeUpdated.html
+web/__CodeUpdated.html

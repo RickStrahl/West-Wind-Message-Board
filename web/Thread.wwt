@@ -8,7 +8,7 @@
 <% if .f. %>
 <!-- only for intellisense to work better -->
 <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-<link href="lib/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="lib/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
 <link href="css/application.css" rel="stylesheet" />
 <% endif  %>
 
@@ -19,10 +19,10 @@
     </div>
 
     <div id="SortContainer" class="float-right" style="margin-right: 5px;">
-        <i id="MessageOrderDown" class="far fa-sort-numeric-up" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 1px; cursor: pointer;"
+        <i id="MessageOrderDown" class="far fa-sort-numeric-up" style="font-size: 1.2em; opacity: 0.80;padding: 7px; margin: 1px; cursor: pointer;"
            title="Display messages oldest messages first"></i>
 
-        <i id="MessageOrderUp" class="far fa-sort-numeric-down" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 2px; cursor: pointer;"
+        <i id="MessageOrderUp" class="far fa-sort-numeric-down" style="font-size: 1.2em; opacity: 0.80;padding: 7px; margin: 2px; cursor: pointer;"
            title="Display messages latest messages first"></i>
     </div>
 

@@ -114,20 +114,9 @@ ENDIF
 RETURN .T.
 ENDFUNC
 
-************************************************************************
-*  CompleteResponse
-****************************************
-***  Function:
-***    Assume:
-***      Pass:
-***    Return:
-************************************************************************
-FUNCTION CompleteResponse()
 
-DODEFAULT()
 
-ENDFUNC
-*   CompleteResponse
+
 
 
 ************************************************************************
@@ -408,7 +397,7 @@ ENDFUNC
 ****************************************
 FUNCTION Test
 
-THIS.StandardPage("Test Page","Making a <b>smallish</b> code change is easy.")
+THIS.StandardPage("Test Page","Making a <b>Smallish</b> code change is easy.")
 
 ENDFUNC
 
