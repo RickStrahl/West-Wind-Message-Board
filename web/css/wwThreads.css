@@ -8,6 +8,10 @@
     scrollbar-base-color: #ddd;
     scrollbar-face-color: #ddd;
     -ms-overflow-style: -ms-autohiding-scrollbar !important;
+
+    scrollbar-color:   #a2a2a2 #777;
+    scrollbar-width: thin; 
+
 }
 h1, h2, h3, h4,h5,h6,.page-header-text {
     /*font-family: Trebuchet, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
@@ -98,6 +102,8 @@ pre {
         color: #f5f5f5 !important;
         background: transparent;
         font-weight: normal;
+
+        scrollbar-width: thin;
     }
     pre>code::-webkit-scrollbar {
         width: 8px;
@@ -332,7 +338,7 @@ input[type=checkbox].with-font:focus ~ label
     color: white;    
 }
 .menu-toolbar a, .menu-toolbar a:visited {
-    color: white;
+    color: #f2f2f2;
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 2px;
@@ -346,7 +352,7 @@ input[type=checkbox].with-font:focus ~ label
         color: steelblue;
     }
     .menu-toolbar a:hover{
-        background: #ccc;
+        background: #eee;
         color: #535353;        
     }
 .page-content {    
@@ -359,7 +365,7 @@ input[type=checkbox].with-font:focus ~ label
 }
 .sidebar-left {
     flex: 0 0 auto; /* don't grow | shrink horizontally */
-    width: 400px;
+    width: 500px;
     max-width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
@@ -368,11 +374,11 @@ input[type=checkbox].with-font:focus ~ label
     transition: width 0.2s ease-in-out;
     z-index: 100;
 
-    scrollbar-track-color: #686868;;
-    scrollbar-arrow-color: cornsilk;
-    scrollbar-face-color: #555;    
     -ms-overflow-style: -ms-autohiding-scrollbar !important;
     -webkit-overflow-scrolling: touch;
+    
+    scrollbar-width: thin; 
+
 }
 
 /* Chrome/Opera/mobile Webkit browsers */
@@ -382,7 +388,7 @@ input[type=checkbox].with-font:focus ~ label
 }
 .sidebar-left::-webkit-scrollbar-thumb {                    
     background: #a2a2a2;
-}
+} 
 
 
 .splitter {
@@ -502,7 +508,9 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     width: 100%;
     margin: 0;
     padding: 0;
+    
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
 }
 
 .main-content::-webkit-scrollbar {
@@ -623,7 +631,7 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
     }
     a.hover-dark:hover {
         color: steelblue;
-        background: whitesmoke;        
+        background: #eee;        
     }
     .forum-header{  
         background: #535353;
@@ -642,12 +650,12 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
         font-size: 1.30em;        
         font-weight: 600;
         background: #516f8d;
-        color: #f0f0f0;
+        color: #f5f5f5;
     }
     .forum-list-header {
         margin-bottom: 3px !important;
         background: #535353;
-        color: white;
+        color: #f2f2f2;
         margin: 0;
         padding: 5px 3px 5px 7px;        
         font-size: 1.20em;
