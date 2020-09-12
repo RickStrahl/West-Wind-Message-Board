@@ -253,7 +253,9 @@ function loadTopicAjax(href) {
         $el.addClass("selected");            
     }
 
-    $.get(href, function(html) {
+    var $mc = $(".main-content");  
+    
+    $.get(href, function(html) {                
         var $html = $(html);
 
         var title = html.extract("<title>", "</title>");
@@ -262,15 +264,20 @@ function loadTopicAjax(href) {
         var $content = $html.find(".main-content");
         if ($content.length > 0) {
             html = $content.html();
-            $(".main-content").html(html);
+                      
+            $mc.html(html);                
+            $(".thread-title").addClass("highlight");
+            setTimeout(function() {
+                $(".thread-title").removeClass("highlight");
+            },1);
 
+            $mc.scrollTop(0);                                    
             wwthreads.sortAscending = true;
 
             // update the navigation history/url in addressbar
             if (window.history.pushState && !hrefPassed)
                 window.history.pushState({ title: '', URL: href }, "", href);
 
-            $(".main-content").scrollTop(0);            
 
             if (window.innerWidth < 769)
                 $(".sidebar-left").width(0);

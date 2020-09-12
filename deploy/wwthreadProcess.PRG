@@ -216,7 +216,8 @@ ELSE
 		RETURN
 	ELSE
 	    pcRedirectUrl = Request.QueryString("ReturnUrl")
-	    IF EMPTY(pcRedirectUrl)
+
+	    IF EMPTY(pcRedirectUrl) OR ATC("login.", pcRedirectUrl) > 0 
 	       pcRedirectUrl = "~/"
 	    ENDIF
 	    IF THIS.Authenticate("ANY",@pcErrorMessage)
