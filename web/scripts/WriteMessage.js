@@ -13,14 +13,26 @@ $(document).ready(function () {
         var link = $("#HrefLink").val();
         //var a = "<a href='" + link + "' target='wwthreadsexternal'>" + text + "</a>";
         var html = "[" + text + "](" + link + ")";
+        $("#HrefLinkText").val("");
 
         setTimeout(function() { 
             setSelection($msg[0], html);
         },80);       
     });
 
-    $("#HrefDialog").on('shown.bs.modal', function () {
-        $('#HrefLink').focus();
+    $("#HrefDialog").on('shown.bs.modal', function () {        
+        var $txt = $('#HrefLink');        
+        if (navigator.clipboard) {
+            var clipText = navigator.clipboard.readText()
+                    .then(clipText => { 
+                        if (clipText.startsWith("http")) {
+                          $txt.val(clipText);
+                          $txt[0].select();
+                          $txt.focus();
+                        }
+                    });
+        }
+        $txt.focus();
     });
     $('#HrefLink').keyup(function (e) {
         if (e.keyCode == 13)
@@ -69,7 +81,24 @@ $(document).ready(function () {
     });
 
     $("#ImageDialog").on('shown.bs.modal', function () {
-        $('#ImageLink').focus();
+        var $txt = $('#ImageLink');        
+        if (navigator.clipboard) {
+            var clipText = navigator.clipboard.readText()
+                    .then(clipText => { 
+                        if (!clipText) return;
+
+                        if (clipText.includes(".png") ||
+                            clipText.includes(".jpg") ||
+                            clipText.includes(".jpeg") ||
+                            clipText.includes(".gif") 
+                            ) {
+                          $txt.val(clipText);
+                          $txt[0].select();
+                          $txt.focus();
+                        }
+                    });
+        }
+        $txt.focus();        
     });
 
     
@@ -98,7 +127,7 @@ $(document).ready(function () {
                 var save = JSON.parse(json); 
                 if (save.message && confirm("You have previously unsaved message text.\nDo you want to restore this text into the message?")) {                                     
                     $("#Message").val(save.message);
-                    $("#Subject").val(save.subject);            
+                    //$("#Subject").val(save.subject);            
                     //$("#Forum").val(save.forum); //listSelectItem(save.forum);  // not working
                 }                
                 else

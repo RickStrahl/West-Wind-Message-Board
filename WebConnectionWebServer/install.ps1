@@ -9,11 +9,11 @@
 
 
 # Check if the .NET SDK is installed
-$ver = (dir (Get-Command dotnet).Path.Replace('dotnet.exe', 'shared\Microsoft.NETCore.App')).Name | where-object {$_.StartsWith("3.") } | Sort-Object {$_} -Descending | Select-Object -First 1 
+$ver = (dir (Get-Command dotnet).Path.Replace('dotnet.exe', 'shared\Microsoft.NETCore.App')).Name | where-object {$_.StartsWith("5.") } | Sort-Object {$_} -Descending | Select-Object -First 1 
 if (!$ver.StartsWith("3.") )
 {
     Write-Host "------------------------------------------------------------------------------------"
-    Write-Host ".NET Core Runtime 3.x is not installed. Please install the .NET Core SDK or Runtime." -ForegroundColor Red
+    Write-Host ".NET Core Runtime 5.x is not installed. Please install the .NET Core SDK or Runtime." -ForegroundColor Red
     Write-Host "------------------------------------------------------------------------------------"
     Write-Host "You can install the .NET Core SDK from: "
     Write-Host "https://dotnet.microsoft.com/download" -ForegroundColor Yellow

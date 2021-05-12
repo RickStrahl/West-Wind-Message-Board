@@ -218,7 +218,7 @@ pcMsgId = THIS.oData.MsgId
 loIP.cMessage = this.RenderMessage(this.oData.MsgId,2)
 
 *** Fix up - protocol agnostic links for email
-loIP.cMessage = STRTRAN(loIp.cMessage,[="//],[="http://])
+loIP.cMessage = STRTRAN(loIp.cMessage,[="//],[="https://])
 
 loIP.SendMailAsync()
 

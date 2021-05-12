@@ -9,6 +9,8 @@
 *.vbr
 FOXUSER.*
 FXUResults.*
+__CodeUpdate.html
+_CodeUpdated.html
 #NOTE: If you use Web Control Framework
 #       pages with code in web folders remove following line
 web/**/*.prg

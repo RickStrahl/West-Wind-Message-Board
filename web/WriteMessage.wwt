@@ -20,6 +20,7 @@
 
     <%= HtmlErrorDisplay(poError) %>
 
+
     <form action="" method="post" class="form-horizontal" id="form1">
 
         <div class="form-group row ">
@@ -27,15 +28,18 @@
             <div class="col-sm-10">
                 <input type="text" id="Subject" name="Subject" class="form-control"
                        placeholder="Title for this post - try to be concise"
-                       value="<%: Request.FormOrValue([Subject],poMsg.Subject) %>" />
+                       value="<%: Request.FormOrValue([Subject],poMsg.Subject) %>" 
+                       <%= iif(pnMsgMode = 2,"readonly","") %>                        
+                    />
             </div>
         </div>
 
         <div class="form-group row">
             <label class="control-label col-sm-2 hidable right">Forum</label>
             <div class="col-sm-10">
-                <%= HtmlDropdown("Forum",Trim(poMsg.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
-                [class="form-control"],"-- Select --","") %>
+                    <%= HtmlDropdown("Forum",Trim(poMsg.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
+                    [class="form-control"] + iif(pnMsgMode = 2," disabled",""),"-- Select --","") %>
+                
             </div>
         </div>
 
@@ -48,8 +52,12 @@
                 <i class="fa fa-image "></i>
             </a>
 
-            <a id="btnCode" class="btn btn-sm btn-link" title="Insert a code block. (alt-c)">
-                <i class="fa fa-code"></i>
+            <a id="btnCode" class="btn btn-sm btn-link" 
+               title="Code block (alt-c)
+
+Select code blocks in the editor or paste from clipboard
+and select an optional code syntax.">
+                <i class="fas fa-code "></i>
             </a>
             |
 
@@ -63,11 +71,7 @@
 
             <a id="btnQuote" class="btn btn-sm btn-link hidable-xs" title="Quote and indent text. (ctrl-q)">
                 <i class="fa fa-quote-left"></i>
-            </a>
-
-            <a id="btnInlineCode" class="btn btn-sm btn-link hidable-xs" style="text-decoration: none" title="Inline code.">
-                <i>`</i><i class="fa fa-code"></i><i>`</i>
-            </a>
+            </a>            
 
             <a id="btnList" class="btn btn-sm btn-link hidable-xs" title="Turn lines into list items.">
                 <i class="fa fa-list"></i>
@@ -92,12 +96,14 @@
             </a>
         </div>
         <div class="edit-toolbar-sub">
-            This editor uses <a href="https://helpbuilder.west-wind.com/Docs/_4il175mgd.htm" target="wwthreadsexternal" tabindex="-1">Markdown text format</a>. Please format any <b>code snippets</b> using the <i class="fa fa-code" style="background: #ccc"></i>  icon.
+            This editor uses <a href="https://helpbuilder.west-wind.com/Docs/_4il175mgd.htm" target="wwthreadsexternal" tabindex="-1">Markdown text formatting</a>. Please format any <b>code snippets</b> using the <i class="fa fa-code" style="background: #ccc"></i>  icon.
         </div>
 
         <!--<pre lang="markdown" id="Editor">
         </pre>-->
         <textarea id="Message" name="Message"
+                  placeholder="Type your message...
+Please use the edit toolbar to highlight any code snippets"
                   style="min-height: 350px;padding: 5px; font-family: Consolas, Menlo, monospace; border: none;
                   background: #333; width: 100% ; color: #fafafa "><%= Request.FormOrValue('Message',poMsg.Message) %></textarea>
 
@@ -124,14 +130,20 @@
 
 
         <blockquote style="margin: 10px 0;max-width:  830px">
-            <markdown>
-                #####  @icon-info-circle Please format your code
+            
+                <h3>
+                    <i class="fas fa-info-circle"></i> 
+                    Please format your Code
+                </h3>
+
+                <markdown>
                 <small>
 
-                If your post contains any code snippets, you can use the
-                `<\>` tool button to select your code and apply a code
-                language syntax. Formatted code makes it **much easier** for 
-                everyone to read your code.
+                If your post **contains any code snippets**, you can use the
+                <i class="fas fa-code"></i> toolbar button to select your code and apply a code
+                syntax. Formatted code makes it **much easier** for 
+                everyone to read your code. If you don't format your code
+                we will kindly ask you to edit and fix your post. 
 
                 </small>
             </markdown>
