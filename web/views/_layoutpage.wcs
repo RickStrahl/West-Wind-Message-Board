@@ -39,17 +39,17 @@
             </div>
 
             <!-- top right nav menu - .hidable for options that hide on small sizes -->
-            <nav class="banner-menu-top float-right">
+            <nav class="banner-menu-top float-end">
                 <% if !Process.lIsAuthenticated %>
 
-                <a href="Login.wwt?returnurl=<%= Request.GetCurrentUrl() %>" class="float-right" title="Sign in">
+                <a href="Login.wwt?returnurl=<%= Request.GetCurrentUrl() %>" class="float-end" title="Sign in">
                     <i class="fa fa-unlock-alt"></i>
                     Sign in
                 </a>
                 <% else %>
                 <style>
                     .dropdown-menu {
-                        background: #838383;
+                        background: #656565;
                         left: -100px;
                         width: 15rem;
                         right: 0;
@@ -57,16 +57,18 @@
 
                         .dropdown-menu > li > a {
                             width: 100%;                            
-                            padding: 5px 2px;
+                            padding: 0.60em 0.5em;
                         }
 
                             .dropdown-menu > li > a:hover {
                                 width: 100%;
-                                background: #555;
+                                background: #444;
                             }
                 </style>
-                <div class="btn-group">
-                    <a href="#" class="float-right  dropdown-toggle" title="<%= Process.cAuthenticatedName %>" data-toggle="dropdown">
+                <div class="dropdown">
+                    <a href="#" class="float-end  dropdown-toggle" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false"
+                        title="<%= Process.cAuthenticatedName %>" data-toggle="dropdown">
                         <i class="fa fa-lock"></i>
                         <span class="hidable-xs"><%= Process.cAuthenticatedName %></span>
                         <img title="Sign out <%= Process.cAuthenticatedName %>." src="<%= GravatarLink(Process.cAuthenticatedUser,23) %>" />
@@ -74,28 +76,28 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="Profile.wwt">
+                            <a  class="dropdown-item" href="Profile.wwt">
                                 <i class="fa fa-user"></i>&nbsp;
                                 Profile
                             </a>
                         </li>
                         <% if Process.lAuthenticatedAdmin %>                        
                         <li>
-                            <a href="~/admin/admin_wwt.htm">
+                            <a class="dropdown-item" href="~/admin/admin_wwt.htm">
                                 <i class="fas fa-cog"></i>
                                 Administration
                             </a>
                         </li>
                         <li>
-                            <a href="~/admin/Administration.wc">
+                            <a class="dropdown-item" href="~/admin/Administration.wc">
                                 <i class="fas fa-cog"></i>
                                 System Administration
                             </a>
                         </li>
                         <% endif %>
-                        <li role="separator" class="divider"></li>
+                        <li role="separator" class="dropdown-divider" style="background: #aaa"></li>
                         <li>
-                            <a href="logout.wwt">
+                            <a class="dropdown-item" href="logout.wwt">
                                 <i class="fa fa-lock"></i>&nbsp;
                                 Sign out
                             </a>
@@ -149,7 +151,7 @@
 
                 <% IF LOWER(JustStem(Request.GetPhysicalPath())) != "threads" %>
                 <footer>
-                    <div class="float-right" style="text-align: right">
+                    <div class="float-end" style="text-align: right">
 
                         <a href="https://west-wind.com/">
                             <img src="~/images/WestwindText.png" />

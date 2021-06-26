@@ -5,14 +5,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="CodeDialog-label">Insert Code Snippet</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" >
-                <div class="form-group">
-                    <label class="control-label" for="CodeLanguage">Choose a Language</label>
-                    <select id="CodeLanguage" name="CodeLanguage" size="1" class="form-control">
+                <div class="form-floating mb-2">                    
+                    <select id="CodeLanguage" name="CodeLanguage" size="1" class="form-select mb-3">
                         <option value="txt">-- No Code Formatting --</option>
                         <optgroup label="Common">
                             <option value="csharp">C#</option>
@@ -91,10 +88,11 @@
                             <option value="yaml">YAML</option>
                         </optgroup>
                     </select>
+                    <label  for="CodeLanguage">Choose a Language</label>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="CodeSnippet">Code Snippet</label>
-                    <textarea class="form-control" id="CodeSnippet" placeholder="Code Snippet" style="height: 300px; font-family: Menlo, Consolas, monospace"></textarea>
+                <div class="form-group">                                        
+                    <textarea class="form-control" id="CodeSnippet" placeholder="Enter or paste your code snippet" style="height: 300px; font-family: Menlo, Consolas, monospace"></textarea>                    
+                    
                 </div>
             </div>
             <div class="modal-footer">
@@ -111,24 +109,22 @@
     <div class="modal-dialog"  style="width: 90%; max-width: 768px;">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="HrefDialog-label">Insert Link</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h3 class="modal-title" id="HrefDialog-label">Insert Link</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="control-label" for="HrefLinkText">Link Text</label>
+            <div class="modal-body">                
+                <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="HrefLinkText" placeholder="Link Text">
+                    <label class="control-label" for="HrefLinkText">Link Text</label>                    
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label" for="HrefLink">URL</label>
+                <div class="form-floating mb-3">                    
                     <input type="text" class="form-control" id="HrefLink" placeholder="The URL to embed">
+                    <label class="control-label" for="HrefLink">URL</label>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btnPasteHref" data-dismiss="modal" class="btn btn-primary">
+                <button type="button" id="btnPasteHref" data-bs-toggle="modal" href="#HrefDialog" class="btn btn-primary">
                     <i class="fa fa-external-link"></i>
                     Paste Link
                 </button>
@@ -141,27 +137,27 @@
     <div class="modal-dialog"  style="width: 90%; max-width: 768px;" >
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="ImageDialog-label">Insert Image</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h3 class="modal-title" id="ImageDialog-label">Insert Image</h4>
+                
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label class="control-label" for="ImageHref">Image Url <span class="small">(external source ie. Flicker, ImgUr,Dropbox etc.)</span></label>
+                <div class="form-floating mb-2">                    
                     <input type="text" class="form-control" id="ImageLink" placeholder="Provide a URL of an image on the Web">
+                    <label class="control-label" for="ImageHref">Image Url <span class="small">(external source ie. Flicker, ImgUr,Dropbox etc.)</span></label>
                 </div>
-                <button id="btnImageLink" class="btn btn-primary" data-dismiss="modal">
+                <button id="btnImageLink" class="btn btn-primary" data-bs-toggle="modal" href="#ImageDialog">
                     <i class="fa fa-image"></i>
                     Insert Image Url
                 </button>
 
                 <hr />
 
-                <form id="ajaxForm" name="ajaxForm" enctype="multipart/form-data">
+                <form id="ajaxForm" name="ajaxForm" enctype="multipart/form-data" class="mb-4">
                     <div class="form-group">
-                        <label class="control-label">
-                            Upload an image from your local device
+                        <label class="control-label mb-2">
+                            Upload an image from your local device and paste at cursor
                         </label>
                         <br />
 
@@ -201,7 +197,7 @@
 
 
             <div class="alert alert-info small" style="border-radius: 0">
-                <i class="fa fa-info-circle"></i>  <b>Note:</b> You can also paste images from the clipboard directly into the editor.
+                <i class="fa fa-info-circle"></i>  <b>Note</b><br/> You can also paste images from the clipboard directly into the editor at the current cursor position.
             </div>
 
            

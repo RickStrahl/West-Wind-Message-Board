@@ -1,6 +1,7 @@
 ﻿html, body {
     height: 100%;
-    font-size: 15px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    font-size: 16px;
     border: 0;    
 
     scrollbar-track-color: Whitesmoke;
@@ -14,27 +15,36 @@
 
 }
 h1, h2, h3, h4,h5,h6,.page-header-text {
-    /*font-family: Trebuchet, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
+    font-family: Trebuchet, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: 600;    
 }
 .message-list-body>h1, .message-list-body>h2, .message-list-body>h3, .message-list-item>h4, .message-list-item>h5, .message-list-item>h6 {
-    margin-top: 1.3em;
+    margin-top: 1.2em;
 }
-h3 {
+h1,h2 {
+    color: #2B547E;    
+}
+h2 {
     font-size: 1.3em;
     color: #2B547E;    
 }
+h3 {
+    font-size: 1.2em;
+    color: #2B547E;    
+}
 h4 {
-    font-size: 1.18em;
+    font-size: 1.1em;
     color: #2B547E;    
 }
 h5
 {
-    font-size: 1.1em;
+    font-size: 1.05em;
+    color: inherit;    
 }
 h6
 {
     font-size: 1em;
+    color: inherit;    
 }
 img {
 	max-width: 100%;
@@ -305,10 +315,10 @@ input[type=checkbox].with-font:focus ~ label
 
 .banner nav a, .banner nav input {
     display: inline-block;
-    padding: 9px 4px 6px;
+    padding: 0.75em 0.5em;
     color: #eee;    
     text-decoration: none;
-    border-bottom: solid 4px transparent;
+    x-border-bottom: solid 4px transparent;
 }
 .banner nav a img {   
     height: 23px;
@@ -319,14 +329,12 @@ input[type=checkbox].with-font:focus ~ label
     color: white;
     background: #767676;
     text-decoration: none;
-    border-bottom: solid 4px silver;
     border-radius: 2px;
-}
+}   
 
 .banner nav a.active, .banner nav a.selected {
     color: white;
-    font-weight: bold;
-    border-bottom: solid 4px orange;
+    font-weight: bold;    
     border-radius: 2px;
 }
 .menu-toolbar {
@@ -406,7 +414,7 @@ input[type=checkbox].with-font:focus ~ label
 .main-content {
     flex: 1 1 auto; /* grow & shrink horizontally */
     width: 100%;
-    font-size: 1.1em;
+    font-size: 1.07em;
     line-height: 1.6;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
@@ -764,9 +772,9 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
             padding: 10px 2%;
         }       
     }
-    @media(min-width: 1400px){
+    @media(min-width: 1500px){
         .main-content{
-            font-size: 1.10em !important;            
+            font-size: 1.1em !important;            
         }
         .message-list-body {
             padding: 15px 3.5%;
@@ -790,4 +798,8 @@ a.slide-menu-toggle-open, a.slide-menu-toggle-open:hover {
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
+}
+.form-floating>label {
+    opacity: 0.45;    
+    top: -.25em;
 }

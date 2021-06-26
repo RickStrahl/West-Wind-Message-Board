@@ -41,52 +41,37 @@ endif
             <% endif %>
 
             <div class="card-body">
-
-                <div class="form-group">
-                    <div class="input-group ">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="far fa-fw fa-envelope"></i>
-                            </span>
-                        </div>
-                        <input type="text" name="WebLogin_txtUsername" id="WebLogin_txtUsername"
-                               class="form-control" placeholder="Enter your email address"
-                               value="<%=  pcUserName %>"
-                               autocapitalize="off"
-                               autocomplete="off"
-                               spellcheck="false"
-                               autocorrect="off" />
-                    </div>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">
+                        <i class="far fa-fw fa-envelope"></i>
+                    </span>                        
+                    <input type="text" name="WebLogin_txtUsername" id="WebLogin_txtUsername"
+                            class="form-control" placeholder="Enter your email address"
+                            value="<%=  pcUserName %>"
+                            autocapitalize="off"
+                            autocomplete="off"
+                            spellcheck="false"
+                            autocorrect="off" />
                 </div>
-
-
-                <div class="form-group" id="PasswordGroup">
-                    <div class="input-group ">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fas fa-fw fa-unlock-alt"></i>
-                            </span>
-                        </div>
-                        <input type="password"
-                               name="WebLogin_txtPassword" id="WebLogin_txtPassword"
-                               class="form-control" placeholder="Enter your password">
-                    </div>
+                        
+                <div class="input-group mb-2">
+                    <span class="input-group-text">
+                        <i class="fas fa-fw fa-unlock-alt"></i>
+                    </span>                    
+                    <input type="password"
+                            name="WebLogin_txtPassword" id="WebLogin_txtPassword"
+                            class="form-control" placeholder="Enter your password">
                 </div>
-
-
-                <div class="custom-control custom-checkbox" style="margin-bottom: 1em;" id="RememberMeCheckBox">
-                    <input type="checkbox" class="custom-control-input"
+            
+                <div class="form-check" style="margin-bottom: 1em;" id="RememberMeCheckBox">
+                    <input type="checkbox" class="form-check-input"
                            id="WebLogin_chkRememberMe" name="WebLogin_chkRememberMe" value="true" />
                     <input type="hidden"
                            name="WebLogin_chkRememberMe" value="false" />
-                    <label class="custom-control-label" for="WebLogin_chkRememberMe">Remember me on this device</label>
+                    <label class="form-check-label" for="WebLogin_chkRememberMe">Remember me on this device</label>
                 </div>
 
-
-
-             
-
-                <button type="submit" id="WebLogin_btnLogin" name="WebLogin_btnLogin" class="btn btn-primary" style="width: 120px" value="SIGN IN">
+                <button type="submit" id="WebLogin_btnLogin" name="WebLogin_btnLogin" class="btn btn-lg btn-primary" style="width: 120px" value="SIGN IN">
                     <i class="fa fa-lock"></i> Sign In
                 </button>
 
@@ -100,7 +85,7 @@ endif
 
                 <% if Process.lIsAuthenticated %>
                 <a href="logout.<%= JUSTEXT( Request.GetPhysicalPath() ) %>"
-                   class="btn btn-default btn-sm float-right">
+                   class="btn btn-default btn-sm float-end">
                     <i class="fas fa-lock"></i>
                     Sign out
                 </a>

@@ -23,24 +23,22 @@
 
     <form action="" method="post" class="form-horizontal" id="form1">
 
-        <div class="form-group row ">
-            <label class="control-label col-sm-2 hidable right" for="Subject">Subject</label>
-            <div class="col-sm-10">
-                <input type="text" id="Subject" name="Subject" class="form-control"
-                       placeholder="Title for this post - try to be concise"
-                       value="<%: Request.FormOrValue([Subject],poMsg.Subject) %>" 
-                       <%= iif(pnMsgMode = 2,"readonly","") %>                        
-                    />
-            </div>
+        <div class="form-floating mb-3">            
+            
+            <input type="text" id="Subject" name="Subject" class="form-control"
+                    placeholder="Title for this post - try to be concise"
+                    required
+                    value="<%: Request.FormOrValue([Subject],poMsg.Subject) %>" 
+                    <%= iif(pnMsgMode = 2,"readonly","") %>                        
+                />            
+            <label class="form-label" for="Subject">Post Title</label>
         </div>
 
-        <div class="form-group row">
-            <label class="control-label col-sm-2 hidable right">Forum</label>
-            <div class="col-sm-10">
-                    <%= HtmlDropdown("Forum",Trim(poMsg.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
-                    [class="form-control"] + iif(pnMsgMode = 2," disabled",""),"-- Select --","") %>
-                
-            </div>
+        <div class="form-floating mb-2">            
+             <%= HtmlDropdown("Forum",Trim(poMsg.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
+                    [class="form-select" ] + iif(pnMsgMode = 2," disabled",""),"-- Select --","") %>
+                            
+            <label class="form-label" for="Forum">Forum</label>
         </div>
 
         <div class="edit-toolbar">
@@ -113,7 +111,7 @@ Please use the edit toolbar to highlight any code snippets"
         </div>
 
         <% if Process.lAuthenticatedAdmin %>
-        <div class="float-right">
+        <div class="float-end">
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input"
                        id="Pinned" name="Pinned"
@@ -124,16 +122,11 @@ Please use the edit toolbar to highlight any code snippets"
         </div>
         <% endif %>
 
-
-
-
-
-
         <blockquote style="margin: 10px 0;max-width:  830px">
             
-                <h3>
+                <h3 class="text-danger">
                     <i class="fas fa-info-circle"></i> 
-                    Please format your Code
+                    Please format Source Code
                 </h3>
 
                 <markdown>
@@ -171,7 +164,7 @@ Please use the edit toolbar to highlight any code snippets"
     <%= forum %>
 </div>
 
-<div id="SortContainer" class="float-right" style="margin-right: 5px;">
+<div id="SortContainer" class="float-end" style="margin-right: 5px;">
     <i id="MessageOrderDown" class="fa fa-sort-numeric-asc" style="font-size: 1.2em; color: #535353;padding: 7px; margin: 1px; cursor: pointer;"
        title="Display messages oldest messages first"></i>
 
@@ -192,7 +185,7 @@ Please use the edit toolbar to highlight any code snippets"
     <article class="message-list-item" data-id="<%= MsgId %>">
         <div class="message-list-header">
 
-            <div class="float-right hidable-xs">
+            <div class="float-end hidable-xs">
                 <a href="#<%= MsgId %>"><%= MsgId %></a>
             </div>
 

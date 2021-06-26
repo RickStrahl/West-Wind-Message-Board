@@ -13,30 +13,30 @@
 
 <div class="message-list-container">
     <div class="message-search-box">
-        <div class="form-group responsive-container" style="padding-right: 5px;">
+        <div class="form-group responsive-container mb-1" style="padding-right: 5px;">
             <%= HtmlDateTextBox("StartDate",poFilter.StartDate,[]) %>
             <%= HtmlDateTextBox("EndDate",poFilter.EndDate,[]) %>            
         </div>
         
-        <div class="form-group">
+        <div class="form-group mb-1">
             <%= HtmlDropdown("Forum",Trim(poFilter.Forum),"TForums","Trim(ForumName)","Trim(ForumName)",
-            [class="form-control input-sm"],"-- Select a Forum --","") %>
+            [class="form-select form-select-sm"],"-- Select a Forum --","") %>
         </div>
 
-        <div class="form-group ">
+        <div class="form-group mb-1">
             <input type="text" id="FromName" name="FromName" class="form-control input-sm"
                    placeholder="User who wrote the message"
                    value="<%= Request.FormOrValue([FromName],poFilter.FromName) %>" />
         </div>
 
-        <div class="form-group ">
+        <div class="form-group mb-1">
             <input type="text" id="Search" name="Search" class="form-control input-sm"
                    placeholder="Search Phrase"
                    value="<%= Request.FormOrValue([Search],poFilter.Search) %>" />
         </div>
 
 
-        <div class="form-group ">
+        <div class="form-group mb-1">
             <input type="text" id="MsgId" name="MsgId" class="form-control input-sm"
                    placeholder="Message Id"
                    value="<%= Request.FormOrValue([MsgId],poFilter.MsgId) %>" />
@@ -46,12 +46,12 @@
             <i class="fa fa-search"></i>
             Search Messages
         </button>
-        <button id="Search-Button-Clear" type="submit" class="btn btn-sm">
-            <i class="fa  fa-eraser"></i>
+        <button id="Search-Button-Clear" type="submit" class="btn btn-sm btn-secondary">
+            <i class="fas fa-sync-alt"></i>
             Clear
         </button>
-        <button id="Search-Button-Close" type="submit" class="btn btn-sm">
-            <i class="fa fa-remove"></i>
+        <button id="Search-Button-Close" type="submit" class="btn btn-sm btn-secondary">
+            <i class="fas  fa-times"></i>
             Close
         </button>
     </div>
@@ -73,7 +73,7 @@
 
 
     <div class="forum-list-header">
-        <div class="float-right expand-forum" style="font-size: 0.8em; color: goldenrod; padding: 4px;">
+        <div class="float-end expand-forum" style="font-size: 0.8em; color: goldenrod; padding: 4px;">
             <i class="far fa-expand-alt"></i>
         </div>
         <span style="padding-right: 7px;">-</span> <%: forum %>
@@ -85,7 +85,7 @@
         endif         
         %>
         <div class="message-item" data-id="<%= Threadid %>">
-            <div class="float-left">
+            <div class="float-start">
                 <i class="fas fa-thumbtack <%= IIF(MsgCount -1 < 1,[ fa-rotate-90 fa-red],[ fa-green]) %>" style="font-size: 0.8em"></i>
                 <%if Pinned %>
                 <i class="fa fa-star fa-fw" style="color: goldenrod;font-size: 0.85em; margin-top: -5px"></i>

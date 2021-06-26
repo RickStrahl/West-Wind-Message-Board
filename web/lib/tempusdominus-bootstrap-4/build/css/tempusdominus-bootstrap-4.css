@@ -60,10 +60,10 @@
       border-top: 6px solid white;
       bottom: -6px;
       left: 7px; }
-    .bootstrap-datetimepicker-widget.dropdown-menu.float-right:before {
+    .bootstrap-datetimepicker-widget.dropdown-menu.float-end:before {
       left: auto;
       right: 6px; }
-    .bootstrap-datetimepicker-widget.dropdown-menu.float-right:after {
+    .bootstrap-datetimepicker-widget.dropdown-menu.float-end:after {
       left: auto;
       right: 7px; }
     .bootstrap-datetimepicker-widget.dropdown-menu.wider {

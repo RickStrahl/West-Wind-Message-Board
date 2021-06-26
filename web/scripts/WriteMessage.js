@@ -7,8 +7,7 @@ $(document).ready(function () {
     }
 
     // button click handlers
-    $("#btnPasteHref").click(function () {
-        ;
+    $("#btnPasteHref").click(function () {        
         var text = $("#HrefLinkText").val();
         var link = $("#HrefLink").val();
         //var a = "<a href='" + link + "' target='wwthreadsexternal'>" + text + "</a>";
@@ -20,7 +19,7 @@ $(document).ready(function () {
         },80);       
     });
 
-    $("#HrefDialog").on('shown.bs.modal', function () {        
+    document.getElementById("HrefDialog").addEventListener('shown.bs.modal', function () {                
         var $txt = $('#HrefLink');        
         if (navigator.clipboard) {
             var clipText = navigator.clipboard.readText()
@@ -390,15 +389,21 @@ function toolbarHandler(id) {
         $("#HrefLinkText").val(sel);
         if (sel.indexOf("http") > -1)
             $("#HrefLink").val(sel);
-        $("#HrefDialog").modal();
+
+        var modal = new bootstrap.Modal(document.getElementById('HrefDialog'));
+        modal.show();
+
         return;
 
     } else if (id === "btnImage") {
-        $("#ImageDialog").modal();
+        var modal = new bootstrap.Modal(document.getElementById('ImageDialog'));
+        modal.show();
         return;
     } else if (id === "btnCode") {
         $("#CodeSnippet").val(sel);
-        $("#CodeDialog").modal();
+
+        var modal = new bootstrap.Modal(document.getElementById('CodeDialog'));
+        modal.show();
         return;
     }
 

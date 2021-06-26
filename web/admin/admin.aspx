@@ -40,7 +40,7 @@
                 </a>
             </div>
 
-        <nav class="banner-menu-top float-right">
+        <nav class="banner-menu-top float-end">
             <a href="http://west-wind.com/webconnection/docs/" 
                 target="top"
                 class="hidable">
@@ -258,7 +258,7 @@
     
 
     <footer>
-        <a href="http://www.west-wind.com/" class="float-right" >
+        <a href="http://www.west-wind.com/" class="float-end" >
             <img src="../images/WestwindText.png" />
         </a>
         <small>&copy; Westwind Technologies, 1995-<%= DateTime.Now.Year %></small>
