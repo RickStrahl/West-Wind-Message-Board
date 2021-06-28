@@ -71,7 +71,7 @@ endif
                     <label class="form-check-label" for="WebLogin_chkRememberMe">Remember me on this device</label>
                 </div>
 
-                <button type="submit" id="WebLogin_btnLogin" name="WebLogin_btnLogin" class="btn btn-lg btn-primary" style="width: 120px" value="SIGN IN">
+                <button type="submit" id="WebLogin_btnLogin" name="WebLogin_btnLogin" class="btn btn-primary" style="width: 120px" value="SIGN IN">
                     <i class="fa fa-lock"></i> Sign In
                 </button>
 
