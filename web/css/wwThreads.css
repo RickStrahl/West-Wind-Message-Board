@@ -179,6 +179,34 @@ input[type=checkbox].with-font:focus ~ label
     color: green; /* highlight both box and label */
 }
 
+table {
+    width: 100%;
+    overflow: auto;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin: 15px 0;
+    border-color: gray;
+  }
+  
+  td, th {
+    border: 1px solid #ddd;
+    padding: 6px 11px;
+    display: table-cell;
+    vertical-align: top;
+  }
+  
+  th {
+    font-weight: bold;
+    color: white;
+    background: #555;
+  }
+  
+  tbody > tr:nth-child(even) {
+    background: #eee;
+  }
+  
+  
+
 /* BootStrap overrides */
 
 .panel-heading {

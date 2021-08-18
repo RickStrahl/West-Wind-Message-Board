@@ -41,14 +41,6 @@
     }
 </style>
 
-<!-- this works-->
-<%= Date() %>
-
-<% if .T. %>
-   TRUE
-<% endif %>
-
-
 <script>
     var frameResize = debounce(function () {
         console.log("frameResize");

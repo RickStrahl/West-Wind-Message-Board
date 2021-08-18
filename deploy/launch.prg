@@ -9,7 +9,7 @@
 ***
 ***  You can still do:   
 ***
-***        DO Testproject6Main.prg 
+***        DO Testproject5Main.prg 
 ***
 ***  and then manually switch to a browser and or start IISExpress
 ***  or BrowserSync manually.
@@ -26,30 +26,33 @@
 *** 
 ***  Examples:
 *** 
-***  LAUNCH()                         - Launches IIS and opens browser
+***  LAUNCH()                         - Launches IISEXPRESS
 ***  LAUNCH("IISEXPRESS")             - Launches IIS Express & opens browser
-***  LAUNCH("WEBCONNECTIONWEBSERVER") - Launches local .NET Core Web Server
+***  LAUNCH("WEBCONNECTIONWEBSERVER") - OR: "WC" "DOTNETCORE - launches local .NET Core Web Server
 ***  LAUNCH("IIS",.T.)                - Launch IIS and don't open browser 
-***  LAUNCH("SERVER")                 - Just launch the Server
+***  LAUNCH("SERVER")                 - OR "NONE" - just launch the Server
 *********************************************************************************
 LPARAMETER lcType, llNoBrowser
-LOCAL lcUrl, lcLocalUrl, lcAppName, lnIISExpressPort, lnWebConnectionWebServerPort, ;
-      lcFiles, lcWcPath, lcVirtual
-
-
-*** Change these defaults for plain `Launch()` operation
-lcServerType = "WEBCONNECTIONWEBSERVER"
+LOCAL lcUrl, lcLocalUrl, lcAppName, lcFiles, lcWcPath, lcVirtual,;
+      lnIISExpressPort, lnWebConnectionWebServerPort
+      
+*** Launch per project options
+lcServerType = "WEBCONNECTIONWEBSERVER"  && default if not passed
 if (lcServerType == "IIS7HANDLER")
    lcServerType = "IIS"
 ENDIF   
+
+lcVirtual = "wwThreads"     && used only for IIS
+lcAppName = "wwThreads"
+llUseSsl = .T.   &&  hard-code. Web Connection Web Server only
+
 lnIISExpressPort = 7000
 lnWebConnectionWebServerPort = 5200
 
-lcVirtual = "wwthreads"
-lcAppName = "wwThreads"
-lcWcPath = ADDBS("C:\WCONNECT\")
-lcWebPath = LOWER(FULLPATH("..\web"))
+lcWcPath = ADDBS("C:\WebConnection\Fox") && Web Connection install path
+lcWebPath = LOWER(FULLPATH("..\web"))   && path to Web files 
 lcDotnetServerPath = lower(FULLPATH("..\WebConnectionWebServer\"))
+
 
 lcServerCommand = ""
 lcIisDomain = "localhost"
@@ -58,14 +61,16 @@ IF EMPTY(lcType)
    lcType = lcServerType
 ENDIF
 lcType = UPPER(lcType)
-DO CASE 
-   CASE lcType = "IIS"
-   CASE lcType = "IISEXPRESS"      
-      lcServerType = "IIS Express"
-   CASE lcType == "DOTNETCORE" OR lcType == "WEBCONNECTIONWEBSERVER"
-      lcServerType = "WEBCONNECTIONWEBSERVER"
+DO CASE    
+   CASE lcType = "IISEXPRESS" OR lcType == "IE"     
+      lcServerType = "IIS Express" 
+      lcType = "IISEXPRESS"
+   CASE lcType = "IIS" OR lcType == "IIS7HANDLER" OR lcType == "IISHANDLER"
+      lcServerType = "IIS"
+   CASE lcType == "DOTNETCORE" OR lcType == "WEBCONNECTIONWEBSERVER" OR lcType = "WC"
+      lcServerType = "Web Connection Web Server"
       lcType = "WEBCONNECTIONWEBSERVER"
-   CASE lcType = "NONE" OR lcType = "SERVER"
+   CASE lcType = "NONE" OR lcType = "SERVER" OR lcType == "N"
       lcServerType = "NONE"
       llNoBrowser = .T.
       lcType = "IIS"  && doesn't launch anyting
@@ -111,11 +116,14 @@ IF lcType == "IIS"
        lcUrl = STRTRAN(lcUrl,"/localhost/","/" + lcIisDomain +"/")
    ENDIF
 ENDIF
-IF lcType == "WEBCONNECTIONWEBSERVER"
-   DO CONSOLE WITH "WEBCONNECTIONWEBSERVER",lcWebPath,lnWebConnectionWebServerPort,"/",.t.
+IF lcType == "WEBCONNECTIONWEBSERVER" OR lcType == "WC"
+   DO CONSOLE WITH "WEBCONNECTIONWEBSERVER",lcWebPath,lnWebConnectionWebServerPort,"/",.t., llUseSsl
    lcUrl = STRTRAN(lcUrl,"localhost/" + lcVirtual,"localhost:" + TRANSFORM(lnWebConnectionWebServerPort))
 ENDIF
 
+IF(llUseSsl)
+   lcUrl = STRTRAN(lcUrl,"http://","https://")
+ENDIF
 
 ACTIVATE SCREEN
 CLEAR

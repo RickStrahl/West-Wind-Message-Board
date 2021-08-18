@@ -312,7 +312,7 @@ function setupImageUpload() {
 marked.setOptions({
     renderer: new marked.Renderer(),
     gfm: true,
-    tables: false,
+    tables: true,
     breaks: false,
     pedantic: false,
     sanitize: false,

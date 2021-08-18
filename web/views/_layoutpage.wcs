@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-    <link rel="manifest" href="manifest.json"></link>
+    <!-- <link rel="manifest" href="manifest.json"></link> -->
 
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -17,10 +17,10 @@
     <link rel="icon" href="~/touch-icon.png" />
     <meta name="msapplication-TileImage" content="~/touch-icon.png" />
 
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css?v501" rel="stylesheet" />
     <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" />
     <!--<link href="~/css/application.css" rel="stylesheet" />-->
-    <link href="~/css/wwthreads.css?v2.34" rel="stylesheet" />
+    <link href="~/css/wwthreads.css?v2.35" rel="stylesheet" />
 
     <%= RenderSection("headers") %>
 </head>
@@ -172,13 +172,13 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/scripts/ww.jquery.min.js"></script>    
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js?v501"></script>
 
     <script src="~/lib/moment/min/moment.min.js"></script>
     <link href="~/lib/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
     <script src="~/lib/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    <script src="~/scripts/wwthreads.js?v1.1.4"></script>
+    <script src="~/scripts/wwthreads.js?v1.2"></script>
 
     <link href="~/lib/highlightjs/styles/vs2015.css" rel="stylesheet" />
     <script src="~/lib/highlightjs/highlight.pack.js"></script>
@@ -201,8 +201,8 @@
             });
     </script>
 
-    <script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script> 
-    <script>
+    <script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script>
+    <script> 
         // Undo Google AdSense injection of `height: auto !important;` on .flex-master element
         // https://stackoverflow.com/questions/55695667/adsense-injecting-style-tag-into-my-page-in-chrome
         var flex = document.getElementsByClassName('flex-master')[0];
@@ -215,6 +215,7 @@
             attributeFilter: ['style']
         }) ;            
     </script>
+
 
     <%= RenderSection("scripts") %>
 
@@ -232,7 +233,7 @@
     </script>
        
     <!-- Web Manifest for PWA -->
-    <script src="scripts/manup.min.js"></script>
+    <!-- <script src="scripts/manup.min.js"></script> -->
     
 </body>
 </html>
