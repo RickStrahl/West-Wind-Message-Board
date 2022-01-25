@@ -101,6 +101,7 @@
             <div class="message-list-body">
                 <%=  iif(format=2,poMarkdown.Parse(Message,.T.),DisplayMemo(Message) ) %>
             </div>
+<% #if .F. %> 
 
             <% if lnI = 1 OR lnI = 3 or lnI=6 %>
             <!-- script in layout and on bottom and ajax refresh in loadTopicAjax()
@@ -114,6 +115,8 @@
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
             <% endif %>
+
+<% #endif %>            
         </article>
 
     </div>

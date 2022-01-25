@@ -201,6 +201,7 @@
             });
     </script>
 
+<% #if .F. %>
     <script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script>
     <script> 
         // Undo Google AdSense injection of `height: auto !important;` on .flex-master element
@@ -215,7 +216,7 @@
             attributeFilter: ['style']
         }) ;            
     </script>
-
+<% #ENDIF %>
 
     <%= RenderSection("scripts") %>
 
